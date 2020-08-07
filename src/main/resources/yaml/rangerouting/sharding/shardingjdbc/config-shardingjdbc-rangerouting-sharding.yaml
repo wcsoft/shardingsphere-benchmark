@@ -84,34 +84,20 @@ dataSources:
       netTimeoutForStreamingResults: 0
       useServerPrepStmts: true
 
-rules:
-  - !SHARDING
-    tables:
-      sbtest:
-        actualDataNodes: ds_${0..3}.sbtest${0..1023}
-        databaseStrategy:
-          standard:
-            shardingColumn: id
-            shardingAlgorithmName: database_inline
-        tableStrategy:
-          standard:
-            shardingColumn: k
-            shardingAlgorithmName: table_inline
-        keyGenerateStrategy:
-          column: id
-          keyGeneratorName: increment
-    bindingTables:
-      - sbtest
-
-    shardingAlgorithms:
-      database_inline:
-        type: INLINE
-        props:
-          algorithm.expression: ds_${id % 4}
-      table_inline:
-        type: INLINE
-        props:
-          algorithm.expression: sbtest${k % 1024}
-    keyGenerators:
-      increment:
+shardingRule:
+  tables:
+    sbtest:
+      actualDataNodes: ds_${0..3}.sbtest${0..1023}
+      databaseStrategy:
+        inline:
+          shardingColumn: id
+          algorithmExpression: ds_${id % 4}
+      keyGenerator:
         type: SNOWFLAKE
+        column: id
+      tableStrategy:
+        inline:
+          shardingColumn: k
+          algorithmExpression: sbtest${k % 1024}
+  bindingTables:
+    - sbtest

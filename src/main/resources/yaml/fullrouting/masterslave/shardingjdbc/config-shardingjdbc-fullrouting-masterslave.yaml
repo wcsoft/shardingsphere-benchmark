@@ -43,14 +43,10 @@ dataSources:
       netTimeoutForStreamingResults: 0
       useServerPrepStmts: true
 
-rules:
-  - !MASTER_SLAVE
-    dataSources:
-      ms_ds:
-        name: ms_ds
-        masterDataSourceName: ds_master
-        slaveDataSourceNames: [ds_slave0]
-        loadBalancerName: roundRobin
-    loadBalancers:
-      roundRobin:
-        type: ROUND_ROBIN
+shardingRule:
+  masterSlaveRules:
+    ms_ds_0:
+      masterDataSourceName: ds_master
+      slaveDataSourceNames:
+        - ds_slave0
+      loadBalanceAlgorithmType: ROUND_ROBIN

@@ -1,6 +1,6 @@
 package org.apache.shardingsphere.benchmark.db.shardingjdbc;
 
-import org.apache.shardingsphere.driver.api.yaml.YamlShardingSphereDataSourceFactory;
+import org.apache.shardingsphere.shardingjdbc.api.yaml.YamlShardingDataSourceFactory;
 
 import javax.sql.DataSource;
 import java.io.*;
@@ -25,40 +25,40 @@ public class ShardingJDBCDataSourceFactory {
     public static DataSource newInstance(ShardingConfigType shardingConfigType) throws IOException, SQLException {
         switch (shardingConfigType) {
             case FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG_PATH));
             case FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(FULLROUTING_MASTERSLAVE_SHARDINGJDBC_CONFIG_PATH));
             case FULLROUTING_SHARDING_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(FULLROUTING_SHARDING_SHARDINGJDBC_CONFIG_PATH));
             case FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(FULLROUTING_SHARDING_SHARDINGMASTERSLAVEENCRYPT_CONFIG_PATH));
             case RANGEROUTING_ENCRYPT_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(RANGEROUTING_ENCRYPT_SHARDINGJDBC_CONFIG_PATH));
             case RANGEROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(RANGEROUTING_MASTERSLAVE_SHARDINGJDBC_CONFIG_PATH));
             case RANGEROUTING_SHARDING_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(RANGEROUTING_SHARDING_SHARDINGJDBC_CONFIG_PATH));
             case RANGEROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(RANGEROUTING_SHARDING_SHARDINGMASTERSLAVEENCRYPT_CONFIG_PATH));
             case SINGLEROUTING_ENCRYPT_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(SINGLEROUTING_ENCRYPT_SHARDINGJDBC_CONFIG_PATH));
             case SINGLEROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(SINGLEROUTIN_MASTERSLAVE_SHARDINGJDBC_CONFIG_PATH));
             case SINGLEROUTING_SHARDING_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(SINGLEROUTIN_SHARDING_SHARDINGJDBC_CONFIG_PATH));
             case SINGLEROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG:
-                return YamlShardingSphereDataSourceFactory.createDataSource
+                return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(SINGLEROUTIN_SHARDING_SHARDINGMASTERSLAVEENCRYPT_CONFIG_PATH));
             default:
                 throw new UnsupportedOperationException(shardingConfigType.name());
