@@ -1,0 +1,36 @@
+dataSources:
+  baitiao_test: !!com.zaxxer.hikari.HikariDataSource
+    username: root
+    password:
+    jdbcUrl: jdbc:mysql://ss.benchmark.singlerouting.encrypt.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    driverClassName: com.mysql.jdbc.Driver
+    connectionTimeout: 30000
+    idleTimeout: 60000
+    maxLifetime: 1800000
+    maximumPoolSize: 200
+    dataSourceProperties:
+      cachePrepStmts: true
+      prepStmtCacheSize: 250
+      prepStmtCacheSqlLimit: 2048
+      useLocalSessionState: true
+      rewriteBatchedStatements: true
+      cacheResultSetMetadata: true
+      cacheServerConfiguration: true
+      elideSetAutoCommits: true
+      maintainTimeStats: false
+      netTimeoutForStreamingResults: 0
+      useServerPrepStmts: true
+
+rules:
+  - !ENCRYPT
+    encryptors:
+      encryptor_aes:
+        props:
+          aes.key.value: '123456abc'
+        type: AES
+    tables:
+      sbtest99:
+        columns:
+          c:
+            cipherColumn: c
+            encryptorName: encryptor_aes
