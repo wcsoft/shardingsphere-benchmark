@@ -1,9 +1,9 @@
-package org.apache.shardingsphere.benchmark.common.statistic;
+package org.apache.shardingsphere.benchmark.common.resultParser;
 
 import java.io.*;
 import java.util.*;
 
-public class BenchmarkResultStatistic {
+public class BenchmarkResultParser {
 
     public static Map benchmarkStatistic(String filePath) {
         FileInputStream fileStream = null;
@@ -24,7 +24,7 @@ public class BenchmarkResultStatistic {
             while ((eachJMeterResult = reader.readLine()) != null) {
                 totalCount = totalCount + 1;
                 if (totalCount > 1000000) {
-                    Map eachPerformanceInfo = BenchmarkResultConverter.convertResult(eachJMeterResult);
+                    Map eachPerformanceInfo = BenchmarkResultRowParser.convertResult(eachJMeterResult);
                     jMeterCostsList.add(eachPerformanceInfo.get("jMeterCost"));
                     jMeterTimeList.add(eachPerformanceInfo.get("jMeterTime"));
                     if ("true".equals(eachPerformanceInfo.get("isJMeterSuccess"))) {

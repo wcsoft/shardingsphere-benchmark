@@ -73,7 +73,6 @@ public class JDBCDataSourceUtil {
     public static ResultSet insert(Connection conn, String insertSql, List params) throws SQLException {
 
         ResultSet result = null;
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         if (conn != null) {

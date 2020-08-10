@@ -1,9 +1,9 @@
-package org.apache.shardingsphere.benchmark.common.statistic;
+package org.apache.shardingsphere.benchmark.common.resultParser;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BenchmarkResultConverter {
+public class BenchmarkResultRowParser {
 
     public static Map convertResult(String eachJMeterResult) {
 
