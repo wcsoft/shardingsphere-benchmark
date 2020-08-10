@@ -17,15 +17,7 @@ import java.util.List;
 public class JMeterShardingJDBCFullRoutingEncryptInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
-
-    public static final String TABLE_NAME = "sbtest";
-
-    public static final String DELETE_SQL = "delete from " + TABLE_NAME + " where k=? and id=?";
-
-    public static final String INSERT_SQL = "insert into " + TABLE_NAME + " (k,c,pad) VALUES (?,?,?)";
-
-    public static final String UPDATE_SQL = "update " + TABLE_NAME + " set c=?,pad =? where id=? and k=3";
-
+    
     static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
