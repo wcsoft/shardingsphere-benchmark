@@ -40,7 +40,7 @@ dataSourceCommon:
 
 dataSources:
   ds0:
-    url: jdbc:mysql://ss.benchmark.fullRouting.encrypt.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.encrypt.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
 
 rules:
   - !ENCRYPT
