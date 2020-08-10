@@ -3,6 +3,7 @@ package org.apache.shardingsphere.benchmark.jmeter.statistic;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.bean.BenchmarkResultBean;
+import org.apache.shardingsphere.benchmark.common.BenchmarkExcelWriter;
 import org.apache.shardingsphere.benchmark.common.BenchmarkFullroutingStatistic;
 import org.apache.shardingsphere.benchmark.common.BenchmarkRangeroutingStatistic;
 import org.apache.shardingsphere.benchmark.common.BenchmarkSingleroutingStatistic;
@@ -32,7 +33,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         List<BenchmarkResultBean> fullRoutingResult = BenchmarkFullroutingStatistic.calculateFullroutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion);
         List<BenchmarkResultBean> rangeRoutingResult = BenchmarkRangeroutingStatistic.calculateRangeRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion);
         List<BenchmarkResultBean> singleRoutingResult = BenchmarkSingleroutingStatistic.calculateSingleRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion);
-
+        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "full-routing", true, 0, fullRoutingResult);
+        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "range-routing", false, 0, rangeRoutingResult);
+        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "single-routing", false, 0, singleRoutingResult);
         results.sampleEnd();
         return results;
     }

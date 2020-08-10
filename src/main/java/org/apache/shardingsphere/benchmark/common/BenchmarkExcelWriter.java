@@ -11,14 +11,13 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.shardingsphere.benchmark.bean.BenchmarkResultBean;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class BenchmarkExcelWriter {
     
@@ -30,14 +29,20 @@ public class BenchmarkExcelWriter {
         CELL_HEADS.add("版本");
         CELL_HEADS.add("场景");
         CELL_HEADS.add("TPS");
-        CELL_HEADS.add("TPS版本对比");
+        CELL_HEADS.add("并发量");
+        CELL_HEADS.add("tp50th");
+        CELL_HEADS.add("tp90th");
+        CELL_HEADS.add("tp95th");
+        CELL_HEADS.add("最大耗时");
+        CELL_HEADS.add("最小耗时");
         CELL_HEADS.add("SQL");
     }
     
-    public static void writeExcel(String excelPath, String sheetName, boolean isHeader, int rowNum, Map dataList){
+    public static void writeExcel(String excelPath, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList){
         FileOutputStream fileOut = null;
     
         Workbook workbook = exportData(sheetName, isHeader, rowNum, dataList);
+        
         File exportFile = new File(excelPath);
         if (!exportFile.exists()) {
             try {
@@ -47,40 +52,41 @@ public class BenchmarkExcelWriter {
                 fileOut.flush();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                if(null != fileOut){
+                    try {
+                        fileOut.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
     
     
-    public static Workbook exportData(String sheetName, boolean isHeader, int rowNum, Map dataList){
+    public static Workbook exportData(String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList){
     
         Workbook workbook = new SXSSFWorkbook();
         buildDataSheet(workbook, sheetName, isHeader, rowNum, dataList);
         return workbook;
     }
     
-    private static Workbook buildDataSheet(Workbook workbook, String sheetName, boolean isHeader, int rowNum, Map dataList) {
+    private static Workbook buildDataSheet(Workbook workbook, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList) {
         
         Sheet sheet = null;
-        
-        workbook.getNumberOfSheets();
         if(null == workbook.getSheet(sheetName)){
             sheet = workbook.createSheet(sheetName);
         } else {
             sheet = workbook.getSheet(sheetName);
         }
-
-        // 设置列头宽度
-
-        // 写入第一行各列的数据
+        
         CellStyle cellStyle = buildHeadCellStyle(sheet.getWorkbook());
         if(isHeader){
-            for (int i=0; i<CELL_HEADS.size(); i++) {
+            for (int i=0; i < CELL_HEADS.size(); i++) {
                 sheet.setColumnWidth(i, 4000);
             }
-            // 设置默认行高
             sheet.setDefaultRowHeight((short) 400);
-            // 构建头单元格样式
             Row head = sheet.createRow(0);
             for (int i = 0; i < CELL_HEADS.size(); i++) {
                 Cell cell = head.createCell(i);
@@ -89,14 +95,10 @@ public class BenchmarkExcelWriter {
             }
         }
         
-        for (Iterator it = dataList.entrySet().iterator(); it.hasNext(); ) {
-            Object data = it.next();
-            if (data == null) {
-                continue;
-            }
-            //输出行数据
+        for (int i = 0; i < dataList.size(); i++) {
+            BenchmarkResultBean benchmarkResultBean = dataList.get(i);
             Row row = sheet.createRow(rowNum++);
-            convertDataToRow(data, row);
+            convertDataToRow(benchmarkResultBean, row);
         }
         return workbook;
     }
@@ -135,24 +137,21 @@ public class BenchmarkExcelWriter {
      * @param row 行对象
      * @return
      */
-    private static void convertDataToRow(Object data, Row row){
+    private static void convertDataToRow(BenchmarkResultBean data, Row row){
         int cellNum = 0;
         Cell cell;
         // 姓名
         cell = row.createCell(cellNum++);
-        //cell.setCellValue(null == data.getName() ? "" : data.getName());
-        // 年龄
+        cell.setCellValue(data.getProduct());
         cell = row.createCell(cellNum++);
-/*        if (null != data.getAge()) {
-            cell.setCellValue(data.getAge());
-        } else {
-            cell.setCellValue("");
-        }*/
+        cell.setCellValue(data.getVersion());
+        cell = row.createCell(cellNum++);
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getScenario());
+
         // 所在城市
-        cell = row.createCell(cellNum++);
-/*        cell.setCellValue(null == data.getLocation() ? "" : data.getLocation());
+
         // 职业
-        cell = row.createCell(cellNum++);
-        cell.setCellValue(null == data.getJob() ? "" : data.getJob());*/
+
     }
 }
