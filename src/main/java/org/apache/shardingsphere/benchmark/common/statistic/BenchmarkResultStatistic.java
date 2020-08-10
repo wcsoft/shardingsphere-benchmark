@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.common;
+package org.apache.shardingsphere.benchmark.common.statistic;
 
 import java.io.*;
 import java.util.*;

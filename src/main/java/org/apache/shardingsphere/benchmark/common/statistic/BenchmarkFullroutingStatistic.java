@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.common;
+package org.apache.shardingsphere.benchmark.common.statistic;
 
 import org.apache.shardingsphere.benchmark.bean.BenchmarkResultBean;
 

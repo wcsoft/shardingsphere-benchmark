@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.common;
+package org.apache.shardingsphere.benchmark.common.excel;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
