@@ -161,7 +161,7 @@ public class BenchmarkFullroutingStatistic {
         BenchmarkResultBean proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion,proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "Sharding+Master+Slave+Encrypt", "ShardingProxy", "fullrouting", "Insert+Update+delete");
         System.out.println(proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.toString());
         
-        String shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingmasterslaveencrypt.dbc.fullrouting.shardingmasterslaveencrypt.insertupdatedelete.result");
+        String shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingjdbc.fullrouting.shardingmasterslaveencrypt.insertupdatedelete.result");
         Map shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath);
         BenchmarkResultBean shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "Sharding+Master+Slave+Encrypt", "ShardingJDBC", "fullrouting", "Insert+Update+delete");
         System.out.println(shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.toString());
@@ -178,7 +178,7 @@ public class BenchmarkFullroutingStatistic {
         BenchmarkResultBean proxyFullRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, proxyFullRoutingShardingMasterSlaveEncryptSelectResult, ssSelectSql, "Sharding+Master+Slave+Encrypt", "ShardingProxy", "fullrouting", "Select");
         System.out.println(proxyFullRoutingShardingMasterSlaveEncryptSelectResult.toString());
         
-        String shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingmasterslaveencrypt.dbc.fullrouting.shardingmasterslaveencrypt.select.result");
+        String shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingjdbc.fullrouting.shardingmasterslaveencrypt.select.result");
         Map shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResultPath);
         BenchmarkResultBean shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResult, ssSelectSql, "Sharding+Master+Slave+Encrypt", "ShardingJDBC", "fullrouting", "Select");
         System.out.println(shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResult.toString());

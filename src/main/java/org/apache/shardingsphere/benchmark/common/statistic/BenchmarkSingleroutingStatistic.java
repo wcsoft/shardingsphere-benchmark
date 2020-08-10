@@ -161,7 +161,7 @@ public class BenchmarkSingleroutingStatistic {
         BenchmarkResultBean proxySingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion,proxySingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "Sharding+Master+Slave+Encrypt", "ShardingProxy", "SingleRouting", "Insert+Update+delete");
         System.out.println(proxySingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.toString());
         
-        String shardingjdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingmasterslaveencrypt.dbc.singlerouting.shardingmasterslaveencrypt.insertupdatedelete.result");
+        String shardingjdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingjdbc.singlerouting.shardingmasterslaveencrypt.insertupdatedelete.result");
         Map shardingjdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(shardingjdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath);
         BenchmarkResultBean shardingjdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "Sharding+Master+Slave+Encrypt", "ShardingJDBC", "SingleRouting", "Insert+Update+delete");
         System.out.println(shardingjdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.toString());
@@ -171,14 +171,14 @@ public class BenchmarkSingleroutingStatistic {
         String jdbcInsertUpdateDeleteSQL = (String)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.delete.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.insert.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.update.sql") +  ";\r\n";
         BenchmarkResultBean jdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult, jdbcInsertUpdateDeleteSQL, "Sharding+Master+Slave+Encrypt", "MYSQL", "SingleRouting", "Insert+Update+delete");
         System.out.println(jdbcSingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.toString());
-        
+                
         String proxySingleRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.singlerouting.shardingmasterslaveencrypt.select.result");
         Map proxySingleRoutingShardingMasterSlaveEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(proxySingleRoutingShardingMasterSlaveEncryptSelectResultPath);
         String ssSelectSql = (String)sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.sql");
         BenchmarkResultBean proxySingleRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, proxySingleRoutingShardingMasterSlaveEncryptSelectResult, ssSelectSql, "Sharding+Master+Slave+Encrypt", "ShardingProxy", "SingleRouting", "Select");
         System.out.println(proxySingleRoutingShardingMasterSlaveEncryptSelectResult.toString());
         
-        String shardingjdbcSingleRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingmasterslaveencrypt.dbc.singlerouting.shardingmasterslaveencrypt.select.result");
+        String shardingjdbcSingleRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingjdbc.singlerouting.shardingmasterslaveencrypt.select.result");
         Map shardingjdbcSingleRoutingShardingMasterSlaveEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(shardingjdbcSingleRoutingShardingMasterSlaveEncryptSelectResultPath);
         BenchmarkResultBean shardingjdbcSingleRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcSingleRoutingShardingMasterSlaveEncryptSelectResult, ssSelectSql, "Sharding+Master+Slave+Encrypt", "ShardingJDBC", "SingleRouting", "Select");
         System.out.println(shardingjdbcSingleRoutingShardingMasterSlaveEncryptSelectResult.toString());
