@@ -29,7 +29,7 @@
           <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="classname">org.apache.shardingsphere.benchmark.jmeter.fullrouting.encrypt.encrypt.JMeterShardingJDBCFullRoutingEncryptInsertUpdateDelete</stringProp>
+          <stringProp name="classname">org.apache.shardingsphere.benchmark.jmeter.fullrouting.encrypt.JMeterShardingJDBCFullRoutingEncryptInsertUpdateDelete</stringProp>
         </JavaSampler>
         <hashTree>
           <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
