@@ -15,9 +15,9 @@ public class JMeterJDBCCommonShardingMasterSlaveEncryptClear extends JMeterBench
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.host"), (int)dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.username"), (String)dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.password"));
     }
 
     @Override
@@ -30,14 +30,14 @@ public class JMeterJDBCCommonShardingMasterSlaveEncryptClear extends JMeterBench
 
         try {
             connection = dataSource.getConnection();
-            JDBCDataSourceUtil.delete(connection, (String)sqlConfig.get("common.jdbc.clear"), null);
+            JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.jdbc.clear"), null);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException throwables) {

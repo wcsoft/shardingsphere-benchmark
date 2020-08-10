@@ -18,9 +18,9 @@ public class JMeterShardingJDBCFullRoutingMasterSlaveDelete extends JMeterBenchm
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -38,18 +38,18 @@ public class JMeterShardingJDBCFullRoutingMasterSlaveDelete extends JMeterBenchm
 
         try {
             connection = dataSource.getConnection();
-            String deleteSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.sql");
-            List deleteParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.values"));
+            String deleteSql = (String) sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.values"));
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException throwables) {

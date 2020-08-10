@@ -13,14 +13,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterJDBCSingleRoutingMasterSlaveSelect extends  JMeterBenchmarkBase {
+public class JMeterJDBCSingleRoutingMasterSlaveSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.host"), (int)dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.username"), (String)dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.username"), (String) dbConfig.get("jdbc.benchmark.singlerouting.masterslave.ds0.password"));
     }
 
     @Override
@@ -33,8 +33,8 @@ public class JMeterJDBCSingleRoutingMasterSlaveSelect extends  JMeterBenchmarkBa
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.masterslave.select.sql");
-            List selectParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.masterslave.select.values"));
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.masterslave.select.sql");
+            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.masterslave.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, selectParams);
         } catch (SQLException e) {
             results.setSuccessful(false);

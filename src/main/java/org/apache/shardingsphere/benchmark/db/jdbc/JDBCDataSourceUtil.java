@@ -14,7 +14,7 @@ public class JDBCDataSourceUtil {
     private static final Map<String, DataSource> DATASOURCES = new HashMap<>();
 
     /**
-     *  Init datasource.
+     * Init datasource.
      *
      * @param dataSourceName
      * @param host
@@ -63,6 +63,7 @@ public class JDBCDataSourceUtil {
 
     /**
      * create an item by criteria.
+     *
      * @param conn
      * @param insertSql
      * @param params
@@ -73,9 +74,9 @@ public class JDBCDataSourceUtil {
 
         ResultSet result = null;
         Connection connection = null;
-        PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement = null;
 
-        if(conn != null){
+        if (conn != null) {
             preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.execute();
@@ -91,6 +92,7 @@ public class JDBCDataSourceUtil {
 
     /**
      * Update an item by criteria..
+     *
      * @param conn
      * @param updateSql
      * @param params
@@ -99,9 +101,9 @@ public class JDBCDataSourceUtil {
      */
     public static ResultSet update(Connection conn, String updateSql, List params) throws SQLException {
         ResultSet result = null;
-        PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement = null;
 
-        if(conn != null){
+        if (conn != null) {
             preparedStatement = conn.prepareStatement(updateSql);
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.executeUpdate();
@@ -124,9 +126,9 @@ public class JDBCDataSourceUtil {
      */
     public static ResultSet delete(Connection conn, String deleteSql, List params) throws SQLException {
         ResultSet result = null;
-        PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement = null;
 
-        if(conn != null){
+        if (conn != null) {
             preparedStatement = conn.prepareStatement(deleteSql);
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.executeUpdate();
@@ -147,9 +149,9 @@ public class JDBCDataSourceUtil {
      */
     public static ResultSet select(Connection conn, String selectSql, List params) throws SQLException {
         ResultSet result = null;
-        PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement = null;
 
-        if(conn != null){
+        if (conn != null) {
             preparedStatement = conn.prepareStatement(selectSql);
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.executeQuery();
@@ -171,14 +173,14 @@ public class JDBCDataSourceUtil {
      * @throws SQLException
      */
     public static PreparedStatement setParams(PreparedStatement ps, List params) throws SQLException {
-        if(params != null){
-            for (int i = 0; i < params.size(); i++){
-                if (params.get(i) instanceof Long){
-                    ps.setLong(i+1, (Long) params.get(i));
-                } else if(params.get(i) instanceof Integer){
-                    ps.setInt(i+1, (Integer) params.get(i));
-                } else if(params.get(i) instanceof  String){
-                    ps.setString(i+1, (String)params.get(i));
+        if (params != null) {
+            for (int i = 0; i < params.size(); i++) {
+                if (params.get(i) instanceof Long) {
+                    ps.setLong(i + 1, (Long) params.get(i));
+                } else if (params.get(i) instanceof Integer) {
+                    ps.setInt(i + 1, (Integer) params.get(i));
+                } else if (params.get(i) instanceof String) {
+                    ps.setString(i + 1, (String) params.get(i));
                 }
             }
         }
@@ -193,7 +195,7 @@ public class JDBCDataSourceUtil {
      * @throws SQLException
      */
     public static void close(Connection conn) throws SQLException {
-        if(conn != null){
+        if (conn != null) {
             conn.close();
         }
     }

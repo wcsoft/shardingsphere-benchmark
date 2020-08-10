@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class JMeterSSCommonMasterSlaveClear extends JMeterBenchmarkBase {
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
@@ -38,14 +38,14 @@ public class JMeterSSCommonMasterSlaveClear extends JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            JDBCDataSourceUtil.delete(connection, (String)sqlConfig.get("common.ss.clear"), null);
+            JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.ss.clear"), null);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException throwables) {

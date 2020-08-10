@@ -11,14 +11,15 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-public class JMeterJDBCFullRoutingShardingSelect extends  JMeterBenchmarkBase {
+
+public class JMeterJDBCFullRoutingShardingSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.host"), (int)dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.username"), (String)dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.password"));
     }
 
     @Override
@@ -31,7 +32,7 @@ public class JMeterJDBCFullRoutingShardingSelect extends  JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.sharding.select.sql");
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.sharding.select.sql");
             JDBCDataSourceUtil.select(connection, selectSql, null);
         } catch (SQLException e) {
             results.setSuccessful(false);

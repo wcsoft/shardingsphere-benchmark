@@ -77,7 +77,8 @@ public class JMeterJDBCCommonClear extends JMeterBenchmarkBase {
      * @param context
      */
     @Override
-    public void setupTest(JavaSamplerContext context) {}
+    public void setupTest(JavaSamplerContext context) {
+    }
 
     /**
      * Close dataSource connection.
@@ -85,6 +86,7 @@ public class JMeterJDBCCommonClear extends JMeterBenchmarkBase {
      * @param context
      */
     @Override
-    public void teardownTest(JavaSamplerContext context) {}
+    public void teardownTest(JavaSamplerContext context) {
+    }
 }
 

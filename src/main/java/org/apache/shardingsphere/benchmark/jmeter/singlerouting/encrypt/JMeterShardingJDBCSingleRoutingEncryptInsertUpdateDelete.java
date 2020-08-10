@@ -14,13 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterShardingJDBCSingleRoutingEncryptInsertUpdateDelete extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCSingleRoutingEncryptInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.SINGLEROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.SINGLEROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -40,28 +40,28 @@ public class JMeterShardingJDBCSingleRoutingEncryptInsertUpdateDelete extends  J
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String)sqlConfig.get("ss.benchmark.singlerouting.encrypt.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("ss.benchmark.singlerouting.encrypt.insert.values"));
+            String insertSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.insert.values"));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
 
-            String updateSql = (String)sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
-            String deleteSql = (String)sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.sql");
-            List deleteParams = convertParams((List)sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.values"));
+            String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.values"));
             JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if (rs !=null && !rs.isClosed()){
+                if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
                 connection.close();

@@ -14,13 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterShardingJDBCFullRoutingMasterSlaveInsertUpdateDelete extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCFullRoutingMasterSlaveInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -39,8 +39,8 @@ public class JMeterShardingJDBCFullRoutingMasterSlaveInsertUpdateDelete extends 
 
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             /*String deleteSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.sql");
@@ -50,12 +50,12 @@ public class JMeterShardingJDBCFullRoutingMasterSlaveInsertUpdateDelete extends 
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if (rs !=null && !rs.isClosed()){
+                if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
                 connection.close();

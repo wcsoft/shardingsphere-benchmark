@@ -26,9 +26,9 @@ public class JMeterShardingJDBCFullRoutingEncryptInsertUpdateDelete extends JMet
 
     public static final String UPDATE_SQL = "update " + TABLE_NAME + " set c=?,pad =? where id=? and k=3";
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -47,8 +47,8 @@ public class JMeterShardingJDBCFullRoutingEncryptInsertUpdateDelete extends JMet
 
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             /*String deleteSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.delete.sql");
@@ -58,15 +58,15 @@ public class JMeterShardingJDBCFullRoutingEncryptInsertUpdateDelete extends JMet
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if (rs !=null && !rs.isClosed()){
+                if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
-             connection.close();
+                connection.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

@@ -1,4 +1,3 @@
-
 dataSources:
   ds_master: !!com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.jdbc.Driver

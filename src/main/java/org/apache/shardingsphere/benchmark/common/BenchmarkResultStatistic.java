@@ -5,8 +5,8 @@ import java.util.*;
 
 public class BenchmarkResultStatistic {
 
-    public static Map benchmarkStatistic(String filePath){
-        FileInputStream fileStream= null;
+    public static Map benchmarkStatistic(String filePath) {
+        FileInputStream fileStream = null;
 
         int failCount = 0;
         int successCount = 0;
@@ -17,17 +17,17 @@ public class BenchmarkResultStatistic {
         try {
             int totalCount = 0;
             fileStream = new FileInputStream(filePath);
-            InputStreamReader readStream=new InputStreamReader(fileStream);
-            BufferedReader reader=new BufferedReader(readStream);
+            InputStreamReader readStream = new InputStreamReader(fileStream);
+            BufferedReader reader = new BufferedReader(readStream);
             String eachJMeterResult = "";
 
-            while((eachJMeterResult = reader.readLine())!=null){
+            while ((eachJMeterResult = reader.readLine()) != null) {
                 totalCount = totalCount + 1;
-                if(totalCount > 1000000){
+                if (totalCount > 1000000) {
                     Map eachPerformanceInfo = BenchmarkResultConverter.convertResult(eachJMeterResult);
                     jMeterCostsList.add(eachPerformanceInfo.get("jMeterCost"));
                     jMeterTimeList.add(eachPerformanceInfo.get("jMeterTime"));
-                    if("true".equals(eachPerformanceInfo.get("isJMeterSuccess"))){
+                    if ("true".equals(eachPerformanceInfo.get("isJMeterSuccess"))) {
                         successCount = successCount + 1;
                     } else {
                         failCount = failCount + 1;
@@ -37,18 +37,18 @@ public class BenchmarkResultStatistic {
 
             int concurrentCount = jMeterCostsList.size();
             double startTime = Double.valueOf((Double) jMeterTimeList.get(0)).doubleValue();
-            double endTime = Double.valueOf((Double)jMeterTimeList.get(concurrentCount-1)).doubleValue();
+            double endTime = Double.valueOf((Double) jMeterTimeList.get(concurrentCount - 1)).doubleValue();
             double totalTimeCost = (endTime - startTime) / 1000;
             double benchmarkTps = concurrentCount / totalTimeCost;
             Collections.sort(jMeterCostsList);
-            int tp50thIndex = (int)0.5 * jMeterCostsList.size();
-            double tp50th = Double.valueOf((Double)jMeterCostsList.get(tp50thIndex)).doubleValue();
-            int tp90thIndex = (int)0.9 * jMeterCostsList.size();
-            double tp90th = Double.valueOf((Double)jMeterCostsList.get(tp90thIndex)).doubleValue();
-            int tp95thIndex =  (int)0.95 * jMeterCostsList.size();
-            double tp95th = Double.valueOf((Double)jMeterCostsList.get(tp95thIndex)).doubleValue();
-            double maxCost = Double.valueOf((Double)jMeterCostsList.get(concurrentCount-1)).doubleValue();
-            double minCost = Double.valueOf((Double)jMeterCostsList.get(0)).doubleValue();
+            int tp50thIndex = (int) 0.5 * jMeterCostsList.size();
+            double tp50th = Double.valueOf((Double) jMeterCostsList.get(tp50thIndex)).doubleValue();
+            int tp90thIndex = (int) 0.9 * jMeterCostsList.size();
+            double tp90th = Double.valueOf((Double) jMeterCostsList.get(tp90thIndex)).doubleValue();
+            int tp95thIndex = (int) 0.95 * jMeterCostsList.size();
+            double tp95th = Double.valueOf((Double) jMeterCostsList.get(tp95thIndex)).doubleValue();
+            double maxCost = Double.valueOf((Double) jMeterCostsList.get(concurrentCount - 1)).doubleValue();
+            double minCost = Double.valueOf((Double) jMeterCostsList.get(0)).doubleValue();
 
             benchmarkResultStatistic.put("tps", benchmarkTps);
             benchmarkResultStatistic.put("total", concurrentCount);

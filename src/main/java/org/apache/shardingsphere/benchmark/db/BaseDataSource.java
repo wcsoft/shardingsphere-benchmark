@@ -9,6 +9,7 @@ public class BaseDataSource {
 
     /**
      * create HikariDataSource
+     *
      * @param dataSourceName
      * @param host
      * @param port
@@ -16,7 +17,7 @@ public class BaseDataSource {
      * @param password
      * @return
      */
-    public DataSource createHikariDataSource(String dataSourceName, String host, int port, String userName , String password) {
+    public DataSource createHikariDataSource(String dataSourceName, String host, int port, String userName, String password) {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.jdbc.Driver");
         config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s?useSSL=false&serverTimezone=UTC", host, port, dataSourceName));
@@ -43,6 +44,7 @@ public class BaseDataSource {
 
     /**
      * create C3p0DataSource
+     *
      * @param dataSourceName
      * @param host
      * @param port
@@ -50,12 +52,13 @@ public class BaseDataSource {
      * @param password
      * @return
      */
-    public DataSource createC3p0DataSource(String dataSourceName, String host, int port, String userName , String password){
+    public DataSource createC3p0DataSource(String dataSourceName, String host, int port, String userName, String password) {
         return null;
     }
 
     /**
      * create DhcpDataSource
+     *
      * @param dataSourceName
      * @param host
      * @param port
@@ -63,7 +66,7 @@ public class BaseDataSource {
      * @param password
      * @return
      */
-    public DataSource createDhcpDataSource(String dataSourceName, String host, int port, String userName , String password){
+    public DataSource createDhcpDataSource(String dataSourceName, String host, int port, String userName, String password) {
         return null;
 
     }

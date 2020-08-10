@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterShardingJDBCFullRoutingShardingSelect extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCFullRoutingShardingSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_SHARDING_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -36,17 +36,17 @@ public class JMeterShardingJDBCFullRoutingShardingSelect extends  JMeterBenchmar
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("ss.benchmark.fullrouting.sharding.select.sql");
+            String selectSql = (String) sqlConfig.get("ss.benchmark.fullrouting.sharding.select.sql");
             JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
 
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

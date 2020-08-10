@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterJDBCRangeRoutingEncryptUpdate extends  JMeterBenchmarkBase {
+public class JMeterJDBCRangeRoutingEncryptUpdate extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 

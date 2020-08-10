@@ -13,14 +13,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterJDBCFullRoutingMasterSlaveInsertUpdateDelete extends  JMeterBenchmarkBase {
+public class JMeterJDBCFullRoutingMasterSlaveInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.host"), (int)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.username"), (String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.password"));
     }
 
     @Override
@@ -33,8 +33,8 @@ public class JMeterJDBCFullRoutingMasterSlaveInsertUpdateDelete extends  JMeterB
 
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.update.values"));
+            String updateSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             /*String deleteSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.sql");

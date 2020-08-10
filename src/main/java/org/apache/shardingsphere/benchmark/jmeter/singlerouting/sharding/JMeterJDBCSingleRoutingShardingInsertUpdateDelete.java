@@ -14,14 +14,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterJDBCSingleRoutingShardingInsertUpdateDelete extends  JMeterBenchmarkBase {
+public class JMeterJDBCSingleRoutingShardingInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.host"), (int)dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.username"), (String)dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.host"), (int) dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.username"), (String) dbConfig.get("jdbc.benchmark.singlerouting.sharding.ds0.password"));
     }
 
     @Override
@@ -35,16 +35,16 @@ public class JMeterJDBCSingleRoutingShardingInsertUpdateDelete extends  JMeterBe
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.sharding.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.sharding.insert.values"));
+            String insertSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.sharding.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.sharding.insert.values"));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
 
-            String updateSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.sharding.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.sharding.update.values"));
+            String updateSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.sharding.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.sharding.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
-            String deleteSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.sharding.delete.sql");
-            List deleteParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.sharding.delete.values"));
+            String deleteSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.sharding.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.sharding.delete.values"));
             JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
 
             results.setSuccessful(true);

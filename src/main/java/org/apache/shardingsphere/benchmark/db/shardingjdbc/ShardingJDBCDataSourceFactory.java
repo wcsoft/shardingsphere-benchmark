@@ -83,7 +83,7 @@ public class ShardingJDBCDataSourceFactory {
                 yamlContent.append(line).append("\n");
             }
 
-            yamlContentBytes =  yamlContent.toString().getBytes();
+            yamlContentBytes = yamlContent.toString().getBytes();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,13 +13,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterShardingJDBCRangeRoutingMasterSlaveInsert extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCRangeRoutingMasterSlaveInsert extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.RANGEROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.RANGEROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -36,17 +36,17 @@ public class JMeterShardingJDBCRangeRoutingMasterSlaveInsert extends  JMeterBenc
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
-            String insertSql = (String)sqlConfig.get("ss.benchmark.rangerouting.masterslave.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("ss.benchmark.rangerouting.masterslave.insert.values"));
+            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.masterslave.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.masterslave.insert.values"));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

@@ -13,32 +13,34 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 
-public class JMeterBenchmarkBase extends AbstractJavaSamplerClient  {
+public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
 
     public static Map sqlConfig = new HashMap<>();
     public static Map dbConfig = new HashMap<>();
     public static Map benchmarkResultPath = new HashMap<>();
+    public static String benchmarkVersion;
 
-    static{
+    static {
         initSqlConfig();
         initDbConfig();
         initBenchmarkResultPath();
+        initBenchmarkVersion();
     }
 
     /**
      * Init dataSource config for all of benchmark scenarios.
      */
-    public static void initDbConfig(){
+    public static void initDbConfig() {
         Properties dbConfigProp = new Properties();
-        try{
+        try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/dbconfig.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             dbConfigProp.load(in);
-            Iterator<String> it=dbConfigProp.stringPropertyNames().iterator();
-            while(it.hasNext()){
-                String key=it.next();
+            Iterator<String> it = dbConfigProp.stringPropertyNames().iterator();
+            while (it.hasNext()) {
+                String key = it.next();
                 if (key.contains(".port") || key.equals("maximumpoolsize") || key.equals("connectiontimeout") || key.equals("idletimeout")
-                        || key.equals("maxlifetime") || key.equals("prepstmtcachesize") || key.equals("prepstmtcachesqllimit") || key.equals("nettimeoutforstreamingresults")){
+                        || key.equals("maxlifetime") || key.equals("prepstmtcachesize") || key.equals("prepstmtcachesqllimit") || key.equals("nettimeoutforstreamingresults")) {
                     dbConfig.put(key, Integer.valueOf(dbConfigProp.getProperty(key)).intValue());
                 } else {
                     dbConfig.put(key, dbConfigProp.getProperty(key));
@@ -47,8 +49,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient  {
             in.close();
             br.close();
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -56,35 +57,35 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient  {
     /**
      * Init sql config for all of benchmark scenarios.
      */
-    public static void initSqlConfig(){
+    public static void initSqlConfig() {
         Properties sqlProp = new Properties();
-        try{
+        try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/sqlconfig.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             sqlProp.load(in);
             String values = "";
-            Iterator<String> it=sqlProp.stringPropertyNames().iterator();
-            while(it.hasNext()){
-                String key=it.next();
-                if (key.contains(".values") ){
+            Iterator<String> it = sqlProp.stringPropertyNames().iterator();
+            while (it.hasNext()) {
+                String key = it.next();
+                if (key.contains(".values")) {
                     values = sqlProp.getProperty(key);
-                    if (values != null && values.length() > 0){
+                    if (values != null && values.length() > 0) {
                         String[] arrayValues = values.split(",");
                         List listValues = new ArrayList();
-                        for(int i = 0; i < arrayValues.length; i++){
+                        for (int i = 0; i < arrayValues.length; i++) {
                             String[] subs = arrayValues[i].split(":");
-                            if("Int".equals(subs[0])){
+                            if ("Int".equals(subs[0])) {
                                 listValues.add(Integer.valueOf(subs[1]).intValue());
-                            } else if("Float".equals(subs[0])){
+                            } else if ("Float".equals(subs[0])) {
                                 listValues.add(Float.valueOf(subs[1]).floatValue());
-                            } else if("Long".equals(subs[0])){
+                            } else if ("Long".equals(subs[0])) {
                                 listValues.add(Long.valueOf(subs[1]).longValue());
-                            } else if("String".equals(subs[0])){
+                            } else if ("String".equals(subs[0])) {
                                 listValues.add(String.valueOf(subs[1]));
-                            } else if("".equals(((String)arrayValues[i]))){
-                                listValues.add((String)arrayValues[i]);
+                            } else if ("".equals(((String) arrayValues[i]))) {
+                                listValues.add((String) arrayValues[i]);
                             } else {
-                                listValues.add((String)subs[1]);
+                                listValues.add((String) subs[1]);
                             }
                         }
                         sqlConfig.put(key, listValues);
@@ -101,8 +102,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient  {
             in.close();
             br.close();
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -110,22 +110,21 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient  {
     /**
      * Store path of JMeter result file for benchmark into memory.
      */
-    public static void initBenchmarkResultPath(){
+    public static void initBenchmarkResultPath() {
         Properties dbConfigProp = new Properties();
-        try{
+        try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result-path.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             dbConfigProp.load(in);
-            Iterator<String> it=dbConfigProp.stringPropertyNames().iterator();
-            while(it.hasNext()){
-                String key=it.next();
+            Iterator<String> it = dbConfigProp.stringPropertyNames().iterator();
+            while (it.hasNext()) {
+                String key = it.next();
                 benchmarkResultPath.put(key, dbConfigProp.getProperty(key));
             }
             in.close();
             br.close();
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -137,20 +136,20 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient  {
     }
 
 
-    public List setParams(List values){
+    public List setParams(List values) {
         List sqlValues = new ArrayList();
-        if (values != null){
-            for (int i = 0; i < values.size(); i++){
+        if (values != null) {
+            for (int i = 0; i < values.size(); i++) {
                 sqlValues.add(values.get(i));
             }
         }
         return sqlValues;
     }
 
-    public List convertParams(List values){
+    public List convertParams(List values) {
         List sqlValues = new ArrayList();
-        if (values != null){
-            for (int i = 0; i < values.size(); i++){
+        if (values != null) {
+            for (int i = 0; i < values.size(); i++) {
                 //System.out.println(values.get(i));
                 sqlValues.add(values.get(i));
             }
@@ -160,18 +159,40 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient  {
 
     public void insertRecords(Connection connection, String sql, List params) throws SQLException {
 
-        if(params != null ){
-            for(int i =0; i <100; i++ ){
+        if (params != null) {
+            for (int i = 0; i < 100; i++) {
                 List dynamicParams = new ArrayList(params.size());
-                for(int j = 0; j < params.size(); j++){
-                    if(params.get(j) instanceof Integer){
+                for (int j = 0; j < params.size(); j++) {
+                    if (params.get(j) instanceof Integer) {
                         dynamicParams.add(i);
-                    } else if(params.get(j) instanceof String){
-                        dynamicParams.add((String)params.get(j) + i);
+                    } else if (params.get(j) instanceof String) {
+                        dynamicParams.add((String) params.get(j) + i);
                     }
                 }
                 JDBCDataSourceUtil.insert(connection, sql, dynamicParams);
             }
+        }
+    }
+    
+    public static void initBenchmarkVersion(){
+        Properties dbConfigProp = new Properties();
+        try {
+            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-version.properties");
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            dbConfigProp.load(in);
+            Iterator<String> it = dbConfigProp.stringPropertyNames().iterator();
+            while (it.hasNext()) {
+                String key = it.next();
+                if("ss.benchmark.version".equals(key)){
+                    benchmarkVersion = dbConfigProp.getProperty(key);
+                    break;
+                }
+            }
+            in.close();
+            br.close();
+        
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
