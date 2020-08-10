@@ -20,11 +20,11 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
     
     public static DataSource dataSource;
     
-    static {
+/*    static {
         dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("benchmark.result.datasource"),
                 (String) dbConfig.get("benchmark.result.host"), (int) dbConfig.get("benchmark.result.port"),
                 (String) dbConfig.get("benchmark.result.username"), (String) dbConfig.get("benchmark.result.password"));
-    }
+    }*/
     
 
 
