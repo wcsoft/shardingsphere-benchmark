@@ -158,7 +158,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
     }
 
     public void insertRecords(Connection connection, String sql, List params) throws SQLException {
-        int tableCount = (int)dbConfig.get("benchmark.table.count");
+        int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
         if (params != null) {
             for (int i = 0; i < tableCount; i++) {
                 List dynamicParams = new ArrayList(params.size());
