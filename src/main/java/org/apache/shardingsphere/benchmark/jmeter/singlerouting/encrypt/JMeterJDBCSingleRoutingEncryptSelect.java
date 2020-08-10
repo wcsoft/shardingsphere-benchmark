@@ -13,14 +13,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterJDBCSingleRoutingEncryptSelect extends  JMeterBenchmarkBase {
+public class JMeterJDBCSingleRoutingEncryptSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.host"), (int)dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.username"), (String)dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.singlerouting.encrypt.ds0.password"));
     }
 
     @Override
@@ -33,8 +33,8 @@ public class JMeterJDBCSingleRoutingEncryptSelect extends  JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.encrypt.select.sql");
-            List selectParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.encrypt.select.values"));
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.encrypt.select.sql");
+            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.encrypt.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, selectParams);
         } catch (SQLException e) {
             results.setSuccessful(false);

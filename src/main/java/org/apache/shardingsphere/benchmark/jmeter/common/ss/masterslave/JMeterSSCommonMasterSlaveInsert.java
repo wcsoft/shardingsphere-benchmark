@@ -17,7 +17,7 @@ import java.util.List;
 public class JMeterSSCommonMasterSlaveInsert extends JMeterBenchmarkBase {
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
@@ -37,16 +37,16 @@ public class JMeterSSCommonMasterSlaveInsert extends JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            String insertSql = (String)sqlConfig.get("common.ss.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("common.ss.insert.values"));
+            String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"));
             insertRecords(connection, insertSql, insertParams);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException throwables) {

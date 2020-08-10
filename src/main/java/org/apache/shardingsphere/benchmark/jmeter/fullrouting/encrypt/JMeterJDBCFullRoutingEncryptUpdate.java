@@ -14,13 +14,13 @@ import java.sql.SQLException;
 
 /**
  * Refactor old case test_plan/jdbc_sharding_new/select_one.jmx
- *
+ * <p>
  * Sharding scenario
-
- *  Its actualDataNodes: ds{0..3}.sbtest${0..1023}
- *  Its dataSource.algorithm expression: ds_${id % 4}
- *  Its table.algorithm expression: sbtest${k % 1024}
- *  Its type: INLINE
+ * <p>
+ * Its actualDataNodes: ds{0..3}.sbtest${0..1023}
+ * Its dataSource.algorithm expression: ds_${id % 4}
+ * Its table.algorithm expression: sbtest${k % 1024}
+ * Its type: INLINE
  **/
 
 public class JMeterJDBCFullRoutingEncryptUpdate extends JMeterBenchmarkBase {

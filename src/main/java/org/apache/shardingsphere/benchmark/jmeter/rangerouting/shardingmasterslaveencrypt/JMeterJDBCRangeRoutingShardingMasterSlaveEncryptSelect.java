@@ -13,14 +13,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterJDBCRangeRoutingShardingMasterSlaveEncryptSelect extends  JMeterBenchmarkBase {
+public class JMeterJDBCRangeRoutingShardingMasterSlaveEncryptSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.host"), (int)dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.username"), (String)dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.ds0.password"));
     }
 
     @Override
@@ -33,8 +33,8 @@ public class JMeterJDBCRangeRoutingShardingMasterSlaveEncryptSelect extends  JMe
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.select.sql");
-            List selectParams = convertParams((List)sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.select.values"));
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.select.sql");
+            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, selectParams);
         } catch (SQLException e) {
             results.setSuccessful(false);

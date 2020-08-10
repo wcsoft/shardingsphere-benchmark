@@ -9,14 +9,15 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-public class JMeterProxyFullRoutingShardingInsertUpdateDelete extends  JMeterBenchmarkBase {
+
+public class JMeterProxyFullRoutingShardingInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("ss.proxy.db.datasource"),
-                (String)dbConfig.get("ss.proxy.host"), (int)dbConfig.get("ss.proxy.port"),
-                (String)dbConfig.get("ss.proxy.db.username"), (String)dbConfig.get("ss.proxy.db.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("ss.proxy.db.datasource"),
+                (String) dbConfig.get("ss.proxy.host"), (int) dbConfig.get("ss.proxy.port"),
+                (String) dbConfig.get("ss.proxy.db.username"), (String) dbConfig.get("ss.proxy.db.password"));
     }
 
     @Override
@@ -29,8 +30,8 @@ public class JMeterProxyFullRoutingShardingInsertUpdateDelete extends  JMeterBen
 
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("ss.benchmark.fullrouting.sharding.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.sharding.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.fullrouting.sharding.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.sharding.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             /*String deleteSql = (String)sqlConfig.get("ss.benchmark.fullrouting.sharding.delete.sql");
@@ -40,10 +41,10 @@ public class JMeterProxyFullRoutingShardingInsertUpdateDelete extends  JMeterBen
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

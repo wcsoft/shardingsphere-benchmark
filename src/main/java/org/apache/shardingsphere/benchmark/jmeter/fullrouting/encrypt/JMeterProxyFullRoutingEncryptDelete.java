@@ -16,9 +16,9 @@ public class JMeterProxyFullRoutingEncryptDelete extends JMeterBenchmarkBase {
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("ss.proxy.db.datasource"),
-                (String)dbConfig.get("ss.proxy.host"), (int)dbConfig.get("ss.proxy.port"),
-                (String)dbConfig.get("ss.proxy.db.username"), (String)dbConfig.get("ss.proxy.db.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("ss.proxy.db.datasource"),
+                (String) dbConfig.get("ss.proxy.host"), (int) dbConfig.get("ss.proxy.port"),
+                (String) dbConfig.get("ss.proxy.db.username"), (String) dbConfig.get("ss.proxy.db.password"));
     }
 
 
@@ -32,17 +32,17 @@ public class JMeterProxyFullRoutingEncryptDelete extends JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            String deleteSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.delete.sql");
-            List deleteParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.encrypt.delete.values"));
+            String deleteSql = (String) sqlConfig.get("ss.benchmark.fullrouting.encrypt.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.encrypt.delete.values"));
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException throwables) {

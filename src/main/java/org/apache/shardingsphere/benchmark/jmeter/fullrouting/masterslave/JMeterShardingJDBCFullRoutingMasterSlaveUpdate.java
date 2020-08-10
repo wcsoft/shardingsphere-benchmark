@@ -13,13 +13,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterShardingJDBCFullRoutingMasterSlaveUpdate extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCFullRoutingMasterSlaveUpdate extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -36,19 +36,19 @@ public class JMeterShardingJDBCFullRoutingMasterSlaveUpdate extends  JMeterBench
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
 
             results.setSuccessful(false);
             e.printStackTrace();
 
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

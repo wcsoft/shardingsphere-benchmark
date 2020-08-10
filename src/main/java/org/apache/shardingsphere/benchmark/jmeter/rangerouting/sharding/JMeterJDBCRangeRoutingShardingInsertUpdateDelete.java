@@ -13,14 +13,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterJDBCRangeRoutingShardingInsertUpdateDelete extends  JMeterBenchmarkBase {
+public class JMeterJDBCRangeRoutingShardingInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.host"), (int)dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.username"), (String)dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.host"), (int) dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.username"), (String) dbConfig.get("jdbc.benchmark.rangerouting.sharding.ds0.password"));
     }
 
     @Override
@@ -34,16 +34,16 @@ public class JMeterJDBCRangeRoutingShardingInsertUpdateDelete extends  JMeterBen
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String)sqlConfig.get("jdbc.benchmark.rangerouting.sharding.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("jdbc.benchmark.rangerouting.sharding.insert.values"));
+            String insertSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.insert.values"));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
 
-            String updateSql = (String)sqlConfig.get("jdbc.benchmark.rangerouting.sharding.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("jdbc.benchmark.rangerouting.sharding.update.values"));
+            String updateSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
-            String deleteSql = (String)sqlConfig.get("jdbc.benchmark.rangerouting.sharding.delete.sql");
-            List deleteParams = convertParams((List)sqlConfig.get("jdbc.benchmark.rangerouting.sharding.delete.values"));
+            String deleteSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.delete.values"));
             JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
 
             results.setSuccessful(true);

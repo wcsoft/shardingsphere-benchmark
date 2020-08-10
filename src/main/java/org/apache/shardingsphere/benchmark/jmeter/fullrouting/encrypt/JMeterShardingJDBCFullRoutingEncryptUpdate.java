@@ -16,8 +16,9 @@ import java.util.List;
 public class JMeterShardingJDBCFullRoutingEncryptUpdate extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
+
     // Init dataSource.
-    static{
+    static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
@@ -36,19 +37,19 @@ public class JMeterShardingJDBCFullRoutingEncryptUpdate extends JMeterBenchmarkB
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
 
             results.setSuccessful(false);
             e.printStackTrace();
 
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

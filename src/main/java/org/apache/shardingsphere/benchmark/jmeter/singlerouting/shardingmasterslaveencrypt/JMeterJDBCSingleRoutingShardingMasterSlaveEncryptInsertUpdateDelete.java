@@ -13,14 +13,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterJDBCSingleRoutingShardingMasterSlaveEncryptInsertUpdateDelete extends  JMeterBenchmarkBase {
+public class JMeterJDBCSingleRoutingShardingMasterSlaveEncryptInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.host"), (int)dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.username"), (String)dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.ds0.password"));
     }
 
     @Override
@@ -34,16 +34,16 @@ public class JMeterJDBCSingleRoutingShardingMasterSlaveEncryptInsertUpdateDelete
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.insert.values"));
+            String insertSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.insert.values"));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
 
-            String updateSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
-            String deleteSql = (String)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.delete.sql");
-            List deleteParams = convertParams((List)sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.delete.values"));
+            String deleteSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.delete.values"));
             JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
 
             results.setSuccessful(true);

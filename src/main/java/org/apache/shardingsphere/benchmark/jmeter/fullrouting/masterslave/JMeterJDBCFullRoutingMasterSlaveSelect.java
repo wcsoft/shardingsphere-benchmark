@@ -12,14 +12,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterJDBCFullRoutingMasterSlaveSelect extends  JMeterBenchmarkBase {
+public class JMeterJDBCFullRoutingMasterSlaveSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.host"), (int)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.username"), (String)dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.password"));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class JMeterJDBCFullRoutingMasterSlaveSelect extends  JMeterBenchmarkBase
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.select.sql");
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.select.sql");
             JDBCDataSourceUtil.select(connection, selectSql, null);
         } catch (SQLException e) {
             results.setSuccessful(false);

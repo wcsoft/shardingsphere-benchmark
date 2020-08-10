@@ -21,9 +21,9 @@ public class JMeterShardingJDBCFullRoutingEncryptInsert extends JMeterBenchmarkB
 
     public static final String INSERT_SQL = "INSERT INTO " + TABLE_NAME + " (k,c,pad) VALUES (?,?,?)";
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -40,17 +40,17 @@ public class JMeterShardingJDBCFullRoutingEncryptInsert extends JMeterBenchmarkB
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
-            String insertSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.encrypt.insert.values"));
+            String insertSql = (String) sqlConfig.get("ss.benchmark.fullrouting.encrypt.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.encrypt.insert.values"));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

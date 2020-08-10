@@ -15,20 +15,20 @@ import java.util.List;
 
 /**
  * Refactor old case
- *
+ * <p>
  * Sharding scenario:
- *  Its actualDataNodes: {0..3}.sbtest${0..1023}
- *  Its dataSource.algorithm expression: ds_${id % 4}
- *  Its type: INLINE
+ * Its actualDataNodes: {0..3}.sbtest${0..1023}
+ * Its dataSource.algorithm expression: ds_${id % 4}
+ * Its type: INLINE
  */
 public class JMeterJDBCFullRoutingEncryptInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.host"), (int)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
     }
 
     @Override
@@ -41,8 +41,8 @@ public class JMeterJDBCFullRoutingEncryptInsertUpdateDelete extends JMeterBenchm
 
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             /*String deleteSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.sql");

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterJDBCFullRoutingShardingInsert extends  JMeterBenchmarkBase {
+public class JMeterJDBCFullRoutingShardingInsert extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 

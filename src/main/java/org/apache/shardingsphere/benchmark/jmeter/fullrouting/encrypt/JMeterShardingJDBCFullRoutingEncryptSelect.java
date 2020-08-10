@@ -18,9 +18,9 @@ public class JMeterShardingJDBCFullRoutingEncryptSelect extends JMeterBenchmarkB
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -38,18 +38,18 @@ public class JMeterShardingJDBCFullRoutingEncryptSelect extends JMeterBenchmarkB
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.select.sql");
-            List selectParams = convertParams((List)sqlConfig.get("ss.benchmark.fullrouting.encrypt.select.values"));
+            String selectSql = (String) sqlConfig.get("ss.benchmark.fullrouting.encrypt.select.sql");
+            List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.encrypt.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, selectParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
 
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterShardingJDBCFullRoutingShardingMasterSlaveEncryptSelect extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCFullRoutingShardingMasterSlaveEncryptSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -36,17 +36,17 @@ public class JMeterShardingJDBCFullRoutingShardingMasterSlaveEncryptSelect exten
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("ss.benchmark.fullrouting.shardingmasterslaveencrypt.select.sql");
+            String selectSql = (String) sqlConfig.get("ss.benchmark.fullrouting.shardingmasterslaveencrypt.select.sql");
             JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
 
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

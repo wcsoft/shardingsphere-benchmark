@@ -14,13 +14,13 @@ import java.sql.SQLException;
 
 /**
  * Refactor old case test_plan/jdbc_sharding_new/select_one.jmx
- *
+ * <p>
  * Sharding scenario
-
- *  Its actualDataNodes: ds{0..3}.sbtest${0..1023}
- *  Its dataSource.algorithm expression: ds_${id % 4}
- *  Its table.algorithm expression: sbtest${k % 1024}
- *  Its type: INLINE
+ * <p>
+ * Its actualDataNodes: ds{0..3}.sbtest${0..1023}
+ * Its dataSource.algorithm expression: ds_${id % 4}
+ * Its table.algorithm expression: sbtest${k % 1024}
+ * Its type: INLINE
  **/
 
 public class JMeterJDBCFullRoutingEncryptSelect extends JMeterBenchmarkBase {
@@ -28,9 +28,9 @@ public class JMeterJDBCFullRoutingEncryptSelect extends JMeterBenchmarkBase {
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.datasource"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.host"), (int)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"),
-                (String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String)dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class JMeterJDBCFullRoutingEncryptSelect extends JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.select.sql");
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.select.sql");
             JDBCDataSourceUtil.select(connection, selectSql, null);
         } catch (SQLException e) {
             results.setSuccessful(false);

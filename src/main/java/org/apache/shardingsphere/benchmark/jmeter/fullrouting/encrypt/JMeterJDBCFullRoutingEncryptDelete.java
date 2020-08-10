@@ -17,9 +17,9 @@ public class JMeterJDBCFullRoutingEncryptDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -37,14 +37,14 @@ public class JMeterJDBCFullRoutingEncryptDelete extends JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            JDBCDataSourceUtil.delete(connection, (String)sqlConfig.get("common.ss.clear"), null);
+            JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.ss.clear"), null);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException throwables) {

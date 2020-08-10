@@ -3,7 +3,7 @@ cd /home/jenkins
 ./apache-shardingsphere-*-shardingsphere-proxy-bin/bin/stop.sh
 sleep 5
 rm -fr apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin
-mv sharding-distribution/sharding-proxy-distribution/target/*shardingsphere-proxy-bin.tar.gz .
+mv shardingsphere-distribution/shardingsphere-proxy-distribution/target/*shardingsphere-proxy-bin.tar.gz .
 tar zxvf apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin.tar.gz
 rm -f /home/jenkins/apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin/conf/config-*
 cp -f /export/shardingsphere-benchmark/yaml_conf/singlerouting/sharding-masterslave-encrypt/proxy/config-proxy-singlerouting-sharding-masterslave-enc.yaml /export/shardingsphere-benchmark/yaml_conf/server.yaml /home/jenkins/apache-shardingsphere-*-shardingsphere-proxy-bin/conf

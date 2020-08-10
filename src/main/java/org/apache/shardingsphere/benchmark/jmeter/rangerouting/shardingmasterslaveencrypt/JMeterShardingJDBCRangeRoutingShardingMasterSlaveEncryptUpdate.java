@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptUpdate extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptUpdate extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
@@ -23,19 +23,19 @@ public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptUpdate exte
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
 
             results.setSuccessful(false);
             e.printStackTrace();
 
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();

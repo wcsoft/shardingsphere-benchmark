@@ -15,13 +15,13 @@ import java.util.List;
 
 import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 
-public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptInsertUpdateDelete extends  JMeterBenchmarkBase {
+public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptInsertUpdateDelete extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
-    static{
+    static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance (ShardingConfigType.RANGEROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.RANGEROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -41,28 +41,28 @@ public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptInsertUpdat
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");
-            List insertParams = convertParams((List)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values"));
+            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values"));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
 
-            String updateSql = (String)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.sql");
-            List updateParams = convertParams((List)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.values"));
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
-            String deleteSql = (String)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.sql");
-            List deleteParams = convertParams((List)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.values"));
+            String deleteSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.values"));
             JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if (rs !=null && !rs.isClosed()){
+                if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
                 connection.close();

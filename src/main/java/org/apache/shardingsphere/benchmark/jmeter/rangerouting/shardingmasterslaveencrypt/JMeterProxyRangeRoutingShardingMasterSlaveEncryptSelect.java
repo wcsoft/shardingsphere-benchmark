@@ -10,14 +10,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JMeterProxyRangeRoutingShardingMasterSlaveEncryptSelect extends  JMeterBenchmarkBase {
+public class JMeterProxyRangeRoutingShardingMasterSlaveEncryptSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String)dbConfig.get("ss.proxy.db.datasource"),
-                (String)dbConfig.get("ss.proxy.host"), (int)dbConfig.get("ss.proxy.port"),
-                (String)dbConfig.get("ss.proxy.db.username"), (String)dbConfig.get("ss.proxy.db.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("ss.proxy.db.datasource"),
+                (String) dbConfig.get("ss.proxy.host"), (int) dbConfig.get("ss.proxy.port"),
+                (String) dbConfig.get("ss.proxy.db.username"), (String) dbConfig.get("ss.proxy.db.password"));
     }
 
     @Override
@@ -29,17 +29,17 @@ public class JMeterProxyRangeRoutingShardingMasterSlaveEncryptSelect extends  JM
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.select.sql");
-            List selectParams = convertParams((List)sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.select.values"));
+            String selectSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.select.sql");
+            List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, selectParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             results.setSuccessful(false);
             e.printStackTrace();
-        }finally {
+        } finally {
             results.sampleEnd();
             try {
                 connection.close();
