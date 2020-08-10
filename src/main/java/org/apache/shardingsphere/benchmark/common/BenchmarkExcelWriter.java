@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BenchmarkExcelWriter {
     
@@ -30,9 +31,9 @@ public class BenchmarkExcelWriter {
         CELL_HEADS.add("场景");
         CELL_HEADS.add("TPS");
         CELL_HEADS.add("并发量");
-        CELL_HEADS.add("tp50th");
-        CELL_HEADS.add("tp90th");
-        CELL_HEADS.add("tp95th");
+        CELL_HEADS.add("TP50th");
+        CELL_HEADS.add("TP90th");
+        CELL_HEADS.add("TP95th");
         CELL_HEADS.add("最大耗时");
         CELL_HEADS.add("最小耗时");
         CELL_HEADS.add("SQL");
@@ -113,6 +114,7 @@ public class BenchmarkExcelWriter {
         //对齐方式设置
         style.setAlignment(HorizontalAlignment.CENTER);
         //边框颜色和宽度设置
+        
         style.setBorderBottom(BorderStyle.THIN);
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex()); // 下边框
         style.setBorderLeft(BorderStyle.THIN);
@@ -140,18 +142,28 @@ public class BenchmarkExcelWriter {
     private static void convertDataToRow(BenchmarkResultBean data, Row row){
         int cellNum = 0;
         Cell cell;
-        // 姓名
         cell = row.createCell(cellNum++);
         cell.setCellValue(data.getProduct());
         cell = row.createCell(cellNum++);
         cell.setCellValue(data.getVersion());
         cell = row.createCell(cellNum++);
-        cell = row.createCell(cellNum++);
         cell.setCellValue(data.getScenario());
-
-        // 所在城市
-
-        // 职业
-
+        Map benchmarkResult = data.getBenchmarkResult();
+        cell = row.createCell(cellNum++);
+        cell.setCellValue((double)benchmarkResult.get("tps"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue((int)benchmarkResult.get("total"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue((double)benchmarkResult.get("tp50th"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue((double)benchmarkResult.get("tp90th"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue((double)benchmarkResult.get("tp95th"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue((double)benchmarkResult.get("maxCost"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue((double)benchmarkResult.get("minCost"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getSql());
     }
 }

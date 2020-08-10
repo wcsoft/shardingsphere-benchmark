@@ -48,7 +48,7 @@ public class BenchmarkResultBean {
         this.dbAction = dbAction;
     }
     
-    public void setTps(Map tps){
+    public void setBenchmarkResult(Map benchmarkResult){
         this.benchmarkResult = benchmarkResult;
     }
     
@@ -56,7 +56,7 @@ public class BenchmarkResultBean {
         return this.version;
     }
     
-    public Map getTps(){
+    public Map getBenchmarkResult(){
         return this.benchmarkResult;
     }
     
