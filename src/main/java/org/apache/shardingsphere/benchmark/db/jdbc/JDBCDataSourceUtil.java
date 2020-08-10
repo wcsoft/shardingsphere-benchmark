@@ -45,8 +45,6 @@ public class JDBCDataSourceUtil {
         config.addDataSourceProperty("maintainTimeStats", Boolean.FALSE.toString());
         config.addDataSourceProperty("netTimeoutForStreamingResults", 0);
         return new HikariDataSource(config);
-        //DATASOURCES.put(dataSourceName, dataSource);
-        //return dataSource;
     }
 
 
