@@ -24,7 +24,7 @@ public class BenchmarkResultParser {
             while ((eachJMeterResult = reader.readLine()) != null) {
                 totalCount = totalCount + 1;
                 // if (totalCount > 1000000) {
-                if (totalCount > 0) {
+                if (totalCount > 1) {
                     Map eachPerformanceInfo = BenchmarkResultRowParser.convertResult(eachJMeterResult);
                     jMeterCostsList.add(eachPerformanceInfo.get("jMeterCost"));
                     jMeterTimeList.add(eachPerformanceInfo.get("jMeterTime"));
