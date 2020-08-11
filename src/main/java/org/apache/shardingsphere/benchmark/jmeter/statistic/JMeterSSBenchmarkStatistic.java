@@ -76,7 +76,4 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             }
         }
     }
-    
-
-  
 }
