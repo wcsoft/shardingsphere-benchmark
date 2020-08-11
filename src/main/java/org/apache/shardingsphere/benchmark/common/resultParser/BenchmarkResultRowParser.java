@@ -10,8 +10,8 @@ public class BenchmarkResultRowParser {
         Map performanceInfo = new HashMap<>();
 
         String[] eachJMeterDetails = eachJMeterResult.split(",");
-        performanceInfo.put("jMeterTime", Long.valueOf(eachJMeterDetails[0]).longValue());
-        performanceInfo.put("jMeterCost", Integer.valueOf(eachJMeterDetails[1]).intValue());
+        performanceInfo.put("jMeterTime", Double.valueOf(eachJMeterDetails[0]).doubleValue());
+        performanceInfo.put("jMeterCost", Double.valueOf(eachJMeterDetails[1]).doubleValue());
         performanceInfo.put("isJMeterSuccess", (String) eachJMeterDetails[7]);
         return performanceInfo;
     }

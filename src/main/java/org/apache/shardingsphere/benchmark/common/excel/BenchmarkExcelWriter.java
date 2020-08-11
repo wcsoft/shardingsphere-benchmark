@@ -1,5 +1,6 @@
 package org.apache.shardingsphere.benchmark.common.excel;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -10,10 +11,11 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.shardingsphere.benchmark.bean.BenchmarkResultBean;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,13 +24,15 @@ import java.util.Map;
 
 public class BenchmarkExcelWriter {
     
-    private static List<String> CELL_HEADS; //列头
+    private static List<String> CELL_HEADS;
     
     static{
-        CELL_HEADS = new ArrayList<>();
-        CELL_HEADS.add("产品");
+        CELL_HEADS = new ArrayList<String>();
         CELL_HEADS.add("版本");
         CELL_HEADS.add("场景");
+        CELL_HEADS.add("Rules");
+        CELL_HEADS.add("数据库操作");
+        CELL_HEADS.add("产品");
         CELL_HEADS.add("TPS");
         CELL_HEADS.add("并发量");
         CELL_HEADS.add("TP50th");
@@ -40,37 +44,36 @@ public class BenchmarkExcelWriter {
     }
     
     public static void writeExcel(String excelPath, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList){
+        Workbook workbook = null;
+        File exportFile = null;
         FileOutputStream fileOut = null;
-    
-        Workbook workbook = exportData(sheetName, isHeader, rowNum, dataList);
         
-        File exportFile = new File(excelPath);
-        if (!exportFile.exists()) {
-            try {
+        try {
+            exportFile = new File(excelPath);
+            if(exportFile.exists()){
+                workbook = new HSSFWorkbook(new FileInputStream(excelPath));
+            } else {
+                workbook = new HSSFWorkbook();
                 exportFile.createNewFile();
-                fileOut = new FileOutputStream(excelPath);
-                workbook.write(fileOut);
-                fileOut.flush();
+            }
+            workbook = buildDataSheet(workbook, sheetName, isHeader, rowNum, dataList);
+    
+            fileOut = new FileOutputStream(excelPath);
+            workbook.write(fileOut);
+            fileOut.flush();
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileOut.close();
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                if(null != fileOut){
-                    try {
-                        fileOut.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
+    
         }
-    }
-    
-    
-    public static Workbook exportData(String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList){
-    
-        Workbook workbook = new SXSSFWorkbook();
-        buildDataSheet(workbook, sheetName, isHeader, rowNum, dataList);
-        return workbook;
     }
     
     private static Workbook buildDataSheet(Workbook workbook, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList) {
@@ -104,50 +107,44 @@ public class BenchmarkExcelWriter {
         return workbook;
     }
     
-    /**
-     * 设置第一行列头的样式
-     * @param workbook 工作簿对象
-     * @return 单元格样式对象
-     */
+
     private static CellStyle buildHeadCellStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
-        //对齐方式设置
+
         style.setAlignment(HorizontalAlignment.CENTER);
-        //边框颜色和宽度设置
         
         style.setBorderBottom(BorderStyle.THIN);
-        style.setBottomBorderColor(IndexedColors.BLACK.getIndex()); // 下边框
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderLeft(BorderStyle.THIN);
-        style.setLeftBorderColor(IndexedColors.BLACK.getIndex()); // 左边框
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderRight(BorderStyle.THIN);
-        style.setRightBorderColor(IndexedColors.BLACK.getIndex()); // 右边框
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderTop(BorderStyle.THIN);
-        style.setTopBorderColor(IndexedColors.BLACK.getIndex()); // 上边框
-        //设置背景颜色
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
         style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        //粗体字设置
+
         Font font = workbook.createFont();
         font.setBold(true);
         style.setFont(font);
         return style;
     }
     
-    /**
-     * 将数据转换成行
-     * @param data 源数据
-     * @param row 行对象
-     * @return
-     */
+
     private static void convertDataToRow(BenchmarkResultBean data, Row row){
         int cellNum = 0;
         Cell cell;
         cell = row.createCell(cellNum++);
-        cell.setCellValue(data.getProduct());
-        cell = row.createCell(cellNum++);
         cell.setCellValue(data.getVersion());
         cell = row.createCell(cellNum++);
         cell.setCellValue(data.getScenario());
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getRules());
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getDbAction());
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getProduct());
         Map benchmarkResult = data.getBenchmarkResult();
         cell = row.createCell(cellNum++);
         cell.setCellValue((double)benchmarkResult.get("tps"));
