@@ -20,18 +20,17 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
     
     public static DataSource dataSource;
     
-/*    static {
+    static {
         dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("benchmark.result.datasource"),
                 (String) dbConfig.get("benchmark.result.host"), (int) dbConfig.get("benchmark.result.port"),
                 (String) dbConfig.get("benchmark.result.username"), (String) dbConfig.get("benchmark.result.password"));
-    }*/
+    }
     
 
 
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
 
-        Connection connection = null;
         SampleResult results = new SampleResult();
         results.setSampleLabel("JMeterSSBenchmarkStatistic");
         results.sampleStart();
@@ -43,9 +42,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "range-routing", false, 0, rangeRoutingResult);
         BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "single-routing", false, 0, singleRoutingResult);
     
-        /*updateBenchmarkRecordInDb(fullRoutingResult);
+        updateBenchmarkRecordInDb(fullRoutingResult);
         updateBenchmarkRecordInDb(rangeRoutingResult);
-        updateBenchmarkRecordInDb(singleRoutingResult);*/
+        updateBenchmarkRecordInDb(singleRoutingResult);
 
         results.sampleEnd();
         return results;
@@ -60,7 +59,7 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             try {
                 connection = dataSource.getConnection();
                 BenchmarkResultBean benchmarkResultBean = benchMarkResults.get(i);
-                List insertParams = Arrays.asList(benchmarkResultBean.getProduct(),benchmarkResultBean.getVersion(), benchmarkResultBean.getScenario(), 
+                List insertParams = Arrays.asList(benchmarkResultBean.getProduct(),benchmarkResultBean.getVersion(), benchmarkResultBean.getScenario(), benchmarkResultBean.getRules(),
                         (double)benchmarkResultBean.getBenchmarkResult().get("tps"), (int)benchmarkResultBean.getBenchmarkResult().get("total"), (double)benchmarkResultBean.getBenchmarkResult().get("TP50th"),
                         (double)benchmarkResultBean.getBenchmarkResult().get("TP90th"), (double)benchmarkResultBean.getBenchmarkResult().get("TP95th"), (double)benchmarkResultBean.getBenchmarkResult().get("maxCost"), (double)benchmarkResultBean.getBenchmarkResult().get("minCost"), benchmarkResultBean.getSql());
                 JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
