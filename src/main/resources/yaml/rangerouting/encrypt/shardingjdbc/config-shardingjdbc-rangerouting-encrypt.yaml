@@ -34,3 +34,17 @@ rules:
           c:
             cipherColumn: c
             encryptorName: encryptor_aes
+
+props:
+  max.connections.size.per.query: 100
+  acceptor.size: 200  # The default value is available processors count * 2.
+  executor.size: 200  # Infinite by default.
+  proxy.frontend.flush.threshold: 128
+  proxy.transaction.type: LOCAL
+  proxy.opentracing.enabled: false
+  proxy.metrics.enabled: false
+  proxy.hint.enabled: false
+  query.with.cipher.column: true
+  sql.show: false
+  allow.range.query.with.inline.sharding: false
+  check.table.metadata.enabled: false
