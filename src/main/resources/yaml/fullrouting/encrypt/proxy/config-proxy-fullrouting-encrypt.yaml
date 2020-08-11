@@ -38,9 +38,8 @@ dataSourceCommon:
   minPoolSize: 200
   maintenanceIntervalMilliseconds: 30000
 
-dataSources:
-  ds0:
-    url: jdbc:mysql://ss.benchmark.fullrouting.encrypt.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+dataSource:
+  url: jdbc:mysql://ss.benchmark.fullrouting.encrypt.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
 
 rules:
   - !ENCRYPT
