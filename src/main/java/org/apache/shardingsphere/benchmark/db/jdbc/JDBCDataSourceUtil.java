@@ -179,6 +179,8 @@ public class JDBCDataSourceUtil {
                     ps.setInt(i+1, (Integer) params.get(i));
                 } else if(params.get(i) instanceof  String){
                     ps.setString(i+1, (String)params.get(i));
+                } else if(params.get(i) instanceof Double){
+                    ps.setDouble(i+1, (Double)params.get(i));
                 }
             }
         }

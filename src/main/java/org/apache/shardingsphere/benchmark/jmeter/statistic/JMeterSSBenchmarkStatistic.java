@@ -60,9 +60,20 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             try {
                 connection = dataSource.getConnection();
                 BenchmarkResultBean benchmarkResultBean = benchMarkResults.get(i);
-                List insertParams = Arrays.asList(benchmarkResultBean.getProduct(),benchmarkResultBean.getVersion(), benchmarkResultBean.getScenario(), benchmarkResultBean.getRules(),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("tps"), (int)benchmarkResultBean.getBenchmarkResult().get("total"), (double)benchmarkResultBean.getBenchmarkResult().get("TP50th"),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("TP90th"), (double)benchmarkResultBean.getBenchmarkResult().get("TP95th"), (double)benchmarkResultBean.getBenchmarkResult().get("maxCost"), (double)benchmarkResultBean.getBenchmarkResult().get("minCost"), benchmarkResultBean.getSql());
+                List insertParams = Arrays.asList(
+                        benchmarkResultBean.getProduct(), 
+                        benchmarkResultBean.getVersion(),
+                        benchmarkResultBean.getScenario(),
+                        benchmarkResultBean.getRules(),
+                        (double)benchmarkResultBean.getBenchmarkResult().get("tps"),
+                        (int)benchmarkResultBean.getBenchmarkResult().get("total"),
+                        (double)benchmarkResultBean.getBenchmarkResult().get("tp50th"),
+                        (double)benchmarkResultBean.getBenchmarkResult().get("tp90th"),
+                        (double)benchmarkResultBean.getBenchmarkResult().get("tp95th"),
+                        (double)benchmarkResultBean.getBenchmarkResult().get("maxCost"),
+                        (double)benchmarkResultBean.getBenchmarkResult().get("minCost"),
+                        benchmarkResultBean.getSql(),
+                        benchmarkResultBean.getDbAction());
                 JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
