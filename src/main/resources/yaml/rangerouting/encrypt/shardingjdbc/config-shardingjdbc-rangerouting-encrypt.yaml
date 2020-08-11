@@ -24,7 +24,7 @@ dataSources:
 shardingRule:
   encryptRule:
     tables:
-      sbtest99:
+      sbtest:
         columns:
           c:
             cipherColumn: c

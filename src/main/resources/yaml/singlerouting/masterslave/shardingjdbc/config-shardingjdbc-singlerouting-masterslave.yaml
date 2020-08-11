@@ -49,4 +49,3 @@ shardingRule:
       masterDataSourceName: ds_master
       slaveDataSourceNames:
         - ds_slave0
-      loadBalanceAlgorithmType: ROUND_ROBIN

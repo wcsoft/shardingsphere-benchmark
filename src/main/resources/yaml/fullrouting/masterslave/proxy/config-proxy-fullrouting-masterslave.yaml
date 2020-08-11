@@ -57,5 +57,4 @@ shardingRule:
       masterDataSourceName: master_ds
       slaveDataSourceNames:
         - slave_ds_0
-      loadBalanceAlgorithmType: ROUND_ROBIN
 
