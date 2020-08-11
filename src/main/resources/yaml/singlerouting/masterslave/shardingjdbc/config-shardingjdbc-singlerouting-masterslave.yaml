@@ -49,7 +49,3 @@ rules:
         name: ms_ds
         masterDataSourceName: ds_master
         slaveDataSourceNames: [ds_slave0]
-        loadBalancerName: roundRobin
-    loadBalancers:
-      roundRobin:
-        type: ROUND_ROBIN

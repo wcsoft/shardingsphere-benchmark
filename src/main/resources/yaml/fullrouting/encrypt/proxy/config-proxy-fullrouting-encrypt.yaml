@@ -50,7 +50,7 @@ rules:
           aes.key.value: '123456abc'
         type: AES
     tables:
-      sbtest99:
+      sbtest:
         columns:
           c:
             cipherColumn: c
