@@ -73,7 +73,7 @@ public class JDBCDataSourceUtil {
 
         ResultSet result = null;
         Connection connection = null;
-        PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement = null;
 
         if(conn != null){
             preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
