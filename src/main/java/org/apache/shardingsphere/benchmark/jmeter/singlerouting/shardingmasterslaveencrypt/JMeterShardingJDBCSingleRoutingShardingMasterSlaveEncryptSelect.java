@@ -40,7 +40,7 @@ public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptSelect ext
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.sql");
             List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.values"));
-            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
+            JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);

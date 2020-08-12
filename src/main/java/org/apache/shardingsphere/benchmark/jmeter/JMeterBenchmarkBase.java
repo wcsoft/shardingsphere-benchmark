@@ -150,7 +150,6 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         List sqlValues = new ArrayList();
         if (values != null) {
             for (int i = 0; i < values.size(); i++) {
-                //System.out.println(values.get(i));
                 sqlValues.add(values.get(i));
             }
         }
