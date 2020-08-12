@@ -151,6 +151,20 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         return sqlValues;
     }
 
+    public List convertParams(List values, int counter) {
+        List sqlValues = new ArrayList();
+        if (values != null) {
+            for (int i = 0; i < values.size(); i++) {
+                if (values.get(i) instanceof Integer) {
+                    sqlValues.add(counter);
+                } else {
+                    sqlValues.add(values.get(i));
+                }
+            }
+        }
+        return sqlValues;
+    }
+    
     public List convertParams(List values) {
         List sqlValues = new ArrayList();
         if (values != null) {

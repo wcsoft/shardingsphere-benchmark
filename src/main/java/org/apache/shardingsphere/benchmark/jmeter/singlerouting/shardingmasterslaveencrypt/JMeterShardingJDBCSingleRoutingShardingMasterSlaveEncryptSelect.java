@@ -1,18 +1,18 @@
 package org.apache.shardingsphere.benchmark.jmeter.singlerouting.shardingmasterslaveencrypt;
 
-import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
 import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingConfigType;
 import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingJDBCDataSourceFactory;
+import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptSelect extends AbstractJavaSamplerClient {
+public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 /*    public static Map sqlConfig = new HashMap<>();
@@ -45,10 +45,9 @@ public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptSelect ext
 
         try {
             connection = dataSource.getConnection();
-            //String selectSql = (String) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.sql");
-            //List selectParams = JMeterBenchmarkUtil.convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.values"));
-    
-            String selectSql = "select id, k from sbtest where k=1";
+            String selectSql = (String) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.sql");
+            //List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.values"));
+            //String selectSql = "select id, k from sbtest where k=1";
             //List selectParams = JMeterBenchmarkUtil.convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);

@@ -155,9 +155,9 @@ public class JDBCDataSourceUtil {
             preparedStatement.executeQuery();
         }
 
-        if(preparedStatement != null && !preparedStatement.isClosed()){
+/*        if(preparedStatement != null && !preparedStatement.isClosed()){
             preparedStatement.close();
-        }
+        }*/
 
 
     }

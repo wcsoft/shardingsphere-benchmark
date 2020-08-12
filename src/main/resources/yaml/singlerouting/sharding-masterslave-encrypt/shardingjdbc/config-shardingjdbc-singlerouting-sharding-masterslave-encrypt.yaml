@@ -171,7 +171,7 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: ms_ds_${0..3}.sbtest${0..1023}
+      actualDataNodes: ms_ds_${0..3}.sbtest${0..99}
       databaseStrategy:
         inline:
           shardingColumn: id
@@ -182,7 +182,7 @@ shardingRule:
       tableStrategy:
         inline:
           shardingColumn: k
-          algorithmExpression: sbtest${k % 1024}
+          algorithmExpression: sbtest${k % 100}
   bindingTables:
     - sbtest
 
@@ -227,7 +227,7 @@ shardingRule:
         type: md5
 
 props:
-  max.connections.size.per.query: 100
+  max.connections.size.per.query: 200
   acceptor.size: 200  # The default value is available processors count * 2.
   executor.size: 200  # Infinite by default.
   query.with.cipher.column: true
