@@ -167,12 +167,3 @@ shardingRule:
           aes.key.value: 123456abc
       encryptor_md5:
         type: md5
-
-props:
-  max.connections.size.per.query: 200
-  acceptor.size: 200  # The default value is available processors count * 2.
-  executor.size: 200  # Infinite by default.
-  query.with.cipher.column: true
-  sql.show: false
-  allow.range.query.with.inline.sharding: false
-  check.table.metadata.enabled: false
