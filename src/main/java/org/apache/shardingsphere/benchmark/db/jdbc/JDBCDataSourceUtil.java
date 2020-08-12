@@ -145,8 +145,8 @@ public class JDBCDataSourceUtil {
      * @param conn
      * @param selectSql
      */
-    public static ResultSet select(Connection conn, String selectSql, List params) throws SQLException {
-        ResultSet result = null;
+    public static void select(Connection conn, String selectSql, List params) throws SQLException {
+
         PreparedStatement preparedStatement=null;
 
         if(conn != null){
@@ -155,10 +155,10 @@ public class JDBCDataSourceUtil {
             preparedStatement.executeQuery();
         }
 
-        /*if(preparedStatement != null && !preparedStatement.isClosed()){
+        if(preparedStatement != null && !preparedStatement.isClosed()){
             preparedStatement.close();
-        }*/
-        return result;
+        }
+
 
     }
 

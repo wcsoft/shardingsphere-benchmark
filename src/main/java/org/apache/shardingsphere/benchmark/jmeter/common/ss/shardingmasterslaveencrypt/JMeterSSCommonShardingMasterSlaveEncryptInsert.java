@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
+    public static int counter;
     public static DataSource dataSource;
 
     static {
