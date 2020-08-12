@@ -20,7 +20,6 @@ public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchm
     static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
-            
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -40,7 +39,6 @@ public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchm
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), counter);
-            System.out.println(insertParams);
             JDBCDataSourceUtil.insert(connection, insertSql,insertParams);
             counter++;
             //insertRecords(connection, insertSql, insertParams);
