@@ -11,7 +11,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
 
@@ -158,6 +163,8 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
 
     public void insertRecords(Connection connection, String sql, List params) throws SQLException {
         int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
+        System.out.println(params.toString());
+        System.out.println(sql);
         if (params != null) {
             for (int i = 0; i < tableCount; i++) {
                 List dynamicParams = new ArrayList(params.size());
@@ -168,6 +175,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
                         dynamicParams.add((String) params.get(j) + i);
                     }
                 }
+                System.out.println(dynamicParams.toString());
                 JDBCDataSourceUtil.insert(connection, sql, dynamicParams);
             }
         }
