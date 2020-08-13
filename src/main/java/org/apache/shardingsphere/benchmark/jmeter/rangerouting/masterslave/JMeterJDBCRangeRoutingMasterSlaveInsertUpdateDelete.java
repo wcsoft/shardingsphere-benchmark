@@ -44,7 +44,7 @@ public class JMeterJDBCRangeRoutingMasterSlaveInsertUpdateDelete extends JMeterB
 
             String deleteSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

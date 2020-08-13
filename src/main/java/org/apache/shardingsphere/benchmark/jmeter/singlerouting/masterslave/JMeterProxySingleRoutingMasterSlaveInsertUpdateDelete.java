@@ -41,7 +41,7 @@ public class JMeterProxySingleRoutingMasterSlaveInsertUpdateDelete extends JMete
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.masterslave.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.masterslave.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

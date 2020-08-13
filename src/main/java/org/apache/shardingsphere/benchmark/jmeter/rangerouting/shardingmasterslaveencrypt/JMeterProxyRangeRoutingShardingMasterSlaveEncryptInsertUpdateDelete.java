@@ -41,7 +41,7 @@ public class JMeterProxyRangeRoutingShardingMasterSlaveEncryptInsertUpdateDelete
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

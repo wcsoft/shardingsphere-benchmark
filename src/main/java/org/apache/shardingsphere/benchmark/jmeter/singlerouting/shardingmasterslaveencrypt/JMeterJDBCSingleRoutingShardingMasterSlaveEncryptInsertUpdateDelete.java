@@ -3,12 +3,9 @@ package org.apache.shardingsphere.benchmark.jmeter.singlerouting.shardingmasters
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
-import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingConfigType;
-import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingJDBCDataSourceFactory;
 import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -44,7 +41,7 @@ public class JMeterJDBCSingleRoutingShardingMasterSlaveEncryptInsertUpdateDelete
 
             String deleteSql = (String) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.singlerouting.shardingmasterslaveencrypt.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

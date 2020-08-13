@@ -50,7 +50,7 @@ public class JMeterShardingJDBCRangeRoutingEncryptInsertUpdateDelete extends JMe
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.rangerouting.encrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.encrypt.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

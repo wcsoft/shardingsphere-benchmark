@@ -50,7 +50,7 @@ public class JMeterShardingJDBCSingleRoutingEncryptInsertUpdateDelete extends JM
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {
