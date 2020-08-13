@@ -60,7 +60,7 @@ rules:
   - !SHARDING
     tables:
       sbtest:
-        actualDataNodes: ms_ds_${0..3}.sbtest${0..1023}
+        actualDataNodes: ms_ds_${0..3}.sbtest${0..99}
         databaseStrategy:
           standard:
             shardingColumn: id
@@ -83,7 +83,7 @@ rules:
       table_inline:
         type: INLINE
         props:
-          algorithm.expression: sbtest${k % 1024}
+          algorithm.expression: sbtest${k % 100}
     keyGenerators:
       increment:
         type: SNOWFLAKE

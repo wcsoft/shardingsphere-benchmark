@@ -2,6 +2,7 @@ package org.apache.shardingsphere.benchmark.jmeter.common.ss.shardingmasterslave
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
+import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
 import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingConfigType;
 import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingJDBCDataSourceFactory;
 import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
+    public static int counter;
     public static DataSource dataSource;
 
     static {
@@ -36,8 +38,10 @@ public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchm
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"));
-            insertRecords(connection, insertSql, insertParams);
+            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), counter);
+            JDBCDataSourceUtil.insert(connection, insertSql,insertParams);
+            counter++;
+            //insertRecords(connection, insertSql, insertParams);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();

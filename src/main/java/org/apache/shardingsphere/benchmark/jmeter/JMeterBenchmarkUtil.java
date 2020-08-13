@@ -1,8 +1,5 @@
 package org.apache.shardingsphere.benchmark.jmeter;
 
-import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
-import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
-import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.common.PropertiesUtil;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
 
@@ -18,24 +15,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
-
-    public static Map sqlConfig = new HashMap<>();
-    public static Map dbConfig = new HashMap<>();
-    public static Map benchmarkResultPath = new HashMap<>();
-    public static String benchmarkVersion;
-
-    static {
-        initSqlConfig();
-        initDbConfig();
-        initBenchmarkResultPath();
-        initBenchmarkVersion();
-    }
-
+public class JMeterBenchmarkUtil {
+    
     /**
      * Init dataSource config for all of benchmark scenarios.
      */
-    public static void initDbConfig() {
+    public static Map initDbConfig() {
+        Map dbConfig = new HashMap<>();
         Properties dbConfigProp = new Properties();
         try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/dbconfig.properties");
@@ -57,13 +43,15 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return dbConfig;
     }
 
     /**
      * Init sql config for all of benchmark scenarios.
      */
-    public static void initSqlConfig() {
+    public static Map initSqlConfig() {
         Properties sqlProp = new Properties();
+        Map sqlConfig = new HashMap<>();
         try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/sqlconfig.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -110,13 +98,15 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return sqlConfig;
     }
 
     /**
      * Store path of JMeter result file for benchmark into memory.
      */
-    public static void initBenchmarkResultPath() {
+    public static Map initBenchmarkResultPath() {
         Properties dbConfigProp = new Properties();
+        Map benchmarkResultPath = new HashMap<>();
         try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result-path.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -132,40 +122,11 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    @Override
-    public SampleResult runTest(JavaSamplerContext javaSamplerContext) {
-        return null;
-    }
-
-
-    public List setParams(List values) {
-        List sqlValues = new ArrayList();
-        if (values != null) {
-            for (int i = 0; i < values.size(); i++) {
-                sqlValues.add(values.get(i));
-            }
-        }
-        return sqlValues;
-    }
-
-    public List convertParams(List values, int counter) {
-        List sqlValues = new ArrayList();
-        if (values != null) {
-            for (int i = 0; i < values.size(); i++) {
-                if (values.get(i) instanceof Integer) {
-                    sqlValues.add(counter);
-                } else {
-                    sqlValues.add(values.get(i));
-                }
-            }
-        }
-        return sqlValues;
+        return benchmarkResultPath;
     }
     
-    public List convertParams(List values) {
+
+    public static  List setParams(List values) {
         List sqlValues = new ArrayList();
         if (values != null) {
             for (int i = 0; i < values.size(); i++) {
@@ -175,7 +136,17 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         return sqlValues;
     }
 
-    public void insertRecords(Connection connection, String sql, List params) throws SQLException {
+    public static List convertParams(List values) {
+        List sqlValues = new ArrayList();
+        if (values != null) {
+            for (int i = 0; i < values.size(); i++) {
+                sqlValues.add(values.get(i));
+            }
+        }
+        return sqlValues;
+    }
+
+    public void insertRecords(Connection connection, String sql, List params, Map dbConfig) throws SQLException {
         int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
         if (params != null) {
             for (int i = 0; i < tableCount; i++) {
@@ -192,8 +163,9 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         }
     }
     
-    public static void initBenchmarkVersion(){
+    public static String initBenchmarkVersion(){
         Properties dbConfigProp = new Properties();
+        String benchmarkVersion = "";
         try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-version.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -212,6 +184,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return benchmarkVersion;
     }
 }
 

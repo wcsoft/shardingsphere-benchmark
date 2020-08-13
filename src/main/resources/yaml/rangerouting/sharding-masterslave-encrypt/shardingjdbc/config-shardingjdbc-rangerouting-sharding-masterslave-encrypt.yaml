@@ -172,7 +172,7 @@ rules:
   - !SHARDING
     tables:
       sbtest:
-        actualDataNodes: ms_ds_${0..3}.sbtest${0..1023}
+        actualDataNodes: ms_ds_${0..3}.sbtest${0..99}
         databaseStrategy:
           standard:
             shardingColumn: id
@@ -195,7 +195,7 @@ rules:
       table_inline:
         type: INLINE
         props:
-          algorithm.expression: sbtest${k % 1024}
+          algorithm.expression: sbtest${k % 100}
     keyGenerators:
       increment:
         type: SNOWFLAKE
@@ -245,14 +245,9 @@ rules:
         type: ROUND_ROBIN
         
 props:
-  max.connections.size.per.query: 100
+  max.connections.size.per.query: 200
   acceptor.size: 200  # The default value is available processors count * 2.
   executor.size: 200  # Infinite by default.
-  proxy.frontend.flush.threshold: 128
-  proxy.transaction.type: LOCAL
-  proxy.opentracing.enabled: false
-  proxy.metrics.enabled: false
-  proxy.hint.enabled: false
   query.with.cipher.column: true
   sql.show: false
   allow.range.query.with.inline.sharding: false

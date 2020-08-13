@@ -17,7 +17,7 @@ import java.util.List;
  * Refactor old case
  * <p>
  * Sharding scenario:
- * Its actualDataNodes: {0..3}.sbtest${0..1023}
+ * Its actualDataNodes: {0..3}.sbtest${0..99}
  * Its dataSource.algorithm expression: ds_${id % 4}
  * Its type: INLINE
  */

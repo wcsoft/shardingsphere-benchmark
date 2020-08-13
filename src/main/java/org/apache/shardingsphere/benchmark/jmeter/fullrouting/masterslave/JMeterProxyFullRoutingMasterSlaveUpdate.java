@@ -15,9 +15,9 @@ import java.util.List;
  * <p>
  * Sharding scenario
  * <p>
- * Its actualDataNodes: ds{0..3}.sbtest${0..1023}
+ * Its actualDataNodes: ds{0..3}.sbtest${0..99}
  * Its dataSource.algorithm expression: ds_${id % 4}
- * Its table.algorithm expression: sbtest${k % 1024}
+ * Its table.algorithm expression: sbtest${k % 100}
  * Its type: INLINE
  **/
 

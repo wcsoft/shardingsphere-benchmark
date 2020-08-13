@@ -21,6 +21,7 @@ public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptInsertUpda
     static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.SINGLEROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -50,7 +51,7 @@ public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptInsertUpda
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

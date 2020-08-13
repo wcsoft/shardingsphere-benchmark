@@ -36,7 +36,7 @@ rules:
       none:
     tables:
       sbtest:
-        actualDataNodes: press_test_${0..3}.sbtest${0..1023}
+        actualDataNodes: press_test_${0..3}.sbtest${0..99}
         databaseStrategy:
           standard:
             shardingColumn: id
@@ -57,7 +57,7 @@ rules:
       table_inline:
         type: INLINE
         props:
-          algorithm.expression: sbtest${k % 1024}
+          algorithm.expression: sbtest${k % 100}
 
     keyGenerators:
       increment:

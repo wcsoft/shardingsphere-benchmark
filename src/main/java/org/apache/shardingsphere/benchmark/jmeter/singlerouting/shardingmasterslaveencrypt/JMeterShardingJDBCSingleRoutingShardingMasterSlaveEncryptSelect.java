@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptSelect extends JMeterBenchmarkBase {
 
@@ -38,9 +37,8 @@ public class JMeterShardingJDBCSingleRoutingShardingMasterSlaveEncryptSelect ext
 
         try {
             connection = dataSource.getConnection();
-            String updateSql = (String) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.update.sql");
-            List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.update.values"));
-            JDBCDataSourceUtil.update(connection, updateSql, updateParams);
+            String selectSql = (String) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.sql");
+            JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
