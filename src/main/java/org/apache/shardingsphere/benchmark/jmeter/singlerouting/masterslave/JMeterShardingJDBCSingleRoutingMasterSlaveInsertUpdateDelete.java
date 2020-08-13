@@ -42,14 +42,17 @@ public class JMeterShardingJDBCSingleRoutingMasterSlaveInsertUpdateDelete extend
 
             String insertSql = (String) sqlConfig.get("ss.benchmark.singlerouting.masterslave.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.masterslave.insert.values"));
-            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
-
+            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
+            Long id = rs.getLong(1);
             String updateSql = (String) sqlConfig.get("ss.benchmark.singlerouting.masterslave.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.masterslave.update.values"));
+            updateParams.add(id);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.masterslave.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.masterslave.delete.values"));
+            deleteParams.add(id);
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);

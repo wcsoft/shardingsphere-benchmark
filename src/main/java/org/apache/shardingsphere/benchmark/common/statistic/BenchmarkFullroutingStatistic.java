@@ -20,7 +20,7 @@ public class BenchmarkFullroutingStatistic {
     }
     
     public static void calculateFullroutingEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion) {
-        String proxyFullRoutingEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.encrypt.insertupdatedelete.result");
+/*        String proxyFullRoutingEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.encrypt.insertupdatedelete.result");
         Map proxyFullRoutingEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingEncryptInsertupdatedeleteResultPath);
         String ssInsertUpdateDeleteSQL = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.delete.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.insert.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.update.sql") +  ";\r\n";
         BenchmarkResultBean proxyFullRoutingEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion,proxyFullRoutingEncryptInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "Encrypt", "ShardingProxy", "fullrouting", "Insert+Update+delete");
@@ -35,7 +35,7 @@ public class BenchmarkFullroutingStatistic {
         Map jdbcFullRoutingEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingEncryptInsertupdatedeleteResultPath);
         String jdbcInsertUpdateDeleteSQL = (String)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.delete.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.insert.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.update.sql") +  ";\r\n";
         BenchmarkResultBean jdbcFullRoutingEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingEncryptInsertupdatedeleteResult, jdbcInsertUpdateDeleteSQL, "Encrypt", "MYSQL", "fullrouting", "Insert+Update+delete");
-        System.out.println(jdbcFullRoutingEncryptInsertupdatedeleteResult.toString());
+        System.out.println(jdbcFullRoutingEncryptInsertupdatedeleteResult.toString());*/
         
         String proxyFullRoutingEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.encrypt.select.result");
         Map proxyFullRoutingEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingEncryptSelectResultPath);
@@ -53,9 +53,9 @@ public class BenchmarkFullroutingStatistic {
         String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.select.sql");
         BenchmarkResultBean jdbcFullRoutingEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingEncryptSelectResult, jdbcSelectSql, "Encrypt", "MYSQL", "fullrouting", "Select");
         System.out.println(jdbcFullRoutingEncryptSelectResult.toString());
-        fullRoutingResult.add(proxyFullRoutingEncryptInsertupdatedeleteResultBean);
+/*        fullRoutingResult.add(proxyFullRoutingEncryptInsertupdatedeleteResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingEncryptInsertupdatedeleteResultBean);
-        fullRoutingResult.add(jdbcFullRoutingEncryptInsertupdatedeleteResultBean);
+        fullRoutingResult.add(jdbcFullRoutingEncryptInsertupdatedeleteResultBean);*/
         fullRoutingResult.add(proxyFullRoutingEncryptSelectResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingEncryptSelectResultBean);
         fullRoutingResult.add(jdbcFullRoutingEncryptSelectResultBean);
@@ -65,7 +65,7 @@ public class BenchmarkFullroutingStatistic {
      *
      */
     public static void calculateFullroutingMasterslave(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion) {
-        String proxyFullRoutingMasterSlaveInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.masterslave.insertupdatedelete.result");
+/*        String proxyFullRoutingMasterSlaveInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.masterslave.insertupdatedelete.result");
         Map proxyFullRoutingMasterSlaveInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingMasterSlaveInsertupdatedeleteResultPath);
         String ssInsertUpdateDeleteSQL = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.delete.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.insert.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.update.sql") +  ";\r\n";
         BenchmarkResultBean proxyFullRoutingMasterSlaveInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion,proxyFullRoutingMasterSlaveInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "MasterSlave", "ShardingProxy", "fullrouting", "Insert+Update+delete");
@@ -80,7 +80,7 @@ public class BenchmarkFullroutingStatistic {
         Map jdbcFullRoutingMasterSlaveInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingMasterSlaveInsertupdatedeleteResultPath);
         String jdbcInsertUpdateDeleteSQL = (String)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.delete.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.insert.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.update.sql") +  ";\r\n";
         BenchmarkResultBean jdbcFullRoutingMasterSlaveInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingMasterSlaveInsertupdatedeleteResult, jdbcInsertUpdateDeleteSQL, "MasterSlave", "MYSQL", "fullrouting", "Insert+Update+delete");
-        System.out.println(jdbcFullRoutingMasterSlaveInsertupdatedeleteResult.toString());
+        System.out.println(jdbcFullRoutingMasterSlaveInsertupdatedeleteResult.toString());*/
         
         String proxyFullRoutingMasterSlaveSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.masterslave.select.result");
         Map proxyFullRoutingMasterSlaveSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingMasterSlaveSelectResultPath);
@@ -98,9 +98,9 @@ public class BenchmarkFullroutingStatistic {
         String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.select.sql");
         BenchmarkResultBean jdbcFullRoutingMasterSlaveSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingMasterSlaveSelectResult, jdbcSelectSql, "MasterSlave", "MYSQL", "fullrouting", "Select");
         System.out.println(jdbcFullRoutingMasterSlaveSelectResult.toString());
-        fullRoutingResult.add(proxyFullRoutingMasterSlaveInsertupdatedeleteResultBean);
+/*        fullRoutingResult.add(proxyFullRoutingMasterSlaveInsertupdatedeleteResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingMasterSlaveInsertupdatedeleteResultBean);
-        fullRoutingResult.add(jdbcFullRoutingMasterSlaveInsertupdatedeleteResultBean);
+        fullRoutingResult.add(jdbcFullRoutingMasterSlaveInsertupdatedeleteResultBean);*/
         fullRoutingResult.add(proxyFullRoutingMasterSlaveSelectResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingMasterSlaveSelectResultBean);
         fullRoutingResult.add(jdbcFullRoutingMasterSlaveSelectResultBean);
@@ -110,7 +110,7 @@ public class BenchmarkFullroutingStatistic {
      *
      */
     public static void calculateFullroutingSharding(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion) {
-        String proxyFullRoutingShardingInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.sharding.insertupdatedelete.result");
+/*        String proxyFullRoutingShardingInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.sharding.insertupdatedelete.result");
         Map proxyFullRoutingShardingInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingShardingInsertupdatedeleteResultPath);
         String ssInsertUpdateDeleteSQL = (String)sqlConfig.get("ss.benchmark.fullrouting.sharding.delete.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.sharding.insert.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.sharding.update.sql") +  ";\r\n";
         BenchmarkResultBean proxyFullRoutingShardingInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion,proxyFullRoutingShardingInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "Sharding", "ShardingProxy", "fullrouting", "Insert+Update+delete");
@@ -125,7 +125,7 @@ public class BenchmarkFullroutingStatistic {
         Map jdbcFullRoutingShardingInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingShardingInsertupdatedeleteResultPath);
         String jdbcInsertUpdateDeleteSQL = (String)sqlConfig.get("jdbc.benchmark.fullrouting.sharding.delete.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.sharding.insert.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.sharding.update.sql") +  ";\r\n";
         BenchmarkResultBean jdbcFullRoutingShardingInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingInsertupdatedeleteResult, jdbcInsertUpdateDeleteSQL, "Sharding", "MYSQL", "fullrouting", "Insert+Update+delete");
-        System.out.println(jdbcFullRoutingShardingInsertupdatedeleteResult.toString());
+        System.out.println(jdbcFullRoutingShardingInsertupdatedeleteResult.toString());*/
         
         String proxyFullRoutingShardingSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.sharding.select.result");
         Map proxyFullRoutingShardingSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingShardingSelectResultPath);
@@ -143,9 +143,9 @@ public class BenchmarkFullroutingStatistic {
         String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.sharding.select.sql");
         BenchmarkResultBean jdbcFullRoutingShardingSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingSelectResult, jdbcSelectSql, "Sharding", "MYSQL", "fullrouting", "Select");
         System.out.println(jdbcFullRoutingShardingSelectResult.toString());
-        fullRoutingResult.add(proxyFullRoutingShardingInsertupdatedeleteResultBean);
+/*        fullRoutingResult.add(proxyFullRoutingShardingInsertupdatedeleteResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingShardingInsertupdatedeleteResultBean);
-        fullRoutingResult.add(jdbcFullRoutingShardingInsertupdatedeleteResultBean);
+        fullRoutingResult.add(jdbcFullRoutingShardingInsertupdatedeleteResultBean);*/
         fullRoutingResult.add(proxyFullRoutingShardingSelectResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingShardingSelectResultBean);
         fullRoutingResult.add(jdbcFullRoutingShardingSelectResultBean);
@@ -155,7 +155,7 @@ public class BenchmarkFullroutingStatistic {
      *
      */
     public static void calculateFullroutingShardingMasterslaveEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion) {
-        String proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.shardingmasterslaveencrypt.insertupdatedelete.result");
+/*        String proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.shardingmasterslaveencrypt.insertupdatedelete.result");
         Map proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath);
         String ssInsertUpdateDeleteSQL = (String)sqlConfig.get("ss.benchmark.fullrouting.shardingmasterslaveencrypt.delete.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.shardingmasterslaveencrypt.insert.sql") + ";\r\n" + (String)sqlConfig.get("ss.benchmark.fullrouting.shardingmasterslaveencrypt.update.sql") +  ";\r\n";
         BenchmarkResultBean proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion,proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult, ssInsertUpdateDeleteSQL, "Sharding+Master+Slave+Encrypt", "ShardingProxy", "fullrouting", "Insert+Update+delete");
@@ -170,7 +170,7 @@ public class BenchmarkFullroutingStatistic {
         Map jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath);
         String jdbcInsertUpdateDeleteSQL = (String)sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.delete.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.insert.sql") + ";\r\n" + (String)sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.update.sql") +  ";\r\n";
         BenchmarkResultBean jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult, jdbcInsertUpdateDeleteSQL, "Sharding+Master+Slave+Encrypt", "MYSQL", "fullrouting", "Insert+Update+delete");
-        System.out.println(jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.toString());
+        System.out.println(jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.toString());*/
         
         String proxyFullRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.shardingmasterslaveencrypt.select.result");
         Map proxyFullRoutingShardingMasterSlaveEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingShardingMasterSlaveEncryptSelectResultPath);
@@ -188,9 +188,9 @@ public class BenchmarkFullroutingStatistic {
         String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.select.sql");
         BenchmarkResultBean jdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingMasterSlaveEncryptSelectResult, jdbcSelectSql, "Sharding+Master+Slave+Encrypt", "MYSQL", "fullrouting", "Select");
         System.out.println(jdbcFullRoutingShardingMasterSlaveEncryptSelectResult.toString());
-        fullRoutingResult.add(proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean);
+/*        fullRoutingResult.add(proxyFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean);
-        fullRoutingResult.add(jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean);
+        fullRoutingResult.add(jdbcFullRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultBean);*/
         fullRoutingResult.add(proxyFullRoutingShardingMasterSlaveEncryptSelectResultBean);
         fullRoutingResult.add(shardingjdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean);
         fullRoutingResult.add(jdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean);
