@@ -9,10 +9,13 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 public class JMeterJDBCCommonShardingInsert extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
+    public Random r = new Random(1);
+    public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
 
     static {
         dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.sharding.ds0.datasource"),
@@ -31,8 +34,8 @@ public class JMeterJDBCCommonShardingInsert extends JMeterBenchmarkBase {
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.jdbc.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("common.jdbc.insert.values"));
-            insertRecords(connection, insertSql, insertParams);
+            List insertParams = convertParams((List) sqlConfig.get("common.jdbc.insert.values"), r.nextInt(tableCount));
+            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
