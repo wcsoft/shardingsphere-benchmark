@@ -29,7 +29,7 @@ public class JDBCDataSourceUtil {
         config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s?useSSL=false&serverTimezone=UTC&useServerPrepStmts=true&cachePrepStmts=true", host, port, dataSourceName));
         config.setUsername(userName);
         config.setPassword(password);
-        config.setMaximumPoolSize(400);
+        config.setMaximumPoolSize(200);
         config.setConnectionTimeout(30000);
         config.setIdleTimeout(60000);
         config.setMaxLifetime(1800000);
