@@ -58,7 +58,7 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: press_test_${0..3}.sbtest${0..1023}
+      actualDataNodes: press_test_${0..3}.sbtest${0..99}
       databaseStrategy:
         inline:
           shardingColumn: id
@@ -69,6 +69,6 @@ shardingRule:
       tableStrategy:
         inline:
           shardingColumn: k
-          algorithmExpression: sbtest${k % 1024}
+          algorithmExpression: sbtest${k % 100}
   bindingTables:
     - sbtest
