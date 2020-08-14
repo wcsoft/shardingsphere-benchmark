@@ -157,7 +157,9 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
             for (int i = 0; i < values.size(); i++) {
                 if (values.get(i) instanceof Integer) {
                     sqlValues.add(counter);
-                } else {
+                } else if(values.get(i) instanceof String){
+                    sqlValues.add((String)values.get(i) + counter);
+                }else {
                     sqlValues.add(values.get(i));
                 }
             }
