@@ -44,7 +44,7 @@ public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptInsertUpdat
             List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values"));
             System.out.println(insertSql);
             System.out.println(insertParams);
-            rs = JDBCDataSourceUtil.insertBatch(connection, insertSql, insertParams);
+            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
             
 /*            rs.next();
             Long id1 = rs.getLong(1);

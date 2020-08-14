@@ -36,25 +36,13 @@ public class JMeterJDBCRangeRoutingShardingInsertUpdateDelete extends JMeterBenc
             String insertSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.insert.values"));
             rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
-            rs.next();
-            Long id1 = rs.getLong(1);
-            rs.next();
-            Long id2 = rs.getLong(1);
-            rs.next();
-            Long id3 = rs.getLong(1);
 
             String updateSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.update.values"));
-            updateParams.add(id1);
-            updateParams.add(id2);
-            updateParams.add(id3);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             String deleteSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.sharding.delete.values"));
-            deleteParams.add(id1);
-            deleteParams.add(id2);
-            deleteParams.add(id3);
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
