@@ -41,8 +41,9 @@ public class JMeterProxySingleRoutingEncryptInsertUpdateDelete extends JMeterBen
             
             String updateSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.values"));
-            JDBCDataSourceUtil.update(connection, updateSql, updateParams);
             updateParams.add(id);
+            JDBCDataSourceUtil.update(connection, updateSql, updateParams);
+            
             
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.values"));

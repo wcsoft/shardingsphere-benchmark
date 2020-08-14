@@ -7,6 +7,7 @@ import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class JMeterProxySingleRoutingShardingInsertUpdateDelete extends JMeterBe
 
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
-
+    
+        ResultSet rs = null;
         SampleResult results = new SampleResult();
         results.setSampleLabel("JMeterProxyFullRoutingEncryptInsert");
         results.sampleStart();
@@ -33,14 +35,18 @@ public class JMeterProxySingleRoutingShardingInsertUpdateDelete extends JMeterBe
 
             String insertSql = (String) sqlConfig.get("ss.benchmark.singlerouting.sharding.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.sharding.insert.values"));
-            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
+            Long id = rs.getLong(1);
 
             String updateSql = (String) sqlConfig.get("ss.benchmark.singlerouting.sharding.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.sharding.update.values"));
+            updateParams.add(id);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.sharding.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.sharding.delete.values"));
+            deleteParams.add(id);
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
