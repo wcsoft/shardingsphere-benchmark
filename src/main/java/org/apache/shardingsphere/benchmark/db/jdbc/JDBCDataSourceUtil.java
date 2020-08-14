@@ -107,6 +107,31 @@ public class JDBCDataSourceUtil {
         
         return result;
     }
+    
+    public static void insertUpdateDelete(Connection conn, String insertSql, List insertParams, String updateSql, List updateParams, String deleteSql, List deleteParams) throws SQLException {
+    
+        ResultSet result = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+    
+        if (conn != null) {
+            preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = setParams(preparedStatement, insertParams);
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+            result = preparedStatement.getGeneratedKeys();
+            preparedStatement = conn.prepareStatement(updateSql);
+            preparedStatement = setParams(preparedStatement, updateParams);
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+    
+            preparedStatement = conn.prepareStatement(deleteSql);
+            preparedStatement = setParams(preparedStatement, deleteParams);
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+            
+        }
+    }
 
 
     /**
