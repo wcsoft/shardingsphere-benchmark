@@ -35,7 +35,7 @@ public class JMeterJDBCRangeRoutingShardingMasterSlaveEncryptInsertUpdateDelete 
 
             String insertSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values"));
-            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
 
             String updateSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.shardingmasterslaveencrypt.update.values"));

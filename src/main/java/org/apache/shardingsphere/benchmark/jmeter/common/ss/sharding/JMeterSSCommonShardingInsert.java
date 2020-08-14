@@ -16,8 +16,9 @@ import java.util.Random;
 
 public class JMeterSSCommonShardingInsert extends JMeterBenchmarkBase {
     public static DataSource dataSource;
-    public Random r = new Random(1);
     public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
+    public int maxNumber = tableCount * 2;
+    public Random r = new Random(tableCount);
 
     static {
         try {
@@ -40,7 +41,7 @@ public class JMeterSSCommonShardingInsert extends JMeterBenchmarkBase {
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(tableCount));
+            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(maxNumber));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
         } catch (SQLException e) {
             results.setSuccessful(false);

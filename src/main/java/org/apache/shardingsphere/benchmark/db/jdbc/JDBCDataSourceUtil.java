@@ -26,7 +26,7 @@ public class JDBCDataSourceUtil {
     public static DataSource initDb(String dataSourceName, String host, int port, String userName, String password) {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.jdbc.Driver");
-        config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s?useSSL=false&serverTimezone=UTC&useServerPrepStmts=true&cachePrepStmts=true&rewriteBatchedStatements=true", host, port, dataSourceName));
+        config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s?useSSL=false&serverTimezone=UTC&useServerPrepStmts=true&cachePrepStmts=true", host, port, dataSourceName));
         config.setUsername(userName);
         config.setPassword(password);
         config.setMaximumPoolSize(200);
@@ -119,7 +119,16 @@ public class JDBCDataSourceUtil {
             preparedStatement = setParams(preparedStatement, insertParams);
             preparedStatement.addBatch();
             preparedStatement.executeBatch();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             result = preparedStatement.getGeneratedKeys();
+            result.next();
+            System.out.println(result.getLong(1));
+            result.next();
+            System.out.println(result.getLong(1));
             preparedStatement = conn.prepareStatement(updateSql);
             preparedStatement = setParams(preparedStatement, updateParams);
             preparedStatement.addBatch();
