@@ -219,7 +219,6 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
     
     public int getInsertCount(String sql){
         String[] strs = sql.split("values");
-        System.out.println(strs[1]);
         return strs[1].split("\\),").length;
     }
     
