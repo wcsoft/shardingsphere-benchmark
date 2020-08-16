@@ -245,10 +245,10 @@ rules:
         type: ROUND_ROBIN
         
 props:
-  max.connections.size.per.query: 200
-  acceptor.size: 200  # The default value is available processors count * 2.
+  max.connections.size.per.query: 600
+  acceptor.size: 200  # The default value is afalsevailable processors count * 2.
   executor.size: 200  # Infinite by default.
   query.with.cipher.column: true
   sql.show: false
-  allow.range.query.with.inline.sharding: false
+  allow.range.query.with.inline.sharding: 
   check.table.metadata.enabled: false        

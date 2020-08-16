@@ -23,7 +23,7 @@ public class BenchmarkResultStatistic {
 
             while((eachJMeterResult = reader.readLine())!=null){
                 totalCount = totalCount + 1;
-                if(totalCount > 1000000){
+                if(totalCount > 20000 && totalCount < 80000){
                     Map eachPerformanceInfo = BenchmarkResultConverter.convertResult(eachJMeterResult);
                     jMeterCostsList.add(eachPerformanceInfo.get("jMeterCost"));
                     jMeterTimeList.add(eachPerformanceInfo.get("jMeterTime"));
@@ -32,7 +32,7 @@ public class BenchmarkResultStatistic {
                     } else {
                         failCount = failCount + 1;
                     }
-                }
+                } 
             }
 
             int concurrentCount = jMeterCostsList.size();

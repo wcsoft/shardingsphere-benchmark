@@ -42,15 +42,19 @@ public class JMeterShardingJDBCSingleRoutingShardingInsertUpdateDelete extends J
 
             String insertSql = (String) sqlConfig.get("ss.benchmark.singlerouting.sharding.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.sharding.insert.values"));
-            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
+            Long id = rs.getLong(1);
 
             String updateSql = (String) sqlConfig.get("ss.benchmark.singlerouting.sharding.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.sharding.update.values"));
+            updateParams.add(id);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.sharding.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.sharding.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            deleteParams.add(id);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

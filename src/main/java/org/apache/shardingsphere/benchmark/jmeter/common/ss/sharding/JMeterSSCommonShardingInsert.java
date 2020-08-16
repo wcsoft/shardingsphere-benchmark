@@ -1,6 +1,5 @@
 package org.apache.shardingsphere.benchmark.jmeter.common.ss.sharding;
 
-import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
@@ -13,9 +12,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 public class JMeterSSCommonShardingInsert extends JMeterBenchmarkBase {
     public static DataSource dataSource;
+    public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
+    public int maxNumber = tableCount * 2;
+    public Random r = new Random(tableCount);
 
     static {
         try {
@@ -38,8 +41,8 @@ public class JMeterSSCommonShardingInsert extends JMeterBenchmarkBase {
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"));
-            insertRecords(connection, insertSql, insertParams);
+            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(maxNumber));
+            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();

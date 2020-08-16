@@ -117,7 +117,7 @@ rules:
         type: SNOWFLAKE
         
 props:
-  max.connections.size.per.query: 200
+  max.connections.size.per.query: 600
   acceptor.size: 200  # The default value is available processors count * 2.
   executor.size: 200  # Infinite by default.
   query.with.cipher.column: true

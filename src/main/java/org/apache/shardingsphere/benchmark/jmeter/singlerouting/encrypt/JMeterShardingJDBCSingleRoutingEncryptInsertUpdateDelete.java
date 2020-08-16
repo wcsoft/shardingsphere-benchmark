@@ -42,15 +42,19 @@ public class JMeterShardingJDBCSingleRoutingEncryptInsertUpdateDelete extends JM
 
             String insertSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.insert.values"));
-            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
-
+            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
+            Long id = rs.getLong(1);
+            
             String updateSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.update.values"));
+            updateParams.add(id);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.encrypt.delete.values"));
-            JDBCDataSourceUtil.delete(connection, updateSql, updateParams);
+            deleteParams.add(id);
+            JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
         } catch (SQLException e) {

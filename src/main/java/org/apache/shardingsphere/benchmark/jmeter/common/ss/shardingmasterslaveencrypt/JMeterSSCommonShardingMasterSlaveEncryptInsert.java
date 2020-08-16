@@ -12,10 +12,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
-    public static int counter;
     public static DataSource dataSource;
+    
+    public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
+    public int maxNumber = tableCount * 2;
+    public Random r = new Random(tableCount);
 
     static {
         try {
@@ -29,7 +33,6 @@ public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchm
 
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
-
         SampleResult results = new SampleResult();
         results.setSampleLabel("SJPerformanceMSInsert");
         results.sampleStart();
@@ -38,9 +41,8 @@ public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchm
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), counter);
+            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(maxNumber));
             JDBCDataSourceUtil.insert(connection, insertSql,insertParams);
-            counter++;
             //insertRecords(connection, insertSql, insertParams);
         } catch (SQLException e) {
             results.setSuccessful(false);

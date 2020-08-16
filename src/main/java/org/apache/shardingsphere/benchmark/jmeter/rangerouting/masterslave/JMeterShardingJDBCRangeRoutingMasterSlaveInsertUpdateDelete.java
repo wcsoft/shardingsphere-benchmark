@@ -42,14 +42,25 @@ public class JMeterShardingJDBCRangeRoutingMasterSlaveInsertUpdateDelete extends
 
             String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.masterslave.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.masterslave.insert.values"));
-            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+    
+    
+            String insertSqlBatch = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");
+            int insertCount = getInsertCount(insertSqlBatch);
+/*           
+            List insertBatchParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values"));
+            rs = JDBCDataSourceUtil.insert(connection, insertSqlBatch, insertParams);
+            List batchIds = batchInsert(rs, insertCount);*/
+            List batchIds = batchInsert(insertCount, connection, insertSql, insertParams);
+
 
             String updateSql = (String) sqlConfig.get("ss.benchmark.rangerouting.masterslave.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.masterslave.update.values"));
+            updateParams = appendIds(batchIds, updateParams);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.rangerouting.masterslave.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.masterslave.delete.values"));
+            deleteParams = appendIds(batchIds, deleteParams);
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 
             results.setSuccessful(true);
