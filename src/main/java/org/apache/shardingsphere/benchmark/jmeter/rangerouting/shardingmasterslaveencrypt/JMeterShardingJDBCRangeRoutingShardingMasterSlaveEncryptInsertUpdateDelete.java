@@ -40,16 +40,26 @@ public class JMeterShardingJDBCRangeRoutingShardingMasterSlaveEncryptInsertUpdat
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values"));
+            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql.single");
+            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values.single"));
             rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
+            Long id1 = rs.getLong(1);
+    
+            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
+            Long id2 = rs.getLong(1);
             
             String updateSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.sql");
             List updateParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.update.values"));
+            updateParams.add(id1);
+            updateParams.add(id2);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
             String deleteSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.sql");
             List deleteParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.delete.values"));
+            deleteParams.add(id1);
+            deleteParams.add(id2);           
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
     
             //JDBCDataSourceUtil.insertUpdateDelete(connection, insertSql, insertParams, updateSql,updateParams,deleteSql,deleteParams);
