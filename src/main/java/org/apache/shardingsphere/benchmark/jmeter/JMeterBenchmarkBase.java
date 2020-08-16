@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -214,6 +215,38 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public int getInsertCount(String sql){
+        String[] strs = sql.split("values");
+        System.out.println(strs[1]);
+        return strs[1].split("\\),").length;
+    }
+    
+    public List<Long> batchInsert(ResultSet rs, int count) throws SQLException {
+        List<Long> ids = new ArrayList<Long>(count);
+        for(int i = 0; i < count; i++){
+            ids.add(rs.getLong(1));
+        }
+        return ids;
+    }
+    
+    public List<Long> batchInsert(int count, Connection connection, String insertSql, List insertParams) throws SQLException {
+        ResultSet rs = null;
+        List<Long> ids = new ArrayList<Long>(count);
+        for(int i = 0; i < count; i++){
+            rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            ids.add(rs.getLong(1));
+        }
+        return ids;
+    }
+    
+    public List appendIds(List ids, List params){
+        for (int i = 0; i < ids.size(); i++){
+            params.add(ids.get(i));
+        }
+        
+        return params;
     }
 }
 
