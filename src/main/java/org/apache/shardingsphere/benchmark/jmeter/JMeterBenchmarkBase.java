@@ -236,6 +236,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         List<Long> ids = new ArrayList<Long>(count);
         for(int i = 0; i < count; i++){
             rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
             ids.add(rs.getLong(1));
         }
         return ids;
