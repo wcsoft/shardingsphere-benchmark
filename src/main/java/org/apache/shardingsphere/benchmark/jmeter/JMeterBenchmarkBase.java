@@ -147,7 +147,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         try {
             while ((line = br.readLine()) != null) {
                 initDbSqlList.add(line);
-                System.out.println(line);
+                //System.out.println(line);
             }
         } catch(IOException exception){
             exception.printStackTrace();
