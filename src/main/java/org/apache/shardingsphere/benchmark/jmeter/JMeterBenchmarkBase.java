@@ -119,7 +119,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
     public static void initBenchmarkResultPath() {
         Properties dbConfigProp = new Properties();
         try {
-            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result-path.properties");
+            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             dbConfigProp.load(in);
             Iterator<String> it = dbConfigProp.stringPropertyNames().iterator();

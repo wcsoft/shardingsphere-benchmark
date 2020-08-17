@@ -108,7 +108,7 @@ public class JMeterBenchmarkUtil {
         Properties dbConfigProp = new Properties();
         Map benchmarkResultPath = new HashMap<>();
         try {
-            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result-path.properties");
+            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             dbConfigProp.load(in);
             Iterator<String> it = dbConfigProp.stringPropertyNames().iterator();
