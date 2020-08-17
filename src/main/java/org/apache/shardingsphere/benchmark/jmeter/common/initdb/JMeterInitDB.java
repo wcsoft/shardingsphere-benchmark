@@ -29,12 +29,38 @@ public class JMeterInitDB extends JMeterBenchmarkBase {
             initDb((String) dbConfig.get("benchmark.init.db2.host"), createdDatabaseName, createTableName, tableCount);
             initDb((String) dbConfig.get("benchmark.init.db3.host"), createdDatabaseName, createTableName, tableCount);
             initDb((String) dbConfig.get("benchmark.init.db4.host"), createdDatabaseName, createTableName, tableCount);
+            initBenchmarkDb((String)dbConfig.get("benchmark.result.host"), (String)dbConfig.get("benchmark.result.datasource"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
             results.sampleEnd();
         }
         return results;
+    }
+    
+    public void initBenchmarkDb(String host, String createdResultDatabaseName){
+        String createdDatabaseSql = initDbSqlList.get(2);
+        String createdResultTableSql = initDbSqlList.get(3);
+    
+        DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+        Connection connection1 = null;
+        try {
+            connection1 = dataSource1.getConnection();
+            Statement stat1 = connection1.createStatement();
+            stat1.executeUpdate(createdDatabaseSql);
+            stat1.close();
+            connection1.close();
+    
+            DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdResultDatabaseName, host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+            Connection createdConnection1 = createdDataSource1.getConnection();
+            Statement createdStat1 = createdConnection1.createStatement();
+            createdStat1.executeUpdate(createdResultTableSql);
+            createdStat1.close();
+            createdConnection1.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+        }
     }
     
     public void initDb(String host, String createdDatabaseName, String createdTableName, int tableCount) throws SQLException {
