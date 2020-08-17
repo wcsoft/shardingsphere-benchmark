@@ -48,10 +48,7 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         updateBenchmarkRecordInDb(fullRoutingResult);
         updateBenchmarkRecordInDb(rangeRoutingResult);
         updateBenchmarkRecordInDb(singleRoutingResult);
-        
-        
-        
-        
+
         results.sampleEnd();
         return results;
     }
