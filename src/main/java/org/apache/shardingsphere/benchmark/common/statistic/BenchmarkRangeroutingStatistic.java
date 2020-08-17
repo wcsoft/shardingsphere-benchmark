@@ -180,6 +180,7 @@ public class BenchmarkRangeroutingStatistic {
         
         String shardingjdbcRangeRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingjdbc.rangerouting.shardingmasterslaveencrypt.select.result");
         Map shardingjdbcRangeRoutingShardingMasterSlaveEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(shardingjdbcRangeRoutingShardingMasterSlaveEncryptSelectResultPath, skipBegin, skipEnd);
+        System.out.println(ssSelectSql);
         BenchmarkResultBean shardingjdbcRangeRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcRangeRoutingShardingMasterSlaveEncryptSelectResult, ssSelectSql, "Sharding+Master+Slave+Encrypt", "ShardingJDBC", "RangeRouting", "Select");
         //System.out.println(shardingjdbcRangeRoutingShardingMasterSlaveEncryptSelectResult.toString());
         
