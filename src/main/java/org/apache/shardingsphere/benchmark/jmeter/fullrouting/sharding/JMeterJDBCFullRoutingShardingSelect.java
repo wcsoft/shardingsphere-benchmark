@@ -3,14 +3,12 @@ package org.apache.shardingsphere.benchmark.jmeter.fullrouting.sharding;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
-import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingConfigType;
-import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingJDBCDataSourceFactory;
 import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JMeterJDBCFullRoutingShardingSelect extends JMeterBenchmarkBase {
 
@@ -33,7 +31,8 @@ public class JMeterJDBCFullRoutingShardingSelect extends JMeterBenchmarkBase {
         try {
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.sharding.select.sql");
-            JDBCDataSourceUtil.select(connection, selectSql, null);
+            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.fullrouting.sharding.select.values"));
+            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
