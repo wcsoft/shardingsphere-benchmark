@@ -171,7 +171,7 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: ms_ds_${0..3}.sbtest${0..99}
+      actualDataNodes: ms_ds_${0..3}.sbtest${0..1}
       databaseStrategy:
         inline:
           shardingColumn: id
@@ -182,7 +182,7 @@ shardingRule:
       tableStrategy:
         inline:
           shardingColumn: k
-          algorithmExpression: sbtest${k % 100}
+          algorithmExpression: sbtest${k % 2}
   bindingTables:
     - sbtest
 

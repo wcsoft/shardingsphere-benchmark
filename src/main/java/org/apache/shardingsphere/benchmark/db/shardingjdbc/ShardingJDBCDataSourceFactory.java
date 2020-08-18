@@ -21,7 +21,10 @@ public class ShardingJDBCDataSourceFactory {
     private static final String SINGLEROUTIN_MASTERSLAVE_SHARDINGJDBC_CONFIG_PATH = "/yaml/singlerouting/masterslave/shardingjdbc/config-shardingjdbc-singlerouting-masterslave.yaml";
     private static final String SINGLEROUTIN_SHARDING_SHARDINGJDBC_CONFIG_PATH = "/yaml/singlerouting/sharding/shardingjdbc/config-shardingjdbc-singlerouting-sharding.yaml";
     private static final String SINGLEROUTIN_SHARDING_SHARDINGMASTERSLAVEENCRYPT_CONFIG_PATH = "/yaml/singlerouting/sharding-masterslave-encrypt/shardingjdbc/config-shardingjdbc-singlerouting-sharding-masterslave-encrypt.yaml";
+    private static final String FULLROUTING_SMALLSHARDS_SHARDING_SHARDINGJDBC_CONFIG_PATH = "/yaml/fullrouting-smallshards/sharding/shardingjdbc/config-shardingjdbc-fullrouting-smallshards-sharding.yaml";
+    private static final String FULLROUTING_SMALLSHARDS_SHARDING_MASTERSLAVE_ENCRYPT_SHARDINGJDBC_CONFIG_PATH = "/yaml/fullrouting-smallshards/sharding-masterslave-encrypt/shardingjdbc/config-shardingjdbc-fullrouting-smallshards-sharding-masterslave-encrypt.yaml";
 
+    
     public static DataSource newInstance(ShardingConfigType shardingConfigType) throws IOException, SQLException {
         switch (shardingConfigType) {
             case FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG:
@@ -60,6 +63,12 @@ public class ShardingJDBCDataSourceFactory {
             case SINGLEROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG:
                 return YamlShardingDataSourceFactory.createDataSource
                         (getFileContents(SINGLEROUTIN_SHARDING_SHARDINGMASTERSLAVEENCRYPT_CONFIG_PATH));
+            case FULLROUTING_SMALLSHARDS_SHARDING_SHARDINGJDBC_CONFIG:
+                return YamlShardingDataSourceFactory.createDataSource
+                        (getFileContents(FULLROUTING_SMALLSHARDS_SHARDING_SHARDINGJDBC_CONFIG_PATH));
+            case FULLROUTING_SMALLSHARDS_SHARDING_MASTERSLAVE_ENCRYPT_SHARDINGJDBC_CONFIG:
+                return YamlShardingDataSourceFactory.createDataSource
+                        (getFileContents(FULLROUTING_SMALLSHARDS_SHARDING_MASTERSLAVE_ENCRYPT_SHARDINGJDBC_CONFIG_PATH));
             default:
                 throw new UnsupportedOperationException(shardingConfigType.name());
         }
