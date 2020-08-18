@@ -34,7 +34,8 @@ public class BenchmarkExcelWriter {
         CELL_HEADS.add("数据库操作");
         CELL_HEADS.add("产品");
         CELL_HEADS.add("TPS");
-        CELL_HEADS.add("并发量");
+        CELL_HEADS.add("并发数");
+        CELL_HEADS.add("采样总量");
         CELL_HEADS.add("最大耗时");
         CELL_HEADS.add("最小耗时");
         CELL_HEADS.add("SQL");
@@ -145,6 +146,8 @@ public class BenchmarkExcelWriter {
         Map benchmarkResult = data.getBenchmarkResult();
         cell = row.createCell(cellNum++);
         cell.setCellValue((double)benchmarkResult.get("tps"));
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getConcurrency());
         cell = row.createCell(cellNum++);
         cell.setCellValue((int)benchmarkResult.get("total"));
         cell = row.createCell(cellNum++);

@@ -11,10 +11,11 @@ public class BenchmarkResultBean {
     public String product;
     public String scenario;
     public String dbAction;
+    public int concurrency;
     
     public BenchmarkResultBean(){}
     
-    public BenchmarkResultBean(String version, Map benchmarkResult, String sql, String rules, String product, String scenario, String dbAction){
+    public BenchmarkResultBean(String version, Map benchmarkResult, String sql, String rules, String product, String scenario, String dbAction, int concurrency){
         this.benchmarkResult = benchmarkResult;
         this.sql = sql;
         this.rules = rules;
@@ -22,6 +23,7 @@ public class BenchmarkResultBean {
         this.scenario = scenario;
         this.dbAction = dbAction;
         this.version = version;
+        this.concurrency = concurrency;
     }
     
     public void setVersion(String version){
@@ -78,6 +80,14 @@ public class BenchmarkResultBean {
     
     public String getDbAction(){
         return this.dbAction;
+    }
+    
+    public void setConcurrency(int concurrency){
+        this.concurrency = concurrency;
+    }
+    
+    public int getConcurrency(){
+        return this.concurrency;
     }
     
     

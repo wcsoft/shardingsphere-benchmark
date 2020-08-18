@@ -36,13 +36,14 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         SampleResult results = new SampleResult();
         results.setSampleLabel("JMeterSSBenchmarkStatistic");
         results.sampleStart();
+        int concurrency = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.concurrency")).intValue();
         int skipBegin = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.skip.begin")).intValue();
         int skipEnd = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.skip.end")).intValue();
         String currentTime = String.valueOf(System.currentTimeMillis());
         
-        List<BenchmarkResultBean> fullRoutingResult = BenchmarkFullroutingStatistic.calculateFullroutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd);
-        List<BenchmarkResultBean> rangeRoutingResult = BenchmarkRangeroutingStatistic.calculateRangeRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd);
-        List<BenchmarkResultBean> singleRoutingResult = BenchmarkSingleroutingStatistic.calculateSingleRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd);
+        List<BenchmarkResultBean> fullRoutingResult = BenchmarkFullroutingStatistic.calculateFullroutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency);
+        List<BenchmarkResultBean> rangeRoutingResult = BenchmarkRangeroutingStatistic.calculateRangeRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency);
+        List<BenchmarkResultBean> singleRoutingResult = BenchmarkSingleroutingStatistic.calculateSingleRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency);
     
         updateBenchmarkRecordInDb(fullRoutingResult);
         updateBenchmarkRecordInDb(rangeRoutingResult);
@@ -190,7 +191,7 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                 totalMinTime = totalMinTime + rs.getDouble(12);
                 benchmarkResultBean.setSql(rs.getString(13));
                 benchmarkResultBean.setDbAction(rs.getString(14));
-                
+                benchmarkResultBean.setConcurrency(rs.getInt(15));
             }
             
             if (totalCount == 0){
