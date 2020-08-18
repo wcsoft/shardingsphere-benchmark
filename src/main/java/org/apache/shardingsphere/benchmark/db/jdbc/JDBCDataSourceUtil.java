@@ -199,15 +199,17 @@ public class JDBCDataSourceUtil {
      * @param conn
      * @param selectSql
      */
-    public static void select(Connection conn, String selectSql, List params) throws SQLException {
+    public static ResultSet select(Connection conn, String selectSql, List params) throws SQLException {
 
+        ResultSet rs = null;
         PreparedStatement preparedStatement=null;
 
         if(conn != null){
             preparedStatement = conn.prepareStatement(selectSql);
             preparedStatement = setParams(preparedStatement, params);
-            preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
         }
+        return rs;
 
 /*        if(preparedStatement != null && !preparedStatement.isClosed()){
             preparedStatement.close();
