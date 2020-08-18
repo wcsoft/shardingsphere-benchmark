@@ -126,9 +126,7 @@ public class JDBCDataSourceUtil {
             }
             result = preparedStatement.getGeneratedKeys();
             result.next();
-            System.out.println(result.getLong(1));
             result.next();
-            System.out.println(result.getLong(1));
             preparedStatement = conn.prepareStatement(updateSql);
             preparedStatement = setParams(preparedStatement, updateParams);
             preparedStatement.addBatch();

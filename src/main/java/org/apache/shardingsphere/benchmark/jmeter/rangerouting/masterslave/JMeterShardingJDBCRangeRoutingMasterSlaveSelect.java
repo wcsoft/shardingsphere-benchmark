@@ -39,8 +39,6 @@ public class JMeterShardingJDBCRangeRoutingMasterSlaveSelect extends JMeterBench
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("ss.benchmark.rangerouting.masterslave.select.sql");
             List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.masterslave.select.values"));
-            System.out.println(selectSql);
-            System.out.println(selectParams.toString());
             JDBCDataSourceUtil.select(connection, selectSql, selectParams);
             results.setSuccessful(true);
         } catch (SQLException e) {

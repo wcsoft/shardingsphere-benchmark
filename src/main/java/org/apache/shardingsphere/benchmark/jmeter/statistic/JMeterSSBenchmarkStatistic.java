@@ -56,28 +56,16 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.shardingjdbc.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.proxy.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.mysql.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.shardingjdbc.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.proxy.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.mysql.insertupdatedelete.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.shardingjdbc.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.proxy.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.mysql.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.shardingjdbc.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.proxy.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.mysql.insertupdatedelete.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.shardingjdbc.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.proxy.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.mysql.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.shardingjdbc.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.proxy.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.mysql.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params));
+       fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.proxy.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.mysql.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.shardingjdbc.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), params));
-        
+      
         rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.shardingjdbc.select.sql"), params));
         rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.proxy.select.sql"), params));
         rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.mysql.select.sql"), params));
@@ -191,6 +179,7 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             connection = dataSource.getConnection();
             ResultSet rs = JDBCDataSourceUtil.select(connection, sql, params);
             while(rs.next()){
+                totalCount =  totalCount + 1;
                 benchmarkResultBean.setProduct(rs.getString(2));
                 benchmarkResultBean.setVersion(rs.getString(3));
                 benchmarkResultBean.setScenario(rs.getString(4));
@@ -201,9 +190,12 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                 totalMinTime = totalMinTime + rs.getDouble(12);
                 benchmarkResultBean.setSql(rs.getString(13));
                 benchmarkResultBean.setDbAction(rs.getString(14));
-                totalCount =  totalCount + 1;
+                
             }
             
+            if (totalCount == 0){
+                totalCount = 1;
+            }
             Map benchmarkPerformanceData = new HashMap<>();
             benchmarkPerformanceData.put("tps", totalTps / totalCount);
             benchmarkPerformanceData.put("total" , totalRequestCount / totalCount);
