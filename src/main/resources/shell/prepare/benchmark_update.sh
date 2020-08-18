@@ -6,7 +6,6 @@ if [ -f ./ss_build_version.log ]; then
 fi
 echo $1 > ./ss_build_version.log
 sleep 2s
-sed -i "s/ss.benchmark.version=[^0-9.]*\([0-9.]*\)\([0-9.]*\)./ss.benchmark.version=$1/g" `grep 'ss.benchmark.version=[^0-9.]*\([0-9.]*\)\([0-9.]*\)' -rl /export/benchmark/shardingsphere-benchmark/src/main/resources/config/benchmark-version.properties`
 
 ss_version=`head -n +1 ./ss_build_version.log`
 
@@ -23,3 +22,6 @@ else
   git reset --hard origin/master
   git pull origin master
 fi
+
+sed -i "s/ss.benchmark.version=[^0-9.]*\([0-9.]*\)\([0-9.]*\)./ss.benchmark.version=$1/g" `grep 'ss.benchmark.version=[^0-9.]*\([0-9.]*\)\([0-9.]*\)' -rl /export/benchmark/shardingsphere-benchmark/src/main/resources/config/benchmark-version.properties`
+
