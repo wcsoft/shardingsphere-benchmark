@@ -33,7 +33,7 @@ public class JMeterProxySingleRoutingShardingMasterSlaveEncryptSelect extends JM
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.sql");
             List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.singlerouting.shardingmasterslaveencrypt.select.values"));
-            JDBCDataSourceUtil.select(connection, selectSql, null);
+            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);

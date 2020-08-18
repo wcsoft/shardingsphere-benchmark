@@ -1,4 +1,11 @@
+chmod -R 777 /export/benchmark/shardingsphere-benchmark
 cd /export/benchmark/shardingsphere-benchmark
+
+if [ -f ./ss_build_version.log ]; then
+  rm ./ss_build_version.log
+fi
+echo $1 > ./ss_build_version.log
+sleep 2s
 
 ss_version=`head -n +1 ./ss_build_version.log`
 
@@ -15,3 +22,6 @@ else
   git reset --hard origin/master
   git pull origin master
 fi
+
+sed -i "s/ss.benchmark.version=[^0-9.]*\([0-9.]*\)\([0-9.]*\)./ss.benchmark.version=$1/g" `grep 'ss.benchmark.version=[^0-9.]*\([0-9.]*\)\([0-9.]*\)' -rl /export/benchmark/shardingsphere-benchmark/src/main/resources/config/benchmark-version.properties`
+

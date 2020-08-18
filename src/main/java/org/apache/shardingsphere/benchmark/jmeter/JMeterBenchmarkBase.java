@@ -7,6 +7,7 @@ import org.apache.shardingsphere.benchmark.common.PropertiesUtil;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -24,6 +25,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
     public static Map sqlConfig = new HashMap<>();
     public static Map dbConfig = new HashMap<>();
     public static Map benchmarkResultPath = new HashMap<>();
+    public static List<String> initDbSqlList = new ArrayList<String>();
     public static String benchmarkVersion;
 
     static {
@@ -31,6 +33,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         initDbConfig();
         initBenchmarkResultPath();
         initBenchmarkVersion();
+        initDbSqls();
     }
 
     /**
@@ -119,7 +122,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
     public static void initBenchmarkResultPath() {
         Properties dbConfigProp = new Properties();
         try {
-            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result-path.properties");
+            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark-result.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             dbConfigProp.load(in);
             Iterator<String> it = dbConfigProp.stringPropertyNames().iterator();
@@ -133,6 +136,30 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    public static void initDbSqls(){
+        
+        InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark.sql");
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String line = "";
+        try {
+            while ((line = br.readLine()) != null) {
+                initDbSqlList.add(line);
+            }
+        } catch(IOException exception){
+            exception.printStackTrace();
+        } catch (Exception exception){
+            exception.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+
     }
 
 
@@ -219,7 +246,6 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
     
     public int getInsertCount(String sql){
         String[] strs = sql.split("values");
-        System.out.println(strs[1]);
         return strs[1].split("\\),").length;
     }
     
@@ -236,6 +262,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         List<Long> ids = new ArrayList<Long>(count);
         for(int i = 0; i < count; i++){
             rs = JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            rs.next();
             ids.add(rs.getLong(1));
         }
         return ids;

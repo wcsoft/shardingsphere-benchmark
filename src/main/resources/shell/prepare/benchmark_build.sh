@@ -22,3 +22,5 @@ scp -r ss_build_version.log jenkins@ss.benchmark.performance.machine:/home/jenki
 scp -r ss_build_version.log jenkins@ss.benchmark.proxy.machine:/home/jenkins/BT_jenkins
 
 scp -r src/main/resources/shell/prepare/jmeter_result_manage.sh jenkins@ss.benchmark.performance.machine:/export/shardingsphere-benchmark/shell
+
+scp -r src/main/resources/shell/performance/update_performance_basedata_volume_fullrouting.sh jenkins@ss.benchmark.performance.machine:/export/shardingsphere-benchmark/shell

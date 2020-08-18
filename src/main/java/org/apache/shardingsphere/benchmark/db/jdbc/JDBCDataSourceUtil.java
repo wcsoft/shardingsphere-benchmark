@@ -73,7 +73,7 @@ public class JDBCDataSourceUtil {
 
         ResultSet result = null;
         Connection connection = null;
-        PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement = null;
 
         if(conn != null){
             preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
@@ -86,6 +86,58 @@ public class JDBCDataSourceUtil {
         }*/
 
         return result;
+    }
+    
+    public static ResultSet insertBatch(Connection conn, String insertSql, List params) throws SQLException {
+        
+        ResultSet result = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        
+        if(conn != null){
+            preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = setParams(preparedStatement, params);
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+            result = preparedStatement.getGeneratedKeys();
+        }
+        /*if(preparedStatement != null && !preparedStatement.isClosed()){
+            preparedStatement.close();
+        }*/
+        
+        return result;
+    }
+    
+    public static void insertUpdateDelete(Connection conn, String insertSql, List insertParams, String updateSql, List updateParams, String deleteSql, List deleteParams) throws SQLException {
+    
+        ResultSet result = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+    
+        if (conn != null) {
+            preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = setParams(preparedStatement, insertParams);
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            result = preparedStatement.getGeneratedKeys();
+            result.next();
+            result.next();
+            preparedStatement = conn.prepareStatement(updateSql);
+            preparedStatement = setParams(preparedStatement, updateParams);
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+    
+            preparedStatement = conn.prepareStatement(deleteSql);
+            preparedStatement = setParams(preparedStatement, deleteParams);
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+            
+        }
     }
 
 
@@ -146,19 +198,21 @@ public class JDBCDataSourceUtil {
      * @param selectSql
      */
     public static ResultSet select(Connection conn, String selectSql, List params) throws SQLException {
-        ResultSet result = null;
+
+        ResultSet rs = null;
         PreparedStatement preparedStatement=null;
 
         if(conn != null){
             preparedStatement = conn.prepareStatement(selectSql);
             preparedStatement = setParams(preparedStatement, params);
-            preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
         }
+        return rs;
 
-        /*if(preparedStatement != null && !preparedStatement.isClosed()){
+/*        if(preparedStatement != null && !preparedStatement.isClosed()){
             preparedStatement.close();
         }*/
-        return result;
+
 
     }
 

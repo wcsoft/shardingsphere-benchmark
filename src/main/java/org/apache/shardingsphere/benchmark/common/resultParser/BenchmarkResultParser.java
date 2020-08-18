@@ -5,7 +5,7 @@ import java.util.*;
 
 public class BenchmarkResultParser {
 
-    public static Map benchmarkStatistic(String filePath) {
+    public static Map benchmarkStatistic(String filePath, int skipBegin, int skipEnd) {
         FileInputStream fileStream = null;
 
         int failCount = 0;
@@ -24,7 +24,7 @@ public class BenchmarkResultParser {
             while ((eachJMeterResult = reader.readLine()) != null) {
                 totalCount = totalCount + 1;
                 // if (totalCount > 1000000) {
-                if (totalCount > 1000000) {
+                if (totalCount > skipBegin && totalCount < skipEnd) {
                     Map eachPerformanceInfo = BenchmarkResultRowParser.convertResult(eachJMeterResult);
                     jMeterCostsList.add(eachPerformanceInfo.get("jMeterCost"));
                     jMeterTimeList.add(eachPerformanceInfo.get("jMeterTime"));
