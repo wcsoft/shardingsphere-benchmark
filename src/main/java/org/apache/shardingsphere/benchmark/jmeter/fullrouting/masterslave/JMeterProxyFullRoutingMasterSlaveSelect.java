@@ -8,7 +8,6 @@ import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class JMeterProxyFullRoutingMasterSlaveSelect extends JMeterBenchmarkBase {
 
@@ -30,8 +29,8 @@ public class JMeterProxyFullRoutingMasterSlaveSelect extends JMeterBenchmarkBase
         try {
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("ss.benchmark.fullrouting.masterslave.select.sql");
-            List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.masterslave.select.values"));
-            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
+            //List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.masterslave.select.values"));
+            JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);

@@ -8,7 +8,6 @@ import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class JMeterJDBCFullRoutingShardingMasterSlaveEncryptSelect extends JMeterBenchmarkBase {
 
@@ -31,8 +30,8 @@ public class JMeterJDBCFullRoutingShardingMasterSlaveEncryptSelect extends JMete
         try {
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.select.sql");
-            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.select.values"));
-            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
+            //List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.select.values"));
+            JDBCDataSourceUtil.select(connection, selectSql, null);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();
