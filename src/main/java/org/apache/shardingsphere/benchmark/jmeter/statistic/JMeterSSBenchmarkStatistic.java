@@ -54,7 +54,7 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         updateBenchmarkRecordInDb(rangeRoutingResult, benchmarkInsertSql);
         updateBenchmarkRecordInDb(singleRoutingResult, benchmarkInsertSql);
         
-        List params = Arrays.asList(benchmarkVersion, dbShardingCount, tableShardingCount, concurrency);
+        List params = Arrays.asList(benchmarkVersion, tableShardingCount, dbShardingCount, concurrency);
         List<BenchmarkResultBean> fullRoutingCalResult = new ArrayList<BenchmarkResultBean>();
         List<BenchmarkResultBean> rangeRoutingCalResult = new ArrayList<BenchmarkResultBean>();
         List<BenchmarkResultBean> singleRoutingCalResult = new ArrayList<BenchmarkResultBean>();
@@ -122,9 +122,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), params));
         singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), params));
     
-        updateBenchmarkRecordInDb(fullRoutingResult, benchmarkAvgInsertSql);
-        updateBenchmarkRecordInDb(rangeRoutingResult, benchmarkAvgInsertSql);
-        updateBenchmarkRecordInDb(singleRoutingResult, benchmarkAvgInsertSql);
+        updateBenchmarkRecordInDb(fullRoutingCalResult, benchmarkAvgInsertSql);
+        updateBenchmarkRecordInDb(rangeRoutingCalResult, benchmarkAvgInsertSql);
+        updateBenchmarkRecordInDb(singleRoutingCalResult, benchmarkAvgInsertSql);
         
         BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "full-routing-" + currentTime, true, 1, fullRoutingResult);
         BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "range-routing-" + currentTime, true, 1, rangeRoutingResult);
@@ -188,6 +188,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             int totalRequestCount = 0;
             double totalMaxTime = 0;
             double totalMinTime = 0;
+            double totalTp95Th = 0;
+            double totalTp90Th = 0;
+            double totalTp50Th = 0;
             
             connection = dataSource.getConnection();
             ResultSet rs = JDBCDataSourceUtil.select(connection, sql, params);
@@ -199,6 +202,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                 benchmarkResultBean.setRules(rs.getString(5));
                 totalTps = totalTps + rs.getDouble(6);
                 totalRequestCount = totalRequestCount + rs.getInt(7);
+                totalTp50Th = totalTp50Th + rs.getDouble(8);
+                totalTp90Th = totalTp50Th + rs.getDouble(9);
+                totalTp95Th = totalTp50Th + rs.getDouble(10);
                 totalMaxTime = totalMaxTime + rs.getDouble(11);
                 totalMinTime = totalMinTime + rs.getDouble(12);
                 benchmarkResultBean.setSql(rs.getString(13));
@@ -217,6 +223,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             benchmarkPerformanceData.put("total" , totalRequestCount / totalCount);
             benchmarkPerformanceData.put("maxCost" , totalMaxTime / totalCount);
             benchmarkPerformanceData.put("minCost" , totalMinTime / totalCount);
+            benchmarkPerformanceData.put("tp50th", totalTp50Th / totalCount);
+            benchmarkPerformanceData.put("tp90th", totalTp90Th / totalCount);
+            benchmarkPerformanceData.put("tp95th", totalTp95Th / totalCount);
             benchmarkResultBean.setBenchmarkResult(benchmarkPerformanceData);
             
         } catch (SQLException throwables) {
