@@ -8,7 +8,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 200
+    maximumPoolSize: 800
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -28,7 +28,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 200
+    maximumPoolSize: 800
     password:
     dataSourceProperties:
       cachePrepStmts: true

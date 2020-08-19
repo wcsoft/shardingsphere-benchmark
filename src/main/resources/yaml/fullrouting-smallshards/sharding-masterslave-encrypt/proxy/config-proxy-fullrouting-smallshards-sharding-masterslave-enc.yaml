@@ -35,7 +35,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
   
@@ -46,7 +46,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   master_ds_1:
@@ -56,7 +56,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   slave_ds_1:
@@ -66,7 +66,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   master_ds_2:
@@ -76,7 +76,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   slave_ds_2:
@@ -86,7 +86,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   master_ds_3:
@@ -96,7 +96,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   slave_ds_3:
@@ -106,7 +106,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 200
+    maxPoolSize: 800
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 
