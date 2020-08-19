@@ -8,7 +8,6 @@ import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Refactor old case test_plan/jdbc_sharding_new/select_one.jmx
@@ -35,15 +34,15 @@ public class JMeterJDBCFullRoutingEncryptSelect extends JMeterBenchmarkBase {
     public SampleResult runTest(JavaSamplerContext context) {
 
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCFullRoutingEncryptSelect");
         results.sampleStart();
         Connection connection = null;
 
         try {
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.select.sql");
-            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.select.values"));
-            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
+            //List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.select.values"));
+            JDBCDataSourceUtil.select(connection, selectSql, null);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();

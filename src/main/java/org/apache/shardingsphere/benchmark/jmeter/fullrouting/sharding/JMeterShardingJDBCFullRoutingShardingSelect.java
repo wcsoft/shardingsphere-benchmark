@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class JMeterShardingJDBCFullRoutingShardingSelect extends JMeterBenchmarkBase {
 
@@ -38,8 +37,8 @@ public class JMeterShardingJDBCFullRoutingShardingSelect extends JMeterBenchmark
         try {
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("ss.benchmark.fullrouting.sharding.select.sql");
-            List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.sharding.select.values"));
-            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
+            //List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.sharding.select.values"));
+            JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);
         } catch (SQLException e) {
             results.setSuccessful(false);
