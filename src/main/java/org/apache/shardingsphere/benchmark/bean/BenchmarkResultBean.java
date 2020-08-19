@@ -12,10 +12,13 @@ public class BenchmarkResultBean {
     public String scenario;
     public String dbAction;
     public int concurrency;
+    public long updateTime;
+    public int dbShardingCount;
+    public int tableShardingCount;
     
     public BenchmarkResultBean(){}
     
-    public BenchmarkResultBean(String version, Map benchmarkResult, String sql, String rules, String product, String scenario, String dbAction, int concurrency){
+    public BenchmarkResultBean(String version, Map benchmarkResult, String sql, String rules, String product, String scenario, String dbAction, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount){
         this.benchmarkResult = benchmarkResult;
         this.sql = sql;
         this.rules = rules;
@@ -24,6 +27,9 @@ public class BenchmarkResultBean {
         this.dbAction = dbAction;
         this.version = version;
         this.concurrency = concurrency;
+        this.updateTime = updateTime;
+        this.dbShardingCount = dbShardingCount;
+        this.tableShardingCount = tableShardingCount;
     }
     
     public void setVersion(String version){
@@ -88,6 +94,30 @@ public class BenchmarkResultBean {
     
     public int getConcurrency(){
         return this.concurrency;
+    }
+    
+    public void setUpdateTime(long updateTime){
+        this.updateTime = updateTime;
+    }
+    
+    public long getUpdateTime(){
+        return this. updateTime;
+    }
+    
+    public void setDbShardingCount(int dbShardingCount){
+        this.dbShardingCount = dbShardingCount;
+    }
+    
+    public int getDbShardingCount(){
+        return this.dbShardingCount;
+    }
+    
+    public void setTableShardingCount(int tableShardingCount){
+        this.tableShardingCount = tableShardingCount;
+    }
+    
+    public int getTableShardingCount(){
+        return this.tableShardingCount;
     }
     
     

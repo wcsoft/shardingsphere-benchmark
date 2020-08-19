@@ -39,17 +39,22 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         int concurrency = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.concurrency")).intValue();
         int skipBegin = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.skip.begin")).intValue();
         int skipEnd = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.skip.end")).intValue();
+        long updateTime = System.currentTimeMillis();
+        int dbShardingCount = Integer.valueOf((String)dbConfig.get("benchmark.db.count")).intValue();
+        int tableShardingCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
+        String benchmarkInsertSql = (String) sqlConfig.get("ss.benchmark.result.insert.sql");
+        String benchmarkAvgInsertSql = (String)sqlConfig.get("ss.benchmark.avg.result.insert.sql");
         String currentTime = String.valueOf(System.currentTimeMillis());
         
-        List<BenchmarkResultBean> fullRoutingResult = BenchmarkFullroutingStatistic.calculateFullroutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency);
-        List<BenchmarkResultBean> rangeRoutingResult = BenchmarkRangeroutingStatistic.calculateRangeRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency);
-        List<BenchmarkResultBean> singleRoutingResult = BenchmarkSingleroutingStatistic.calculateSingleRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency);
+        List<BenchmarkResultBean> fullRoutingResult = BenchmarkFullroutingStatistic.calculateFullroutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
+        List<BenchmarkResultBean> rangeRoutingResult = BenchmarkRangeroutingStatistic.calculateRangeRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
+        List<BenchmarkResultBean> singleRoutingResult = BenchmarkSingleroutingStatistic.calculateSingleRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
     
-        updateBenchmarkRecordInDb(fullRoutingResult);
-        updateBenchmarkRecordInDb(rangeRoutingResult);
-        updateBenchmarkRecordInDb(singleRoutingResult);
+        updateBenchmarkRecordInDb(fullRoutingResult, benchmarkInsertSql);
+        updateBenchmarkRecordInDb(rangeRoutingResult, benchmarkInsertSql);
+        updateBenchmarkRecordInDb(singleRoutingResult, benchmarkInsertSql);
         
-        List params = Arrays.asList(benchmarkVersion);
+        List params = Arrays.asList(benchmarkVersion, dbShardingCount, tableShardingCount, concurrency);
         List<BenchmarkResultBean> fullRoutingCalResult = new ArrayList<BenchmarkResultBean>();
         List<BenchmarkResultBean> rangeRoutingCalResult = new ArrayList<BenchmarkResultBean>();
         List<BenchmarkResultBean> singleRoutingCalResult = new ArrayList<BenchmarkResultBean>();
@@ -116,6 +121,10 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.shardingjdbc.insertupdatedelete.sql"), params));
         singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), params));
         singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), params));
+    
+        updateBenchmarkRecordInDb(fullRoutingResult, benchmarkAvgInsertSql);
+        updateBenchmarkRecordInDb(rangeRoutingResult, benchmarkAvgInsertSql);
+        updateBenchmarkRecordInDb(singleRoutingResult, benchmarkAvgInsertSql);
         
         BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "full-routing-" + currentTime, true, 1, fullRoutingResult);
         BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "range-routing-" + currentTime, true, 1, rangeRoutingResult);
@@ -128,10 +137,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         return results;
     }
     
-    public void updateBenchmarkRecordInDb(List<BenchmarkResultBean> benchMarkResults){
+    public void updateBenchmarkRecordInDb(List<BenchmarkResultBean> benchMarkResults, String sql){
         
         Connection connection = null;
-        String insertSql = (String) sqlConfig.get("ss.benchmark.result.insert.sql");
         
         for(int i = 0; i < benchMarkResults.size(); i++){
             try {
@@ -150,8 +158,12 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                         (double)benchmarkResultBean.getBenchmarkResult().get("maxCost"),
                         (double)benchmarkResultBean.getBenchmarkResult().get("minCost"),
                         benchmarkResultBean.getSql(),
-                        benchmarkResultBean.getDbAction());
-                JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+                        benchmarkResultBean.getDbAction(),
+                        benchmarkResultBean.getConcurrency(),
+                        benchmarkResultBean.getUpdateTime(),
+                        benchmarkResultBean.getTableShardingCount(),
+                        benchmarkResultBean.getDbShardingCount());
+                JDBCDataSourceUtil.insert(connection, sql, insertParams);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } finally {
@@ -192,6 +204,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                 benchmarkResultBean.setSql(rs.getString(13));
                 benchmarkResultBean.setDbAction(rs.getString(14));
                 benchmarkResultBean.setConcurrency(rs.getInt(15));
+                benchmarkResultBean.setUpdateTime(rs.getLong(16));
+                benchmarkResultBean.setDbShardingCount(rs.getInt(17));
+                benchmarkResultBean.setTableShardingCount(rs.getInt(18));
             }
             
             if (totalCount == 0){

@@ -39,6 +39,8 @@ public class BenchmarkExcelWriter {
         CELL_HEADS.add("最大耗时");
         CELL_HEADS.add("最小耗时");
         CELL_HEADS.add("SQL");
+        CELL_HEADS.add("分库数量");
+        CELL_HEADS.add("分表数量");
     }
     
     public static void writeExcel(String excelPath, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList){
@@ -156,5 +158,9 @@ public class BenchmarkExcelWriter {
         cell.setCellValue((double)benchmarkResult.get("minCost"));
         cell = row.createCell(cellNum++);
         cell.setCellValue(data.getSql());
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getDbShardingCount());
+        cell = row.createCell(cellNum++);
+        cell.setCellValue(data.getTableShardingCount());
     }
 }
