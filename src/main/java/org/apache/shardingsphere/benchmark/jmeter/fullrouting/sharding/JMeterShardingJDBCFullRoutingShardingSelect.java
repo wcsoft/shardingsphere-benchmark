@@ -37,7 +37,7 @@ public class JMeterShardingJDBCFullRoutingShardingSelect extends JMeterBenchmark
         try {
             connection = dataSource.getConnection();
             String selectSql = (String) sqlConfig.get("ss.benchmark.fullrouting.sharding.select.sql");
-            System.out.println(selectSql);
+            //System.out.println(selectSql);
             //List selectParams = convertParams((List) sqlConfig.get("ss.benchmark.fullrouting.sharding.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, null);
             results.setSuccessful(true);
