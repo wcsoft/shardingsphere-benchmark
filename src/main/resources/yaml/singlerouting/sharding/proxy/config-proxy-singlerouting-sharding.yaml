@@ -18,7 +18,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 1500
+    maxPoolSize: 200
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 
@@ -29,7 +29,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 1500
+    maxPoolSize: 200
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
   press_test_2:
@@ -39,7 +39,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 1500
+    maxPoolSize: 200
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 
@@ -50,7 +50,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 1500
+    maxPoolSize: 200
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 
@@ -58,11 +58,11 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: press_test_${0..3}.sbtest${0..99}
+      actualDataNodes: press_test_${0..2}.sbtest${0..99}
       databaseStrategy:
         inline:
           shardingColumn: id
-          algorithmExpression: press_test_${id % 4}
+          algorithmExpression: press_test_${id % 3}
       keyGenerator:
         type: SNOWFLAKE
         column: id

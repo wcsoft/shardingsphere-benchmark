@@ -36,7 +36,7 @@ dataSources:
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
-    maxPoolSize: 1500
+    maxPoolSize: 200
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 

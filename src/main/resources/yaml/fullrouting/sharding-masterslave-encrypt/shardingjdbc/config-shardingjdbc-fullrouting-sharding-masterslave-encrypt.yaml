@@ -7,7 +7,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -28,7 +28,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -49,7 +49,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -70,7 +70,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -91,7 +91,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -112,7 +112,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -133,7 +133,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -154,7 +154,7 @@ dataSources:
     connectionTimeout: 30000
     idleTimeout: 60000
     maxLifetime: 1800000
-    maximumPoolSize: 1500
+    maximumPoolSize: 200
     dataSourceProperties:
       cachePrepStmts: true
       prepStmtCacheSize: 250
@@ -171,11 +171,11 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: ms_ds_${0..3}.sbtest${0..99}
+      actualDataNodes: ms_ds_${0..2}.sbtest${0..99}
       databaseStrategy:
         inline:
           shardingColumn: id
-          algorithmExpression: ms_ds_${id % 4}
+          algorithmExpression: ms_ds_${id % 3}
       keyGenerator:
         type: SNOWFLAKE
         column: id
