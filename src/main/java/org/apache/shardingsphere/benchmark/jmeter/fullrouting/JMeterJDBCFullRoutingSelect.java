@@ -25,9 +25,9 @@ public class JMeterJDBCFullRoutingSelect extends JMeterBenchmarkBase {
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.datasource"),
-                (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"),
-                (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.password"));
     }
 
     @Override

@@ -16,9 +16,9 @@ public class JMeterJDBCRangeRoutingInsertUpdateDelete extends JMeterBenchmarkBas
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.datasource"),
-                (String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.port"),
-                (String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.username"), (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.password"));
     }
 
     @Override
@@ -33,8 +33,8 @@ public class JMeterJDBCRangeRoutingInsertUpdateDelete extends JMeterBenchmarkBas
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.insert.values"));
+            String insertSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.insert.values"));
     
     
             String insertSqlBatch = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");
@@ -46,13 +46,13 @@ public class JMeterJDBCRangeRoutingInsertUpdateDelete extends JMeterBenchmarkBas
             List batchIds = batchInsert(insertCount, connection, insertSql, insertParams);
 
 
-            String updateSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.update.sql");
-            List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.update.values"));
+            String updateSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.update.sql");
+            List updateParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.update.values"));
             updateParams = appendIds(batchIds, updateParams);
             JDBCDataSourceUtil.update(connection, updateSql, updateParams);
 
-            String deleteSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.delete.sql");
-            List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.delete.values"));
+            String deleteSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.delete.sql");
+            List deleteParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.delete.values"));
             deleteParams = appendIds(batchIds, deleteParams);
             JDBCDataSourceUtil.delete(connection, deleteSql, deleteParams);
 

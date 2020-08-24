@@ -15,9 +15,9 @@ public class JMeterJDBCRangeRoutingSelect extends JMeterBenchmarkBase {
     public static DataSource dataSource;
 
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.datasource"),
-                (String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.port"),
-                (String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.rangerouting.encrypt.ds0.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.username"), (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.password"));
     }
 
     @Override
@@ -30,8 +30,8 @@ public class JMeterJDBCRangeRoutingSelect extends JMeterBenchmarkBase {
 
         try {
             connection = dataSource.getConnection();
-            String selectSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.select.sql");
-            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.encrypt.select.values"));
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.select.sql");
+            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.select.values"));
             JDBCDataSourceUtil.select(connection, selectSql, selectParams);
         } catch (SQLException e) {
             results.setSuccessful(false);
