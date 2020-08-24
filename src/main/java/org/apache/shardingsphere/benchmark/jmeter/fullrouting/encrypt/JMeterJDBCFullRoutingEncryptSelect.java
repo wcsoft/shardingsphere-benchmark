@@ -14,8 +14,8 @@ import java.sql.SQLException;
  * <p>
  * Sharding scenario
  * <p>
- * Its actualDataNodes: ds{0..3}.sbtest${0..99}
- * Its dataSource.algorithm expression: ds_${id % 4}
+ * Its actualDataNodes: ds{0..2}.sbtest${0..99}
+ * Its dataSource.algorithm expression: ds_${id % 3}
  * Its table.algorithm expression: sbtest${k % 100}
  * Its type: INLINE
  **/

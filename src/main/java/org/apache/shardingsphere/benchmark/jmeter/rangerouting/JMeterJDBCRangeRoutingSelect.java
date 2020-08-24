@@ -1,53 +1,38 @@
-package org.apache.shardingsphere.benchmark.jmeter.fullrouting.encrypt;
+package org.apache.shardingsphere.benchmark.jmeter.rangerouting;
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
-import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingConfigType;
-import org.apache.shardingsphere.benchmark.db.shardingjdbc.ShardingJDBCDataSourceFactory;
 import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
-/**
- * Refactor old case test_plan/jdbc_sharding_new/select_one.jmx
- * <p>
- * Sharding scenario
- * <p>
- * Its actualDataNodes: ds{0..2}.sbtest${0..99}
- * Its dataSource.algorithm expression: ds_${id % 3}
- * Its table.algorithm expression: sbtest${k % 100}
- * Its type: INLINE
- **/
-
-public class JMeterJDBCFullRoutingEncryptUpdate extends JMeterBenchmarkBase {
+public class JMeterJDBCRangeRoutingSelect extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
 
     static {
-        try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.datasource"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.port"),
+                (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.username"), (String) dbConfig.get("jdbc.benchmark.rangerouting.masterslave.ds0.password"));
     }
 
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
 
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCRangeRoutingEncryptSelect");
         results.sampleStart();
         Connection connection = null;
 
         try {
             connection = dataSource.getConnection();
-            JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.ss.clear"), null);
+            String selectSql = (String) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.select.sql");
+            List selectParams = convertParams((List) sqlConfig.get("jdbc.benchmark.rangerouting.masterslave.select.values"));
+            JDBCDataSourceUtil.select(connection, selectSql, selectParams);
         } catch (SQLException e) {
             results.setSuccessful(false);
             e.printStackTrace();

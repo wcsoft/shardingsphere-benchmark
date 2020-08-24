@@ -17,8 +17,8 @@ import java.util.List;
  * Refactor old case
  * <p>
  * Sharding scenario:
- * Its actualDataNodes: {0..3}.sbtest${0..99}
- * Its dataSource.algorithm expression: ds_${id % 4}
+ * Its actualDataNodes: {0..2}.sbtest${0..99}
+ * Its dataSource.algorithm expression: ds_${id % 3}
  * Its type: INLINE
  */
 public class JMeterJDBCFullRoutingEncryptInsertUpdateDelete extends JMeterBenchmarkBase {
