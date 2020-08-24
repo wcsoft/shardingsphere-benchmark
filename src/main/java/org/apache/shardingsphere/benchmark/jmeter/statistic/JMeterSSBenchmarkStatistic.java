@@ -161,8 +161,8 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                         benchmarkResultBean.getDbAction(),
                         benchmarkResultBean.getConcurrency(),
                         benchmarkResultBean.getUpdateTime(),
-                        benchmarkResultBean.getTableShardingCount(),
-                        benchmarkResultBean.getDbShardingCount());
+                        benchmarkResultBean.getDbShardingCount(),
+                        benchmarkResultBean.getTableShardingCount());
                 JDBCDataSourceUtil.insert(connection, sql, insertParams);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

@@ -50,7 +50,7 @@ shardingRule:
         - ds_slave0
 
 props:
-  max.connections.size.per.query: 1
+  max.connections.size.per.query: 10
   acceptor.size: 200  # The default value is available processors count * 2.
   executor.size: 200  # Infinite by default.
   query.with.cipher.column: true
