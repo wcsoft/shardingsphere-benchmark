@@ -250,5 +250,5 @@ props:
   executor.size: 200  # Infinite by default.
   query.with.cipher.column: true
   sql.show: false
-  allow.range.query.with.inline.sharding: 
+  allow.range.query.with.inline.sharding: false
   check.table.metadata.enabled: false        
