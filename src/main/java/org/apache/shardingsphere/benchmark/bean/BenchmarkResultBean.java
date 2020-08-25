@@ -30,6 +30,18 @@ public class BenchmarkResultBean {
         this.updateTime = updateTime;
         this.dbShardingCount = dbShardingCount;
         this.tableShardingCount = tableShardingCount;
+/*        System.out.println(this.sql);
+        System.out.println(this.rules);
+        System.out.println(this.product);
+        System.out.println(this.scenario);
+        System.out.println(this.dbAction);
+        System.out.println(this.version);
+        System.out.println(this.concurrency);
+        System.out.println(this.updateTime);
+        System.out.println(this.dbShardingCount);
+        System.out.println(this.tableShardingCount);
+        System.out.println(this.benchmarkResult.toString());*/
+        
     }
     
     public void setVersion(String version){

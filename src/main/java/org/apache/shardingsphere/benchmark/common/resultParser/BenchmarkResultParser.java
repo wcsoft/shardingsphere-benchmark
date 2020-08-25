@@ -7,7 +7,8 @@ public class BenchmarkResultParser {
 
     public static Map benchmarkStatistic(String filePath, int skipBegin, int skipEnd) {
         FileInputStream fileStream = null;
-
+        BufferedReader reader = null;
+    
         int failCount = 0;
         int successCount = 0;
         Map benchmarkResultStatistic = new HashMap();
@@ -18,7 +19,7 @@ public class BenchmarkResultParser {
             int totalCount = 0;
             fileStream = new FileInputStream(filePath);
             InputStreamReader readStream = new InputStreamReader(fileStream);
-            BufferedReader reader = new BufferedReader(readStream);
+            reader = new BufferedReader(readStream);
             String eachJMeterResult = "";
 
             while ((eachJMeterResult = reader.readLine()) != null) {
@@ -59,12 +60,18 @@ public class BenchmarkResultParser {
             benchmarkResultStatistic.put("maxCost", maxCost);
             benchmarkResultStatistic.put("minCost", minCost);
 
-            return benchmarkResultStatistic;
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (reader != null){
+                try {
+                    reader.close();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
         }
         return benchmarkResultStatistic;
     }
