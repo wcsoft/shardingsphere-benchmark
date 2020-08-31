@@ -24,6 +24,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
 
     public static Map sqlConfig = new HashMap<>();
     public static Map dbConfig = new HashMap<>();
+    public static Map userConfig = new HashMap<>();
     public static Map benchmarkResultPath = new HashMap<>();
     public static List<String> initDbSqlList = new ArrayList<String>();
     public static String benchmarkVersion;
@@ -160,6 +161,25 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
             }
         }
 
+    }
+    
+    public void initUserConfig(){
+        Properties dbConfigProp = new Properties();
+        try {
+            InputStream in = PropertiesUtil.class.getResourceAsStream("/config/user-config.properties");
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            dbConfigProp.load(in);
+            Iterator<String> it = dbConfigProp.stringPropertyNames().iterator();
+            while (it.hasNext()) {
+                String key = it.next();
+                userConfig.put(key, dbConfigProp.getProperty(key));
+            }
+            in.close();
+            br.close();
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
