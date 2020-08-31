@@ -12,7 +12,7 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("JMeterSSBenchmarkStatistic");
+        results.setSampleLabel("JMeterConfigBenchmark");
         results.sampleStart();
         
         String benchmarkBasePath = (String)userConfig.get("shardingsphere_benchmark_project_base_path");
@@ -23,8 +23,11 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
         int maxConnectionCount = Integer.valueOf((String)userConfig.get("shardingsphere_maximum_connection_count")).intValue();
         int minConnectionCount = Integer.valueOf((String)userConfig.get("shardingsphere_minimum_connection_count")).intValue();
         int maxConnectionPerQueryCount = Integer.valueOf((String)userConfig.get("shardingsphere_maximum_connection_count_for_each_query")).intValue();
-        
-        BenchmarkConfigJmx.modifyBenchmarkOutputBasePath(benchmarkBasePath, benchmarkOutputBasePath);
+        int jmeterLoopCount = Integer.valueOf((String)userConfig.get("shardingsphere_jmeter_loop_count")).intValue();
+        int jmeterConcurrencyCount = Integer.valueOf((String)userConfig.get("shardingsphere_jmeter_concurrency_count")).intValue();
+    
+    
+        BenchmarkConfigJmx.modifyBenchmarkOutputBasePath(benchmarkBasePath, benchmarkOutputBasePath, jmeterConcurrencyCount, jmeterLoopCount);
         BenchmarkConfigProperties.modifyBenchmarkOutputConfig(benchmarkBasePath, benchmarkOutputBasePath);
         BenchmarkConfigYaml.modifyBenchmarkYamlFile(benchmarkBasePath, shardingDbCount, shardingTableCount, maxConnectionCount, minConnectionCount, maxConnectionPerQueryCount);
     

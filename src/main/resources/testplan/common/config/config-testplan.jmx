@@ -101,7 +101,7 @@
                 <connectTime>true</connectTime>
               </value>
             </objProp>
-            <stringProp name="filename">/export/shardingsphere-benchmark/result/jdbc-encrypt-cleardata.jtl</stringProp>
+            <stringProp name="filename">/export/shardingsphere-benchmark/result/config-testplan-result.jtl</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>

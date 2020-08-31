@@ -30,13 +30,13 @@ public class BenchmarkConfigJmx {
     
     public static FileFilter jmxFilter = new JmxFileFilter();
     
-    public static void modifyBenchmarkOutputBasePath(String benchmarkBasePath, String benchmarkOutputBasePath){
+    public static void modifyBenchmarkOutputBasePath(String benchmarkBasePath, String benchmarkOutputBasePath, int jmeterConcurrencyCount, int jmeterLoopCount){
         File jmxFile = null;
         
         List<File> jmxFileList = getJmxFileList(benchmarkBasePath);
         for (int i = 0; i < jmxFileList.size(); i++){
             jmxFile = jmxFileList.get(i);
-            Document xmlDocument = getOutputElement(jmxFile, benchmarkOutputBasePath);
+            Document xmlDocument = getOutputElement(jmxFile, benchmarkOutputBasePath, jmeterConcurrencyCount, jmeterLoopCount);
             saveJmxFile(jmxFile, xmlDocument);
         }
     }
@@ -89,7 +89,7 @@ public class BenchmarkConfigJmx {
     }
     
     
-    public static Document getOutputElement(File testPlanFile, String outPutBasePath){
+    public static Document getOutputElement(File testPlanFile, String outPutBasePath, int jmeterConcurrencyCount, int jmeterLoopCount){
         
         Element root = null;
         Document xmlDocument = null;
@@ -112,6 +112,18 @@ public class BenchmarkConfigJmx {
             String outputPath = stringPropElement.getTextContent();
             outputPath = outputPath.replace("/basepath", outPutBasePath);
             stringPropElement.setTextContent(outputPath);
+            
+            if (testPlanFile.getName().contains("insertupdatedelete") || testPlanFile.getName().contains("select")){
+                String jmeterLoopXpath = "//jmeterTestPlan/hashTree/hashTree/ThreadGroup/elementProp/stringProp";
+                String jmeterConcurrencyXpath = "//jmeterTestPlan/hashTree/hashTree/ThreadGroup/stringProp[@name='ThreadGroup.num_threads']";
+                Element jmeterLoopElement = (Element) xpath.evaluate(jmeterLoopXpath, root, XPathConstants.NODE);
+                Element jmeterConcurrencyElement = (Element) xpath.evaluate(jmeterConcurrencyXpath, root, XPathConstants.NODE);
+                jmeterLoopElement.setTextContent("" + jmeterLoopCount);
+                jmeterConcurrencyElement.setTextContent("" + jmeterConcurrencyCount);
+    
+            }
+            
+            
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException exception) {
@@ -142,12 +154,11 @@ public class BenchmarkConfigJmx {
     }
     
     
-    
     public static void main(String[] args) {
         
         String benchmarkBasePath = "D:/shardingsphere-benchmark";
         String outputBasePath = "/export/shardingsphere-benchmark/result";
-        modifyBenchmarkOutputBasePath(benchmarkBasePath, outputBasePath);
+        modifyBenchmarkOutputBasePath(benchmarkBasePath, outputBasePath, 10,1000);
         
     }
     
