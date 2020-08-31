@@ -35,6 +35,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         initBenchmarkResultPath();
         initBenchmarkVersion();
         initDbSqls();
+        initUserConfig();
     }
 
     /**
@@ -163,7 +164,7 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
 
     }
     
-    public void initUserConfig(){
+    public static void initUserConfig(){
         Properties dbConfigProp = new Properties();
         try {
             InputStream in = PropertiesUtil.class.getResourceAsStream("/config/user-config.properties");

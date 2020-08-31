@@ -29,7 +29,7 @@
           <elementProp elementType="Arguments" enabled="true" guiclass="ArgumentsPanel" name="arguments" testclass="Arguments">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="classname">org.apache.shardingsphere.benchmark.jmeter.common.initdb.JMeterInitDB</stringProp>
+          <stringProp name="classname">org.apache.shardingsphere.benchmark.jmeter.common.config.JMeterConfigBenchmark</stringProp>
         </JavaSampler>
         <hashTree>
           <ResultCollector enabled="true" guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
