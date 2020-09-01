@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.common.properties;
+package org.apache.shardingsphere.benchmark.common.file.properties;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

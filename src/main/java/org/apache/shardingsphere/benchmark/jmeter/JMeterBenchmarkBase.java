@@ -7,6 +7,7 @@ import org.apache.shardingsphere.benchmark.common.PropertiesUtil;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -295,6 +296,11 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         }
         
         return params;
+    }
+    
+    public void createDirs(String path){
+        File file = new File(path);
+        file.mkdirs();
     }
 }
 

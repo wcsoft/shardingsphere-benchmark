@@ -3,7 +3,7 @@ package org.apache.shardingsphere.benchmark.jmeter.statistic;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.shardingsphere.benchmark.bean.BenchmarkResultBean;
-import org.apache.shardingsphere.benchmark.common.excel.BenchmarkExcelWriter;
+import org.apache.shardingsphere.benchmark.common.file.excel.BenchmarkExcelWriter;
 import org.apache.shardingsphere.benchmark.common.statistic.BenchmarkFullroutingStatistic;
 import org.apache.shardingsphere.benchmark.common.statistic.BenchmarkRangeroutingStatistic;
 import org.apache.shardingsphere.benchmark.common.statistic.BenchmarkSingleroutingStatistic;

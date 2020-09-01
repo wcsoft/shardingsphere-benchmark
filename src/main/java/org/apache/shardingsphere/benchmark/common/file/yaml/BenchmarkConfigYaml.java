@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.common.yaml;
+package org.apache.shardingsphere.benchmark.common.file.yaml;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

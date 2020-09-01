@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.common.xml;
+package org.apache.shardingsphere.benchmark.common.file.xml;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

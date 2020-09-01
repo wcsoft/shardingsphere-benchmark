@@ -2,9 +2,9 @@ package org.apache.shardingsphere.benchmark.jmeter.common.config;
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
-import org.apache.shardingsphere.benchmark.common.properties.BenchmarkConfigProperties;
-import org.apache.shardingsphere.benchmark.common.xml.BenchmarkConfigJmx;
-import org.apache.shardingsphere.benchmark.common.yaml.BenchmarkConfigYaml;
+import org.apache.shardingsphere.benchmark.common.file.properties.BenchmarkConfigProperties;
+import org.apache.shardingsphere.benchmark.common.file.xml.BenchmarkConfigJmx;
+import org.apache.shardingsphere.benchmark.common.file.yaml.BenchmarkConfigYaml;
 import org.apache.shardingsphere.benchmark.jmeter.JMeterBenchmarkBase;
 
 public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
