@@ -47,32 +47,32 @@ public class BenchmarkExcelWriter {
         Workbook workbook = null;
         File exportFile = null;
         FileOutputStream fileOut = null;
-        
-        try {
-            exportFile = new File(excelPath);
-            if(exportFile.exists()){
-                workbook = new HSSFWorkbook(new FileInputStream(excelPath));
-            } else {
-                workbook = new HSSFWorkbook();
-                exportFile.createNewFile();
-            }
-            workbook = buildDataSheet(workbook, sheetName, isHeader, rowNum, dataList);
-    
-            fileOut = new FileOutputStream(excelPath);
-            workbook.write(fileOut);
-            fileOut.flush();
-            
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+        if (dataList.size() > 0) {
             try {
-                fileOut.close();
+                exportFile = new File(excelPath);
+                if(exportFile.exists()){
+                    workbook = new HSSFWorkbook(new FileInputStream(excelPath));
+                } else {
+                    workbook = new HSSFWorkbook();
+                    exportFile.createNewFile();
+                }
+                workbook = buildDataSheet(workbook, sheetName, isHeader, rowNum, dataList);
+        
+                fileOut = new FileOutputStream(excelPath);
+                workbook.write(fileOut);
+                fileOut.flush();
+        
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    fileOut.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-    
         }
     }
     

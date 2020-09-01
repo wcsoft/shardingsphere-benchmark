@@ -66,7 +66,14 @@ public class FileUtil {
             }
         }
         file.delete();
-        
+    }
+    
+    public static void deleteFile(File file) {
+        File[] fileList = file.listFiles();
+        for (int i = 0; i < fileList.length; i++) {
+            File f = fileList[i];
+            f.delete();
+        }
     }
     
     public static void decompressFile(String sourceFilePath, String destFilePath){

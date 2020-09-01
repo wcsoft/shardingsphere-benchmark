@@ -4,89 +4,91 @@ if [ ! -d "/export/shardingsphere-benchmark/result"  ];then
 fi
 chmod -R 777 /export/shardingsphere-benchmark/result
 
+cd /export/shardingsphere-benchmark/result
+
 # create sub dir of benchmark result
-if [ ! -d "/export/shardingsphere-benchmark/result/fullrouting/encrypt" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/fullrouting/encrypt
+if [ ! -d "./fullrouting/encrypt" ];then
+  mkdir -p ./fullrouting/encrypt
 else
-  echo /export/shardingsphere-benchmark/result/fullrouting/encrypt/  exist
-  rm -rf /export/shardingsphere-benchmark/result/fullrouting/encrypt/*
+  echo ./fullrouting/encrypt/  exist
+  rm -rf ./fullrouting/encrypt/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/fullrouting/masterslave" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/fullrouting/masterslave
+if [ ! -d "./fullrouting/masterslave" ];then
+  mkdir -p ./fullrouting/masterslave
 else
-  echo /export/shardingsphere-benchmark/result/fullrouting/masterslave  exist
-  rm -rf /export/shardingsphere-benchmark/result/fullrouting/masterslave/*
+  echo ./fullrouting/masterslave  exist
+  rm -rf ./fullrouting/masterslave/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/fullrouting/sharding" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/fullrouting/sharding
+if [ ! -d "./fullrouting/sharding" ];then
+  mkdir -p ./fullrouting/sharding
 else
-  echo /export/shardingsphere-benchmark/result/fullrouting/sharding  exist
-  rm -rf /export/shardingsphere-benchmark/result/fullrouting/sharding/*
+  echo ./fullrouting/sharding  exist
+  rm -rf ./fullrouting/sharding/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/fullrouting/shardingmasterslaveencrypt" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/fullrouting/shardingmasterslaveencrypt
+if [ ! -d "./fullrouting/shardingmasterslaveencrypt" ];then
+  mkdir -p ./fullrouting/shardingmasterslaveencrypt
 else
-  echo /export/shardingsphere-benchmark/result/fullrouting/shardingmasterslaveencrypt  exist
-  rm -rf /export/shardingsphere-benchmark/result/fullrouting/shardingmasterslaveencrypt/*
+  echo ./fullrouting/shardingmasterslaveencrypt  exist
+  rm -rf ./fullrouting/shardingmasterslaveencrypt/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/rangerouting/encrypt" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/rangerouting/encrypt
+if [ ! -d "./rangerouting/encrypt" ];then
+  mkdir -p ./rangerouting/encrypt
 else
-  echo /export/shardingsphere-benchmark/result/rangerouting/encrypt  exist
-  rm -rf /export/shardingsphere-benchmark/result/rangerouting/encrypt/*
+  echo ./rangerouting/encrypt  exist
+  rm -rf ./rangerouting/encrypt/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/rangerouting/masterslave" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/rangerouting/masterslave
+if [ ! -d "./rangerouting/masterslave" ];then
+  mkdir -p ./rangerouting/masterslave
 else
-  echo /export/shardingsphere-benchmark/result/rangerouting/masterslave  exist
-  rm -rf /export/shardingsphere-benchmark/result/rangerouting/masterslave/*
+  echo ./rangerouting/masterslave  exist
+  rm -rf ./rangerouting/masterslave/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/rangerouting/sharding" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/rangerouting/sharding
+if [ ! -d "./rangerouting/sharding" ];then
+  mkdir -p ./rangerouting/sharding
 else
-  echo /export/shardingsphere-benchmark/result/rangerouting/sharding  exist
-  rm -rf /export/shardingsphere-benchmark/result/rangerouting/sharding/*
+  echo ./rangerouting/sharding  exist
+  rm -rf ./rangerouting/sharding/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/rangerouting/shardingmasterslaveencrypt" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/rangerouting/shardingmasterslaveencrypt
+if [ ! -d "./rangerouting/shardingmasterslaveencrypt" ];then
+  mkdir -p ./rangerouting/shardingmasterslaveencrypt
 else
-  echo /export/shardingsphere-benchmark/result/rangerouting/shardingmasterslaveencrypt  exist
-  rm -rf /export/shardingsphere-benchmark/result/rangerouting/shardingmasterslaveencrypt/*
+  echo ./rangerouting/shardingmasterslaveencrypt  exist
+  rm -rf ./rangerouting/shardingmasterslaveencrypt/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/singlerouting/encrypt" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/singlerouting/encrypt
+if [ ! -d "./singlerouting/encrypt" ];then
+  mkdir -p ./singlerouting/encrypt
 else
-  echo /export/shardingsphere-benchmark/result/singlerouting/encrypt  exist
-  rm -rf /export/shardingsphere-benchmark/result/singlerouting/encrypt/*
+  echo ./singlerouting/encrypt  exist
+  rm -rf ./singlerouting/encrypt/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/singlerouting/masterslave" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/singlerouting/masterslave
+if [ ! -d "./singlerouting/masterslave" ];then
+  mkdir -p ./singlerouting/masterslave
 else
-  echo /export/shardingsphere-benchmark/result/singlerouting/masterslave  exist
-  rm -rf /export/shardingsphere-benchmark/result/singlerouting/masterslave/*
+  echo ./singlerouting/masterslave  exist
+  rm -rf ./singlerouting/masterslave/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/singlerouting/sharding" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/singlerouting/sharding
+if [ ! -d "./singlerouting/sharding" ];then
+  mkdir -p ./singlerouting/sharding
 else
-  echo /export/shardingsphere-benchmark/result/singlerouting/sharding  exist
-  rm -rf /export/shardingsphere-benchmark/result/singlerouting/sharding/*
+  echo ./singlerouting/sharding  exist
+  rm -rf ./singlerouting/sharding/*
 fi
 
-if [ ! -d "/export/shardingsphere-benchmark/result/singlerouting/shardingmasterslaveencrypt" ];then
-  mkdir -p /export/shardingsphere-benchmark/result/singlerouting/shardingmasterslaveencrypt
+if [ ! -d "./singlerouting/shardingmasterslaveencrypt" ];then
+  mkdir -p ./singlerouting/shardingmasterslaveencrypt
 else
-  echo /export/shardingsphere-benchmark/result/singlerouting/shardingmasterslaveencrypt  exist
-  rm -rf /export/shardingsphere-benchmark/result/singlerouting/shardingmasterslaveencrypt/*
+  echo ./singlerouting/shardingmasterslaveencrypt  exist
+  rm -rf ./singlerouting/shardingmasterslaveencrypt/*
 fi
 
-chmod -R 777 /export/shardingsphere-benchmark/result
+chmod -R 777 ./

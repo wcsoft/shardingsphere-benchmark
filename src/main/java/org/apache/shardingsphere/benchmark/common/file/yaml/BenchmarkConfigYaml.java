@@ -25,23 +25,23 @@ public class BenchmarkConfigYaml {
                 StringBuffer bufAll = new StringBuffer();
                 BufferedReader br = new BufferedReader(new FileReader(yamlFile));
                 while ((line = br.readLine()) != null) {
-                    if (line.contains("${0..1}.sbtest${0..99}")){
-                        line = line.replace("${0..1}.sbtest${0..99}", "${0.." + (shardingDbCount-1) + "}.sbtest${0.." + (shardingTableCount-1) + "}");
+                    if (line.contains("${0..2}.sbtest${0..99}")){
+                        line = line.replace("${0..2}.sbtest${0..99}", "${0.." + (shardingDbCount-1) + "}.sbtest${0.." + (shardingTableCount-1) + "}");
                     }
-                    if (line.contains("maximumPoolSize: 1500")){
-                        line = line.replaceAll("maximumPoolSize: 1500", "maximumPoolSize: " + maxConnectionCount);
+                    if (line.contains("maximumPoolSize: 200")){
+                        line = line.replaceAll("maximumPoolSize: 200", "maximumPoolSize: " + maxConnectionCount);
                     }
                     if (line.contains("{id % 2}")) {
-                        line = line.replace("{id % 2}", "{id % " + shardingDbCount + "}");
+                        line = line.replace("{id % 3}", "{id % " + shardingDbCount + "}");
                     }
                     if (line.contains("{k % 100}")){
                         line = line.replace("{k % 100}", "{k % " + shardingTableCount + "}");
                     } 
-                    if (line.contains("max.connections.size.per.query: 10")){
-                        line = line.replace("max.connections.size.per.query: 10", "max.connections.size.per.query: " + maxConnectionPerQuery);
+                    if (line.contains("max.connections.size.per.query: 2")){
+                        line = line.replace("max.connections.size.per.query: 2", "max.connections.size.per.query: " + maxConnectionPerQuery);
                     }
-                    if (line.contains("maxPoolSize: 1500")){
-                        line = line.replaceAll("maxPoolSize: 1500", "maxPoolSize: " + maxConnectionCount);
+                    if (line.contains("maxPoolSize: 200")){
+                        line = line.replaceAll("maxPoolSize: 200", "maxPoolSize: " + maxConnectionCount);
                     }
                     if (line.contains("minPoolSize: 200")){
                         line = line.replaceAll("minPoolSize: 200", "minPoolSize: " + minConnectionCount);

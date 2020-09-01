@@ -9,10 +9,10 @@ import java.util.Map;
 public class ProxyPreparation {
     
     public static void prepare(Map userConfig, String ruleConfigPath, String serverConfigFile){
-        String benchmarkVersion = (String)userConfig.get("shardingsphere_version");
-        String shardingSphereBasePath = (String)userConfig.get("shardingsphere_project_base_path");
-        String proxyBasePath = (String)userConfig.get("shardingsphere_benchmark_proxy_machine_proxy_dest_base_path");
-        String benchmarkBasePath = (String)userConfig.get("shardingsphere_benchmark_project_base_path");
+        String benchmarkVersion = (String)userConfig.get("shardingsphere.version");
+        String shardingSphereBasePath = (String)userConfig.get("shardingsphere.project.base.path");
+        String proxyBasePath = (String)userConfig.get("shardingsphere.benchmark.proxy.machine.proxy.dest.base.path");
+        String benchmarkBasePath = (String)userConfig.get("shardingsphere.benchmark.project.base.path");
         String ruleConfigFullPath = benchmarkBasePath + "/" + ruleConfigPath;
         String serverConfigFullFile = benchmarkBasePath + "/" + serverConfigFile;
     

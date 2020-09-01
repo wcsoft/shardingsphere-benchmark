@@ -25,9 +25,9 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
     public static DataSource dataSource;
     
     static {
-        dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("benchmark.result.datasource"),
-                (String) dbConfig.get("benchmark.result.host"), (int) dbConfig.get("benchmark.result.port"),
-                (String) dbConfig.get("benchmark.result.username"), (String) dbConfig.get("benchmark.result.password"));
+        dataSource = JDBCDataSourceUtil.initDb((String) userConfig.get("shardingsphere.benchmark.result.datasource"),
+                (String) userConfig.get("shardingsphere.benchmark.result.host"), (int) userConfig.get("shardingsphere.benchmark.result.port"),
+                (String) userConfig.get("shardingsphere.benchmark.result.username"), (String) userConfig.get("shardingsphere.benchmark.result.password"));
     }
     
     @Override
@@ -36,12 +36,17 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         SampleResult results = new SampleResult();
         results.setSampleLabel("JMeterSSBenchmarkStatistic");
         results.sampleStart();
-        int concurrency = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.concurrency")).intValue();
-        int skipBegin = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.skip.begin")).intValue();
-        int skipEnd = Integer.valueOf((String)benchmarkResultPath.get("ss.benchmark.result.skip.end")).intValue();
+        int concurrency = Integer.valueOf((String)userConfig.get("shardingsphere.jmeter.concurrency.count")).intValue();
+        String[] sampleArray = ((String)userConfig.get("shardingsphere.result.sample.amount")).split(",");
+        
+        
+        int skipBegin = Integer.valueOf(sampleArray[0]).intValue();
+        int skipEnd = Integer.valueOf(sampleArray[1]).intValue();
         long updateTime = System.currentTimeMillis();
-        int dbShardingCount = Integer.valueOf((String)dbConfig.get("benchmark.db.count")).intValue();
-        int tableShardingCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
+        int dbShardingCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.db.count")).intValue();
+        int tableShardingCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
+        String benchmarkVersion = (String)userConfig.get("shardingsphere.version");
+        
         String benchmarkInsertSql = (String) sqlConfig.get("ss.benchmark.result.insert.sql");
         String benchmarkAvgInsertSql = (String)sqlConfig.get("ss.benchmark.avg.result.insert.sql");
         String currentTime = String.valueOf(System.currentTimeMillis());
@@ -126,12 +131,15 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         updateBenchmarkRecordInDb(rangeRoutingCalResult, benchmarkAvgInsertSql);
         updateBenchmarkRecordInDb(singleRoutingCalResult, benchmarkAvgInsertSql);
         
-        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "full-routing-" + currentTime, true, 1, fullRoutingResult);
-        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "range-routing-" + currentTime, true, 1, rangeRoutingResult);
-        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.excel.result"), "single-routing-" + currentTime, true, 1, singleRoutingResult);
-        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.avg.excel.result"), "full-routing-" + currentTime, true, 1, fullRoutingCalResult);
-        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.avg.excel.result"), "range-routing-" + currentTime, true, 1, rangeRoutingCalResult);
-        BenchmarkExcelWriter.writeExcel((String)benchmarkResultPath.get("ss.benchmark.avg.excel.result"), "single-routing-" + currentTime, true, 1, singleRoutingCalResult);
+        String resultExcelPath = (String)userConfig.get("shardingsphere.benchmark.result.base.path") + "/" + (String)userConfig.get("shardingsphere.benchmark.result.excel.name");
+        String resultAvgExcelPath = (String)userConfig.get("shardingsphere.benchmark.result.base.path")  + "/" + (String)userConfig.get("shardingsphere.benchmark.avg.result.excel.name");
+        
+        BenchmarkExcelWriter.writeExcel(resultExcelPath, "full-routing-" + currentTime, true, 1, fullRoutingResult);
+        BenchmarkExcelWriter.writeExcel(resultExcelPath, "range-routing-" + currentTime, true, 1, rangeRoutingResult);
+        BenchmarkExcelWriter.writeExcel(resultExcelPath, "single-routing-" + currentTime, true, 1, singleRoutingResult);
+        BenchmarkExcelWriter.writeExcel(resultAvgExcelPath, "full-routing-" + currentTime, true, 1, fullRoutingCalResult);
+        BenchmarkExcelWriter.writeExcel(resultAvgExcelPath, "range-routing-" + currentTime, true, 1, rangeRoutingCalResult);
+        BenchmarkExcelWriter.writeExcel(resultAvgExcelPath, "single-routing-" + currentTime, true, 1, singleRoutingCalResult);
         
         results.sampleEnd();
         return results;
