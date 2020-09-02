@@ -23,10 +23,9 @@ scp -r src/main/resources/shell/deploy/* jenkins@ss.benchmark.proxy.machine:$ben
 #copy benchmark jar to proxy machine
 scp -r target/shardingsphere-benchmark-1.1-SNAPSHOT.jar jenkins@ss.benchmark.proxy.machine:$proxy_work_dir
 
-scp -r ss_build_version.log jenkins@ss.benchmark.performance.machine:$proxy_work_dir/apache-jmeter-4.0
-
-scp -r ss_build_version.log jenkins@ss.benchmark.proxy.machine:$proxy_work_dir/BT_jenkins
+#scp -r ss_build_version.log jenkins@ss.benchmark.performance.machine:$proxy_work_dir/apache-jmeter-4.0
+#scp -r ss_build_version.log jenkins@ss.benchmark.proxy.machine:$proxy_work_dir/BT_jenkins
 
 scp -r src/main/resources/shell/prepare/jmeter_result_manage.sh jenkins@ss.benchmark.performance.machine:$benchmark_result_parent_dir/shell
 
-scp -r src/main/resources/shell/performance/update_performance_basedata_volume_fullrouting.sh jenkins@ss.benchmark.performance.machine:$benchmark_result_parent_dir/shell
+scp -r src/main/resources/shell/performance/update_benchmark_basedata_amount_fullrouting.sh jenkins@ss.benchmark.performance.machine:$benchmark_result_parent_dir/shell
