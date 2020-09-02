@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.masterslave;
+package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.encrypt;
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -14,14 +14,14 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
-public class JMeterSSCommonMasterSlaveInsert extends JMeterBenchmarkBase {
-    
+public class JMeterShardingSphereCommonEncryptInsert extends JMeterBenchmarkBase {
+
     public static DataSource dataSource;
     public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
     public Random r = new Random(1);
     static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
@@ -32,10 +32,10 @@ public class JMeterSSCommonMasterSlaveInsert extends JMeterBenchmarkBase {
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterShardingSphereCommonEncryptInsert");
         results.sampleStart();
         Connection connection = null;
-
+        
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");

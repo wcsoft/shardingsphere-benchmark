@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterSSCommonMasterSlaveClear extends JMeterBenchmarkBase {
+public class JMeterShardingSphereCommonMasterSlaveClear extends JMeterBenchmarkBase {
     
     public static DataSource dataSource;
     static {
@@ -30,7 +30,7 @@ public class JMeterSSCommonMasterSlaveClear extends JMeterBenchmarkBase {
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterShardingSphereCommonMasterSlaveClear");
         results.sampleStart();
         Connection connection = null;
 

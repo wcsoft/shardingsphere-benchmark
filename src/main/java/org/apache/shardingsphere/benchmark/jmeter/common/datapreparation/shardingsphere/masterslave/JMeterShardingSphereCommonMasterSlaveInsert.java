@@ -1,5 +1,4 @@
-
-package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.sharding;
+package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.masterslave;
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -12,13 +11,17 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Random;
 
-public class JMeterSSCommonShardingClear extends JMeterBenchmarkBase {
+public class JMeterShardingSphereCommonMasterSlaveInsert extends JMeterBenchmarkBase {
     
     public static DataSource dataSource;
+    public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
+    public Random r = new Random(1);
     static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_MASTER_SLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
@@ -26,17 +29,18 @@ public class JMeterSSCommonShardingClear extends JMeterBenchmarkBase {
         }
     }
 
-
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterShardingSphereCommonMasterSlaveInsert");
         results.sampleStart();
         Connection connection = null;
 
         try {
             connection = dataSource.getConnection();
-            JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.ss.clear"), null);
+            String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(tableCount));
+            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
         } catch (SQLException ex) {
             results.setSuccessful(false);
             ex.printStackTrace();
@@ -54,4 +58,3 @@ public class JMeterSSCommonShardingClear extends JMeterBenchmarkBase {
         return results;
     }
 }
-

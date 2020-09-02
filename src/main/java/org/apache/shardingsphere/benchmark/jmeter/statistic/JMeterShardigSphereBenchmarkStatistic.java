@@ -164,6 +164,8 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
                         benchmarkResultBean.getUpdateTime(),
                         benchmarkResultBean.getDbShardingCount(),
                         benchmarkResultBean.getTableShardingCount());
+                System.out.println(insertParams.toString());
+                System.out.println(sql);
                 JDBCDataSourceUtil.insert(connection, sql, insertParams);
             } catch (SQLException ex) {
                 ex.printStackTrace();

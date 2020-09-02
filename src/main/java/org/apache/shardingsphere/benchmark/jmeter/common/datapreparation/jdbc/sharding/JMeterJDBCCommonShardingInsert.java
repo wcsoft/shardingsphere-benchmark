@@ -25,7 +25,7 @@ public class JMeterJDBCCommonShardingInsert extends JMeterBenchmarkBase {
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCCommonShardingInsert");
         results.sampleStart();
         Connection connection = null;
 

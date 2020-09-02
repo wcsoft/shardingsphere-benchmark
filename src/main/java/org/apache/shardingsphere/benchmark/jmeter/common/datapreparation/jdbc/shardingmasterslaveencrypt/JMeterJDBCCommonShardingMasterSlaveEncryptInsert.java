@@ -26,7 +26,7 @@ public class JMeterJDBCCommonShardingMasterSlaveEncryptInsert extends JMeterBenc
     public SampleResult runTest(JavaSamplerContext context) {
 
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCCommonShardingMasterSlaveEncryptInsert");
         results.sampleStart();
         Connection connection = null;
 

@@ -22,7 +22,7 @@ public class JMeterJDBCCommonShardingMasterSlaveEncryptClear extends JMeterBench
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCCommonShardingMasterSlaveEncryptClear");
         results.sampleStart();
         Connection connection = null;
 

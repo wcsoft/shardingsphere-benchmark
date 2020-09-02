@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterSSCommonSmallShardsShardingMasterSlaveEncryptClear extends JMeterBenchmarkBase {
-    
+public class JMeterShardingSphereCommonShardingMasterSlaveEncryptClear extends JMeterBenchmarkBase {
     public static DataSource dataSource;
+
     static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SMALLSHARDS_SHARDING_MASTERSLAVE_ENCRYPT_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
@@ -29,7 +29,7 @@ public class JMeterSSCommonSmallShardsShardingMasterSlaveEncryptClear extends JM
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterShardingSphereCommonShardingMasterSlaveEncryptClear");
         results.sampleStart();
         Connection connection = null;
 
@@ -45,8 +45,8 @@ public class JMeterSSCommonSmallShardsShardingMasterSlaveEncryptClear extends JM
         } finally {
             try {
                 connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
             results.sampleEnd();
         }

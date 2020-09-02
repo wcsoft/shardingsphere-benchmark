@@ -1,5 +1,5 @@
 
-package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.shardingmasterslaveencrypt;
+package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.encrypt;
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JMeterSSCommonShardingMasterSlaveEncryptClear extends JMeterBenchmarkBase {
-    public static DataSource dataSource;
+public class JMeterShardingSphereCommonEncryptClear extends JMeterBenchmarkBase {
 
+    public static DataSource dataSource;
     static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
@@ -29,7 +29,7 @@ public class JMeterSSCommonShardingMasterSlaveEncryptClear extends JMeterBenchma
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterShardingSphereCommonEncryptClear");
         results.sampleStart();
         Connection connection = null;
 

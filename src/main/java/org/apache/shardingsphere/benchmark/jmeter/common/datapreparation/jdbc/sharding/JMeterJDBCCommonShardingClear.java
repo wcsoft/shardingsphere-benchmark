@@ -22,7 +22,7 @@ public class JMeterJDBCCommonShardingClear extends JMeterBenchmarkBase {
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCCommonShardingClear");
         results.sampleStart();
         Connection connection = null;
 

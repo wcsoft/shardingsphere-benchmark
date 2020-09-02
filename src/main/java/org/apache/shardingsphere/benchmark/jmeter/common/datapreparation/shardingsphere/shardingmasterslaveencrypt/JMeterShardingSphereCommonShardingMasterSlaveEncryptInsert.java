@@ -1,5 +1,4 @@
-
-package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.encrypt;
+package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.shardingmasterslaveencrypt;
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -12,30 +11,37 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Random;
 
-public class JMeterSSCommonEncryptClear extends JMeterBenchmarkBase {
-
+public class JMeterShardingSphereCommonShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
+    
     public static DataSource dataSource;
+    public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
+    public Random r = new Random(1);
     static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
+
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterShardingSphereCommonShardingMasterSlaveEncryptInsert");
         results.sampleStart();
         Connection connection = null;
-
+        
         try {
             connection = dataSource.getConnection();
-            JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.ss.clear"), null);
+            String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
+            List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(tableCount));
+            JDBCDataSourceUtil.insert(connection, insertSql,insertParams);
+            //insertRecords(connection, insertSql, insertParams);
         } catch (SQLException ex) {
             results.setSuccessful(false);
             ex.printStackTrace();
@@ -53,4 +59,3 @@ public class JMeterSSCommonEncryptClear extends JMeterBenchmarkBase {
         return results;
     }
 }
-

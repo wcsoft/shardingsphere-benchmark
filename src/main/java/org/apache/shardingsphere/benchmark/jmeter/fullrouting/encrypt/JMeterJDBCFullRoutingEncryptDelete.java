@@ -31,7 +31,7 @@ public class JMeterJDBCFullRoutingEncryptDelete extends JMeterBenchmarkBase {
     public SampleResult runTest(JavaSamplerContext context) {
 
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCFullRoutingEncryptDelete");
         results.sampleStart();
         Connection connection = null;
 

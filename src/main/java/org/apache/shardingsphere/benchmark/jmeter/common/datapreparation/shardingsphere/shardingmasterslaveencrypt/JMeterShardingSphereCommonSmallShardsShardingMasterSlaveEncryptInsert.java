@@ -1,4 +1,4 @@
-package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.sharding;
+package org.apache.shardingsphere.benchmark.jmeter.common.datapreparation.shardingsphere.shardingmasterslaveencrypt;
 
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -14,25 +14,25 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
-public class JMeterSSCommonShardingInsert extends JMeterBenchmarkBase {
+public class JMeterShardingSphereCommonSmallShardsShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
     
     public static DataSource dataSource;
     public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
     public Random r = new Random(1);
     static {
         try {
-            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_SHARDINGJDBC_CONFIG);
+            dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SMALLSHARDS_SHARDING_MASTERSLAVE_ENCRYPT_SHARDINGJDBC_CONFIG);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-
+    
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterShardingSphereCommonSmallShardsShardingMasterSlaveEncryptInsert");
         results.sampleStart();
         Connection connection = null;
 
@@ -40,7 +40,8 @@ public class JMeterSSCommonShardingInsert extends JMeterBenchmarkBase {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(tableCount));
-            JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
+            JDBCDataSourceUtil.insert(connection, insertSql,insertParams);
+            //insertRecords(connection, insertSql, insertParams);
         } catch (SQLException ex) {
             results.setSuccessful(false);
             ex.printStackTrace();

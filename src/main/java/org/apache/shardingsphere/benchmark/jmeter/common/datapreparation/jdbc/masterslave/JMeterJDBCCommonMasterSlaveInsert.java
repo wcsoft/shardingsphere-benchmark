@@ -25,7 +25,7 @@ public class JMeterJDBCCommonMasterSlaveInsert extends JMeterBenchmarkBase {
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCCommonMasterSlaveInsert");
         results.sampleStart();
         Connection connection = null;
 
