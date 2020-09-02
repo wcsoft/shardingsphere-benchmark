@@ -1,12 +1,19 @@
-ss_version=`head -n +1 /home/jenkins/BT_jenkins/ss_build_version.log`
-
-if [ $ss_version == 5.0 ];then
-  echo "5.0"
-  sh /export/shardingsphere-benchmark/shell/singlerouting/shardingmasterslaveencrypt/singlerouting_shardingmasterslaveencrypt_deploy_5.0.sh
-elif [ $ss_version == 4.1.1 ];then
-  echo "4.1.1"
-  sh /export/shardingsphere-benchmark/shell/singlerouting/shardingmasterslaveencrypt/singlerouting_shardingmasterslaveencrypt_deploy_4.0.sh
-else
-  echo "default version"
-  sh /export/shardingsphere-benchmark/shell/singlerouting/shardingmasterslaveencrypt/singlerouting_shardingmasterslaveencrypt_deploy_5.0.sh
+#!/bin/sh
+proxy_work_dir="/home/jenkins"
+if [ ! -d $proxy_work_dir  ];then
+  mkdir -p $proxy_work_dir
 fi
+
+cd $proxy_work_dir
+./apache-shardingsphere-*-shardingsphere-proxy-bin/bin/stop.sh
+sleep 5
+#rm -fr apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin
+#mv shardingsphere-distribution/shardingsphere-proxy-distribution/target/*shardingsphere-proxy-bin.tar.gz .
+#tar zxvf apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin.tar.gz
+rm -f ./apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin/conf/config-*
+cp -f /export/shardingsphere-benchmark/yaml_conf/singlerouting/sharding-masterslave-encrypt/proxy/config-proxy-singlerouting-sharding-masterslave-enc.yaml /export/shardingsphere-benchmark/yaml_conf/server.yaml ./apache-shardingsphere-*-shardingsphere-proxy-bin/conf
+#cp -f /home/jenkins/mysql-connector-java-5.1.47.jar /home/jenkins/shardingsphere-benchmark-1.1-SNAPSHOT.jar /home/jenkins/apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin/lib
+./apache-shardingsphere-*-shardingsphere-proxy-bin/bin/start.sh
+sleep 10
+
+
