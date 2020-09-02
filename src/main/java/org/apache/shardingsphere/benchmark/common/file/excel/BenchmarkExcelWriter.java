@@ -78,7 +78,9 @@ public final class BenchmarkExcelWriter {
                 ex.printStackTrace();
             } finally {
                 try {
-                    fileOut.close();
+                    if (fileOut != null) {
+                        fileOut.close();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
