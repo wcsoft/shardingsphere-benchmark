@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BenchmarkExcelWriter {
+public final class BenchmarkExcelWriter {
     
     private static List<String> CELL_HEADS;
     
     static{
-        CELL_HEADS = new ArrayList<String>();
+        CELL_HEADS = new ArrayList<String>(10);
         CELL_HEADS.add("版本");
         CELL_HEADS.add("场景");
         CELL_HEADS.add("Rules");
