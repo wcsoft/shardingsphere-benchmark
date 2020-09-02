@@ -12,6 +12,5 @@ sleep 5
 #tar zxvf apache-shardingsphere-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin.tar.gz
 rm -f ./apache-shardingsphere-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/conf/config-*
 cp -f /export/shardingsphere-benchmark/yaml_conf/singlerouting/sharding-masterslave-encrypt/proxy/config-proxy-singlerouting-sharding-masterslave-enc.yaml /export/shardingsphere-benchmark/yaml_conf/server.yaml ./apache-shardingsphere-*-sharding-proxy-bin/conf
-cp -f ./mysql-connector-java-5.1.47.jar ./shardingsphere-benchmark-1.1-SNAPSHOT.jar ./apache-shardingsphere-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/lib
 ./apache-shardingsphere-*-sharding-proxy-bin/bin/start.sh
 sleep 10
