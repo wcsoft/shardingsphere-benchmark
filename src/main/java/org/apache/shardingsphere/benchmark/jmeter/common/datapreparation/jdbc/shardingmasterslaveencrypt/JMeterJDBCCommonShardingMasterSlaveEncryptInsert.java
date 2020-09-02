@@ -12,11 +12,10 @@ import java.util.List;
 import java.util.Random;
 
 public class JMeterJDBCCommonShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
-
+    
     public static DataSource dataSource;
     public Random r = new Random(1);
-    public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
-
+    public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
     static {
         dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.datasource"),
                 (String) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.ds0.port"),

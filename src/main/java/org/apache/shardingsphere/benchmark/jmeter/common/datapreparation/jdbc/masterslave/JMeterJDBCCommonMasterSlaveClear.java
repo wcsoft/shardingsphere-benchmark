@@ -13,7 +13,6 @@ import java.sql.SQLException;
 public class JMeterJDBCCommonMasterSlaveClear extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
-
     static {
         dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.datasource"),
                 (String) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.masterslave.ds0.port"),
@@ -24,24 +23,23 @@ public class JMeterJDBCCommonMasterSlaveClear extends JMeterBenchmarkBase {
     public SampleResult runTest(JavaSamplerContext context) {
 
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCCommonMasterSlaveClear");
         results.sampleStart();
         Connection connection = null;
-
         try {
             connection = dataSource.getConnection();
             JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.jdbc.clear"), null);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
-        } catch (Exception e) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
+            ex.printStackTrace();
         } finally {
             try {
                 connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
             results.sampleEnd();
         }

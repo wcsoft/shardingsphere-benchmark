@@ -15,18 +15,17 @@ import java.util.List;
 import java.util.Random;
 
 public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
-    public static DataSource dataSource;
     
-    public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
+    public static DataSource dataSource;
+    public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
     public Random r = new Random(1);
-
     static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SHARDING_MASTERSLAVE_SHARDINGJDBC_CONFIG);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -36,24 +35,24 @@ public class JMeterSSCommonShardingMasterSlaveEncryptInsert extends JMeterBenchm
         results.setSampleLabel("SJPerformanceMSInsert");
         results.sampleStart();
         Connection connection = null;
-
+        
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.ss.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(tableCount));
             JDBCDataSourceUtil.insert(connection, insertSql,insertParams);
             //insertRecords(connection, insertSql, insertParams);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
-        } catch (Exception e) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
+            ex.printStackTrace();
         } finally {
             try {
                 connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
             results.sampleEnd();
         }

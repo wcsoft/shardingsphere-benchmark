@@ -15,8 +15,7 @@ public class JMeterJDBCCommonEncryptInsert extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
     public Random r = new Random(1);
-    public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
-
+    public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
     static {
         dataSource = JDBCDataSourceUtil.initDb((String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.datasource"),
                 (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.host"), (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"),
@@ -27,26 +26,25 @@ public class JMeterJDBCCommonEncryptInsert extends JMeterBenchmarkBase {
     public SampleResult runTest(JavaSamplerContext context) {
 
         SampleResult results = new SampleResult();
-        results.setSampleLabel("SJPerformanceMSInsert");
+        results.setSampleLabel("JMeterJDBCCommonEncryptInsert");
         results.sampleStart();
         Connection connection = null;
-
         try {
             connection = dataSource.getConnection();
             String insertSql = (String) sqlConfig.get("common.jdbc.insert.sql");
             List insertParams = convertParams((List) sqlConfig.get("common.jdbc.insert.values"), r.nextInt(tableCount));
             JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
-        } catch (Exception e) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
+            ex.printStackTrace();
         } finally {
             try {
                 connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
             results.sampleEnd();
         }

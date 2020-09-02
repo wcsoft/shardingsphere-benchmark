@@ -106,8 +106,6 @@ public class JMeterInitDB extends JMeterBenchmarkBase {
             createdStat2.close();
             createdConnection2.close();
         }
-    
-        
     }
     
 }

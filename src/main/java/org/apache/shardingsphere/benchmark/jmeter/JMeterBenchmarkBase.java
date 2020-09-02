@@ -246,23 +246,6 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         }
         return sqlValues;
     }
-
-    public void insertRecords(Connection connection, String sql, List params) throws SQLException {
-        int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.table.count")).intValue();
-        if (params != null) {
-            for (int i = 0; i < tableCount; i++) {
-                List dynamicParams = new ArrayList(params.size());
-                for (int j = 0; j < params.size(); j++) {
-                    if (params.get(j) instanceof Integer) {
-                        dynamicParams.add(i);
-                    } else if (params.get(j) instanceof String) {
-                        dynamicParams.add((String) params.get(j) + i);
-                    }
-                }
-                JDBCDataSourceUtil.insert(connection, sql, dynamicParams);
-            }
-        }
-    }
     
     public static void initBenchmarkVersion(){
         Properties dbConfigProp = new Properties();

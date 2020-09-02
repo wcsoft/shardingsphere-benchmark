@@ -14,14 +14,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
+public class JMeterConfigBenchmark extends JMeterBenchmarkBase {
     
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
         results.setSampleLabel("JMeterConfigBenchmark");
         results.sampleStart();
-        
         String benchmarkBasePath = (String)userConfig.get("shardingsphere.benchmark.project.base.path");
         String benchmarkOutputBasePath = (String)userConfig.get("shardingsphere.benchmark.result.base.path");
         int shardingDbCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.db.count")).intValue();
@@ -34,7 +33,6 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
         String createdDatabaseName = (String)userConfig.get("shardingsphere.benchmark.database.name");
         String createTableName = (String)userConfig.get("shardingsphere.sharding.benchmark.table_name");
         String databaseMachineList = (String)userConfig.get("shardingsphere.benchmark.database.machine.list");
-        
         // Config jmx files
         BenchmarkConfigJmx.modifyBenchmarkOutputBasePath(benchmarkBasePath, benchmarkOutputBasePath, jmeterConcurrencyCount, jmeterLoopCount);
         // Config property files
@@ -43,15 +41,14 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
         BenchmarkConfigYaml.modifyBenchmarkYamlFile(benchmarkBasePath, shardingDbCount, shardingTableCount, maxConnectionCount, minConnectionCount, maxConnectionPerQueryCount);
         // Manage benchmark result dirs
         BenchmarkResultDirManagement.manageResultDir(userConfig);
-    
         // Create databases/tables
        String[] databaseMachineArrays = databaseMachineList.split(";");
         try {
             for(int i = 0; i < databaseMachineArrays.length; i++){
                 String dbHost = databaseMachineArrays[i];
-                initDb(dbHost, createdDatabaseName, createTableName, shardingTableCount);
+                initBenchmarkDB(dbHost, createdDatabaseName, createTableName, shardingTableCount);
             }
-            initBenchmarkResultDb((String)userConfig.get("shardingsphere.benchmark.result.host"), (String)userConfig.get("shardingsphere.benchmark.result.datasource"));
+            initBenchmarkResultDB((String)userConfig.get("shardingsphere.benchmark.result.host"), (String)userConfig.get("shardingsphere.benchmark.result.datasource"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -62,13 +59,16 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
         return results;
     }
     
-
-    
-    public void initBenchmarkResultDb(String host, String createdResultDatabaseName){
+    /**
+     * Create datasource and table for benchmark result.
+     * 
+     * @param host
+     * @param createdResultDatabaseName
+     */
+    public void initBenchmarkResultDB(String host, String createdResultDatabaseName){
         String createdDatabaseSql = initDbSqlList.get(2);
         String createdResultTableSql = initDbSqlList.get(3);
         String createdAvgResultTableSql = initDbSqlList.get(3);
-        
         DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
         Connection connection1 = null;
         try {
@@ -77,40 +77,42 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
             stat1.executeUpdate(createdDatabaseSql);
             stat1.close();
             connection1.close();
-            
             DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdResultDatabaseName, host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
             Connection createdConnection1 = createdDataSource1.getConnection();
             Statement createdStat1 = createdConnection1.createStatement();
             createdStat1.executeUpdate(createdAvgResultTableSql);
             createdStat1.close();
             createdConnection1.close();
-            
             createdDataSource1 = JDBCDataSourceUtil.initDb(createdResultDatabaseName, host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
             createdConnection1 = createdDataSource1.getConnection();
             createdStat1 = createdConnection1.createStatement();
             createdStat1.executeUpdate(createdResultTableSql);
             createdStat1.close();
             createdConnection1.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-        }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {}
     }
     
-    
-    public void initDb(String host, String createdDatabaseName, String createdTableName, int tableCount) throws SQLException {
-        
+    /**
+     * Create benchmark datasource and tables.
+     * 
+     * @param host
+     * @param createdDatabaseName
+     * @param createdTableName
+     * @param tableCount
+     * @throws SQLException
+     */
+    public void initBenchmarkDB(String host, String createdDatabaseName, String createdTableName, int tableCount) throws SQLException {
         String createdDatabaseSql = initDbSqlList.get(0);
         createdDatabaseSql = createdDatabaseSql.replace("default_database", createdDatabaseName);
         String createdTableSql = initDbSqlList.get(1);
-        
         DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
         Connection connection1 = dataSource1.getConnection();
         Statement stat1 = connection1.createStatement();
         stat1.executeUpdate(createdDatabaseSql);
         stat1.close();
         connection1.close();
-        
         DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdDatabaseName, host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
         Connection createdConnection1 = createdDataSource1.getConnection();
         Statement createdStat1 = createdConnection1.createStatement();
@@ -118,7 +120,6 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
         createdStat1.executeUpdate(createdNoShardingSql);
         createdStat1.close();
         createdConnection1.close();
-        
         String shardingTableSql = "";
         for (int i = 0; i < tableCount; i++) {
             Connection createdConnection2 = createdDataSource1.getConnection();
@@ -129,8 +130,5 @@ public class JMeterConfigBenchmark  extends JMeterBenchmarkBase {
             createdStat2.close();
             createdConnection2.close();
         }
-        
-        
     }
-    
 }

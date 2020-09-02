@@ -9,9 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Jdbc Util to operate insert/delete/update/select action.
+ */
 public class JDBCDataSourceUtil {
 
-    private static final Map<String, DataSource> DATASOURCES = new HashMap<>();
+    private static final Map<String, DataSource> DATASOURCES = new HashMap<>(1,1);
 
     /**
      *  Init datasource.
@@ -45,24 +48,11 @@ public class JDBCDataSourceUtil {
         config.addDataSourceProperty("maintainTimeStats", Boolean.FALSE.toString());
         config.addDataSourceProperty("netTimeoutForStreamingResults", 0);
         return new HikariDataSource(config);
-        //DATASOURCES.put(dataSourceName, dataSource);
-        //return dataSource;
     }
-
-
+    
     /**
-     * Get dataSource by its name.
-     *
-     * @param dataSourceName
-     * @return
-     */
-    public static DataSource getDataSource(String dataSourceName) {
-        return DATASOURCES.get(dataSourceName);
-    }
-
-
-    /**
-     * create an item by criteria.
+     * Create an row data by criteria.
+     * 
      * @param conn
      * @param insertSql
      * @param params
@@ -70,9 +60,7 @@ public class JDBCDataSourceUtil {
      * @throws SQLException
      */
     public static ResultSet insert(Connection conn, String insertSql, List params) throws SQLException {
-
         ResultSet result = null;
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         if(conn != null){
@@ -81,19 +69,22 @@ public class JDBCDataSourceUtil {
             preparedStatement.execute();
             result = preparedStatement.getGeneratedKeys();
         }
-        /*if(preparedStatement != null && !preparedStatement.isClosed()){
-            preparedStatement.close();
-        }*/
-
         return result;
     }
     
+    /**
+     * Create row datas by batch.
+     * 
+     * @param conn
+     * @param insertSql
+     * @param params
+     * @return
+     * @throws SQLException
+     */
     public static ResultSet insertBatch(Connection conn, String insertSql, List params) throws SQLException {
         
         ResultSet result = null;
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
-        
         if(conn != null){
             preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement = setParams(preparedStatement, params);
@@ -101,48 +92,12 @@ public class JDBCDataSourceUtil {
             preparedStatement.executeBatch();
             result = preparedStatement.getGeneratedKeys();
         }
-        /*if(preparedStatement != null && !preparedStatement.isClosed()){
-            preparedStatement.close();
-        }*/
-        
         return result;
     }
     
-    public static void insertUpdateDelete(Connection conn, String insertSql, List insertParams, String updateSql, List updateParams, String deleteSql, List deleteParams) throws SQLException {
-    
-        ResultSet result = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-    
-        if (conn != null) {
-            preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement = setParams(preparedStatement, insertParams);
-            preparedStatement.addBatch();
-            preparedStatement.executeBatch();
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            result = preparedStatement.getGeneratedKeys();
-            result.next();
-            result.next();
-            preparedStatement = conn.prepareStatement(updateSql);
-            preparedStatement = setParams(preparedStatement, updateParams);
-            preparedStatement.addBatch();
-            preparedStatement.executeBatch();
-    
-            preparedStatement = conn.prepareStatement(deleteSql);
-            preparedStatement = setParams(preparedStatement, deleteParams);
-            preparedStatement.addBatch();
-            preparedStatement.executeBatch();
-            
-        }
-    }
-
-
     /**
-     * Update an item by criteria..
+     * Update an row data by criteria..
+     * 
      * @param conn
      * @param updateSql
      * @param params
@@ -158,10 +113,6 @@ public class JDBCDataSourceUtil {
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.executeUpdate();
         }
-
-        /*if(preparedStatement != null && !preparedStatement.isClosed()){
-            preparedStatement.close();
-        }*/
         return result;
     }
 
@@ -183,10 +134,6 @@ public class JDBCDataSourceUtil {
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.executeUpdate();
         }
-
-        /*if(preparedStatement != null && !preparedStatement.isClosed()){
-            preparedStatement.close();
-        }*/
         return result;
     }
 
@@ -198,22 +145,14 @@ public class JDBCDataSourceUtil {
      * @param selectSql
      */
     public static ResultSet select(Connection conn, String selectSql, List params) throws SQLException {
-
         ResultSet rs = null;
         PreparedStatement preparedStatement=null;
-
         if(conn != null){
             preparedStatement = conn.prepareStatement(selectSql);
             preparedStatement = setParams(preparedStatement, params);
             rs = preparedStatement.executeQuery();
         }
         return rs;
-
-/*        if(preparedStatement != null && !preparedStatement.isClosed()){
-            preparedStatement.close();
-        }*/
-
-
     }
 
     /**
@@ -224,21 +163,21 @@ public class JDBCDataSourceUtil {
      * @return
      * @throws SQLException
      */
-    public static PreparedStatement setParams(PreparedStatement ps, List params) throws SQLException {
+    public static PreparedStatement setParams(PreparedStatement result, List params) throws SQLException {
         if(params != null){
             for (int i = 0; i < params.size(); i++){
                 if (params.get(i) instanceof Long){
-                    ps.setLong(i+1, (Long) params.get(i));
+                    result.setLong(i+1, (Long) params.get(i));
                 } else if(params.get(i) instanceof Integer){
-                    ps.setInt(i+1, (Integer) params.get(i));
+                    result.setInt(i+1, (Integer) params.get(i));
                 } else if(params.get(i) instanceof  String){
-                    ps.setString(i+1, (String)params.get(i));
+                    result.setString(i+1, (String)params.get(i));
                 } else if(params.get(i) instanceof Double){
-                    ps.setDouble(i+1, (Double)params.get(i));
+                    result.setDouble(i+1, (Double)params.get(i));
                 }
             }
         }
-        return ps;
+        return result;
     }
 
 

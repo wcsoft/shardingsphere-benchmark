@@ -3,6 +3,9 @@ package org.apache.shardingsphere.benchmark.common.file.jmeter;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Benchmark result parser for jtl.
+ */
 public final class BenchmarkResultParser {
     
     /**
@@ -29,7 +32,6 @@ public final class BenchmarkResultParser {
                 String eachJMeterResult = "";
                 while ((eachJMeterResult = reader.readLine()) != null) {
                     totalCount = totalCount + 1;
-                    // if (totalCount > 1000000) {
                     if (totalCount > skipBegin && totalCount < skipEnd) {
                         Map eachPerformanceInfo = BenchmarkResultRowParser.convertResult(eachJMeterResult);
                         jMeterCostsList.add(eachPerformanceInfo.get("jMeterCost"));
@@ -64,7 +66,6 @@ public final class BenchmarkResultParser {
                     result.put("maxCost", maxCost);
                     result.put("minCost", minCost);
                 }
-
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             } catch (IOException ex) {

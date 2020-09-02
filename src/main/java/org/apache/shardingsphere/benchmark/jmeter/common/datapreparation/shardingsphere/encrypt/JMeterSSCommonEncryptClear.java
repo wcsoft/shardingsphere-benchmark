@@ -16,21 +16,18 @@ import java.sql.SQLException;
 public class JMeterSSCommonEncryptClear extends JMeterBenchmarkBase {
 
     public static DataSource dataSource;
-
     static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_ENCRYPT_SHARDINGJDBC_CONFIG);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
-
-
+    
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
-
         SampleResult results = new SampleResult();
         results.setSampleLabel("SJPerformanceMSInsert");
         results.sampleStart();
@@ -39,17 +36,17 @@ public class JMeterSSCommonEncryptClear extends JMeterBenchmarkBase {
         try {
             connection = dataSource.getConnection();
             JDBCDataSourceUtil.delete(connection, (String) sqlConfig.get("common.ss.clear"), null);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
-        } catch (Exception e) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
+            ex.printStackTrace();
         } finally {
             try {
                 connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
             results.sampleEnd();
         }

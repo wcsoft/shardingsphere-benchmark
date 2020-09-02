@@ -20,8 +20,7 @@ public class JMeterProxyFullRoutingEncryptDelete extends JMeterBenchmarkBase {
                 (String) dbConfig.get("ss.proxy.host"), (int) dbConfig.get("ss.proxy.port"),
                 (String) dbConfig.get("ss.proxy.db.username"), (String) dbConfig.get("ss.proxy.db.password"));
     }
-
-
+    
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
 

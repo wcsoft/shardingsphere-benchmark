@@ -15,21 +15,20 @@ import java.util.List;
 import java.util.Random;
 
 public class JMeterSSCommonSmallShardsShardingMasterSlaveEncryptInsert extends JMeterBenchmarkBase {
-    public static DataSource dataSource;
     
-    public int tableCount = Integer.valueOf((String)dbConfig.get("benchmark.smallsharding.table.count")).intValue();
+    public static DataSource dataSource;
+    public int tableCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
     public Random r = new Random(1);
-
     static {
         try {
             dataSource = ShardingJDBCDataSourceFactory.newInstance(ShardingConfigType.FULLROUTING_SMALLSHARDS_SHARDING_MASTERSLAVE_ENCRYPT_SHARDINGJDBC_CONFIG);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
-
+    
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult results = new SampleResult();
@@ -43,17 +42,17 @@ public class JMeterSSCommonSmallShardsShardingMasterSlaveEncryptInsert extends J
             List insertParams = convertParams((List) sqlConfig.get("common.ss.insert.values"), r.nextInt(tableCount));
             JDBCDataSourceUtil.insert(connection, insertSql,insertParams);
             //insertRecords(connection, insertSql, insertParams);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
-        } catch (Exception e) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
             results.setSuccessful(false);
-            e.printStackTrace();
+            ex.printStackTrace();
         } finally {
             try {
                 connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
             results.sampleEnd();
         }
