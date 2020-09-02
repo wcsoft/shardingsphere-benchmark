@@ -1,5 +1,10 @@
 #!/bin/sh
-cd /home/jenkins
+proxy_work_dir="/home/jenkins"
+if [ ! -d $proxy_work_dir  ];then
+  mkdir -p $proxy_work_dir
+fi
+chmod -R 777 $proxy_work_dir
+cd $proxy_work_dir
 ./apache-shardingsphere-*-shardingsphere-proxy-bin/bin/stop.sh
 sleep 5
 rm -f  /home/jenkins/apache-shardingsphere-*-shardingsphere-proxy-bin/conf/config-*.yaml
