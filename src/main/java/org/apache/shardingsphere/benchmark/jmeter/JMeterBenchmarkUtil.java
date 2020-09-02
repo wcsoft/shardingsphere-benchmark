@@ -1,6 +1,6 @@
 package org.apache.shardingsphere.benchmark.jmeter;
 
-import org.apache.shardingsphere.benchmark.common.PropertiesUtil;
+import org.apache.shardingsphere.benchmark.common.file.util.PropertiesUtil;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
 
 import java.io.BufferedReader;

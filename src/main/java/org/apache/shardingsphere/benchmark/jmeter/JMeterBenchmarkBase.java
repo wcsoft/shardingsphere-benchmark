@@ -3,11 +3,10 @@ package org.apache.shardingsphere.benchmark.jmeter;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
-import org.apache.shardingsphere.benchmark.common.PropertiesUtil;
+import org.apache.shardingsphere.benchmark.common.file.util.PropertiesUtil;
 import org.apache.shardingsphere.benchmark.db.jdbc.JDBCDataSourceUtil;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -61,8 +60,8 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
             in.close();
             br.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -114,8 +113,8 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
             in.close();
             br.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -136,14 +135,15 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
             in.close();
             br.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     
-    
+    /**
+     * Init benchmark sql.
+     */
     public static void initDbSqls(){
-        
         InputStream in = PropertiesUtil.class.getResourceAsStream("/config/benchmark.sql");
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String line = "";
@@ -165,6 +165,9 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
 
     }
     
+    /**
+     * Init user config.
+     */
     public static void initUserConfig(){
         Properties dbConfigProp = new Properties();
         try {
@@ -179,18 +182,22 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
             in.close();
             br.close();
         
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
-
-
+    
     @Override
     public SampleResult runTest(JavaSamplerContext javaSamplerContext) {
         return null;
     }
-
-
+    
+    /**
+     * Set params.
+     * 
+     * @param values
+     * @return
+     */
     public List setParams(List values) {
         List sqlValues = new ArrayList();
         if (values != null) {
@@ -200,7 +207,14 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         }
         return sqlValues;
     }
-
+    
+    /**
+     * Convert params for sql which is for generating random values.
+     * 
+     * @param values
+     * @param counter
+     * @return
+     */
     public List convertParams(List values, int counter) {
         List sqlValues = new ArrayList();
         if (values != null) {
@@ -217,6 +231,12 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         return sqlValues;
     }
     
+    /**
+     * Convert params without any modification.
+     * 
+     * @param values
+     * @return
+     */
     public List convertParams(List values) {
         List sqlValues = new ArrayList();
         if (values != null) {
@@ -260,9 +280,8 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
             }
             in.close();
             br.close();
-        
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     
@@ -296,11 +315,6 @@ public class JMeterBenchmarkBase extends AbstractJavaSamplerClient {
         }
         
         return params;
-    }
-    
-    public void createDirs(String path){
-        File file = new File(path);
-        file.mkdirs();
     }
 }
 

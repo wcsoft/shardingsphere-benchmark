@@ -1,12 +1,14 @@
-package org.apache.shardingsphere.benchmark.common;
+package org.apache.shardingsphere.benchmark.common.file.util;
 
 import java.io.*;
 import java.util.*;
 
+/**
+ * Properties util.
+ */
 public class PropertiesUtil {
 
-    public static Map SQL = new HashMap<>();
-
+    public static Map SQL = new HashMap<>(1,1);
     static {
         Properties prop = new Properties();
         try {
@@ -40,32 +42,24 @@ public class PropertiesUtil {
                     } else {
                         SQL.put(key, prop.getProperty(key));
                     }
-
                 } else {
                     SQL.put(key, prop.getProperty(key));
                 }
-
-
             }
             in.close();
             br.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         System.out.println(SQL.toString());
-
         Map m = new HashMap();
         m.put("key1", "abc");
         m.put("key2", 1);
-
         System.out.println(m.toString());
         System.out.println(Boolean.TRUE.toString());
         System.out.println(Boolean.FALSE.toString());
-
     }
-
 }
