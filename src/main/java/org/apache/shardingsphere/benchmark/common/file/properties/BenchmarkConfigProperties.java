@@ -30,7 +30,7 @@ public final class BenchmarkConfigProperties {
             while (it.hasNext()) {
                 String key = it.next();
                 String value = result.getProperty(key);
-                value = value.replace("/basepath", outputBasePath);
+                value = value.replace("/export/shardingsphere-benchmark/result", outputBasePath);
                 result.setProperty(key, value);
             }
             in.close();
