@@ -145,26 +145,28 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
         for(int i = 0; i < benchMarkResults.size(); i++){
             try {
                 connection = dataSource.getConnection();
-                BenchmarkResultBean benchmarkResultBean = benchMarkResults.get(i);
-                List insertParams = Arrays.asList(
-                        benchmarkResultBean.getProduct(), 
-                        benchmarkResultBean.getVersion(),
-                        benchmarkResultBean.getScenario(),
-                        benchmarkResultBean.getRules(),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("tps"),
-                        (int)benchmarkResultBean.getBenchmarkResult().get("total"),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("tp50th"),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("tp90th"),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("tp95th"),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("maxCost"),
-                        (double)benchmarkResultBean.getBenchmarkResult().get("minCost"),
-                        benchmarkResultBean.getSql(),
-                        benchmarkResultBean.getDbAction(),
-                        benchmarkResultBean.getConcurrency(),
-                        benchmarkResultBean.getUpdateTime(),
-                        benchmarkResultBean.getTableShardingCount(),
-                        benchmarkResultBean.getDbShardingCount());
-                JDBCDataSourceUtil.insert(connection, sql, insertParams);
+                if (benchMarkResults.get(i) != null) {
+                    BenchmarkResultBean benchmarkResultBean = benchMarkResults.get(i);
+                    List insertParams = Arrays.asList(
+                            benchmarkResultBean.getProduct(),
+                            benchmarkResultBean.getVersion(),
+                            benchmarkResultBean.getScenario(),
+                            benchmarkResultBean.getRules(),
+                            (double)benchmarkResultBean.getBenchmarkResult().get("tps"),
+                            (int)benchmarkResultBean.getBenchmarkResult().get("total"),
+                            (double)benchmarkResultBean.getBenchmarkResult().get("tp50th"),
+                            (double)benchmarkResultBean.getBenchmarkResult().get("tp90th"),
+                            (double)benchmarkResultBean.getBenchmarkResult().get("tp95th"),
+                            (double)benchmarkResultBean.getBenchmarkResult().get("maxCost"),
+                            (double)benchmarkResultBean.getBenchmarkResult().get("minCost"),
+                            benchmarkResultBean.getSql(),
+                            benchmarkResultBean.getDbAction(),
+                            benchmarkResultBean.getConcurrency(),
+                            benchmarkResultBean.getUpdateTime(),
+                            benchmarkResultBean.getTableShardingCount(),
+                            benchmarkResultBean.getDbShardingCount());
+                    JDBCDataSourceUtil.insert(connection, sql, insertParams);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             } finally {
@@ -213,18 +215,19 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
                 benchmarkResultBean.setDbShardingCount(rs.getInt(17));
                 benchmarkResultBean.setTableShardingCount(rs.getInt(18));
             }
-            if (totalCount == 0){
-                totalCount = 1;
+            if (totalCount > 0){
+                Map benchmarkPerformanceData = new HashMap<>();
+                benchmarkPerformanceData.put("tps", totalTps / totalCount);
+                benchmarkPerformanceData.put("total" , totalRequestCount / totalCount);
+                benchmarkPerformanceData.put("maxCost" , totalMaxTime / totalCount);
+                benchmarkPerformanceData.put("minCost" , totalMinTime / totalCount);
+                benchmarkPerformanceData.put("tp50th", totalTp50Th / totalCount);
+                benchmarkPerformanceData.put("tp90th", totalTp90Th / totalCount);
+                benchmarkPerformanceData.put("tp95th", totalTp95Th / totalCount);
+                benchmarkResultBean.setBenchmarkResult(benchmarkPerformanceData);
+            } else {
+                return null;
             }
-            Map benchmarkPerformanceData = new HashMap<>();
-            benchmarkPerformanceData.put("tps", totalTps / totalCount);
-            benchmarkPerformanceData.put("total" , totalRequestCount / totalCount);
-            benchmarkPerformanceData.put("maxCost" , totalMaxTime / totalCount);
-            benchmarkPerformanceData.put("minCost" , totalMinTime / totalCount);
-            benchmarkPerformanceData.put("tp50th", totalTp50Th / totalCount);
-            benchmarkPerformanceData.put("tp90th", totalTp90Th / totalCount);
-            benchmarkPerformanceData.put("tp95th", totalTp95Th / totalCount);
-            benchmarkResultBean.setBenchmarkResult(benchmarkPerformanceData);
             
         } catch (SQLException ex) {
             ex.printStackTrace();
