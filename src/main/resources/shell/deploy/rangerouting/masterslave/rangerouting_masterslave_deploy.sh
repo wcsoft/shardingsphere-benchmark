@@ -1,12 +1,8 @@
-ss_version=`head -n +1 /home/jenkins/BT_jenkins/ss_build_version.log`
-
-if [ $ss_version == 5.0 ];then
-  echo "5.0"
-  sh /export/shardingsphere-benchmark/shell/rangerouting/masterslave/rangerouting_masterslave_deploy_5.0.sh
-elif [ $ss_version == 4.1.1 ];then
-  echo "4.1.1"
-  sh /export/shardingsphere-benchmark/shell/rangerouting/masterslave/rangerouting_masterslave_deploy_4.0.sh
-else
-  echo "default version"
-  sh /export/shardingsphere-benchmark/shell/rangerouting/masterslave/rangerouting_masterslave_deploy_5.0.sh
-fi
+#!/bin/sh
+cd /home/jenkins
+./apache-shardingsphere-*-sharding-proxy-bin/bin/stop.sh
+sleep 5
+rm -f  ./apache-shardingsphere-*-sharding-proxy-bin/conf/config-*.yaml
+cp -f /export/shardingsphere-benchmark/yaml_conf/rangerouting/masterslave/proxy/config-proxy-rangerouting-masterslave.yaml /export/shardingsphere-benchmark/yaml_conf/server.yaml ./apache-shardingsphere-*-sharding-proxy-bin/conf
+./apache-shardingsphere-*-sharding-proxy-bin/bin/start.sh
+sleep 10
