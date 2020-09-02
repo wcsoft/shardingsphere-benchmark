@@ -2,6 +2,9 @@ package org.apache.shardingsphere.benchmark.bean;
 
 import java.util.Map;
 
+/**
+ * Benchmark result bean from jtl.
+ */
 public final class BenchmarkResultBean {
     
     public String version;

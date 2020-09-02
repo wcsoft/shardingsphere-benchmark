@@ -22,10 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Benchmark excel writer to generate report.
+ */
 public final class BenchmarkExcelWriter {
     
     private static List<String> CELL_HEADS;
-    
     static{
         CELL_HEADS = new ArrayList<String>(10);
         CELL_HEADS.add("版本");
@@ -43,6 +45,14 @@ public final class BenchmarkExcelWriter {
         CELL_HEADS.add("分表数量");
     }
     
+    /**
+     * Write jtl result to excel.
+     * @param excelPath
+     * @param sheetName
+     * @param isHeader
+     * @param rowNum
+     * @param dataList
+     */
     public static void writeExcel(String excelPath, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList){
         Workbook workbook = null;
         File exportFile = null;
@@ -62,10 +72,10 @@ public final class BenchmarkExcelWriter {
                 workbook.write(fileOut);
                 fileOut.flush();
         
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             } finally {
                 try {
                     fileOut.close();
@@ -76,13 +86,22 @@ public final class BenchmarkExcelWriter {
         }
     }
     
-    private static Workbook buildDataSheet(Workbook workbook, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList) {
+    /**
+     * Build excel sheet.
+     * @param result
+     * @param sheetName
+     * @param isHeader
+     * @param rowNum
+     * @param dataList
+     * @return
+     */
+    private static Workbook buildDataSheet(Workbook result, String sheetName, boolean isHeader, int rowNum, List<BenchmarkResultBean> dataList) {
         
         Sheet sheet = null;
-        if(null == workbook.getSheet(sheetName)){
-            sheet = workbook.createSheet(sheetName);
+        if(null == result.getSheet(sheetName)){
+            sheet = result.createSheet(sheetName);
         } else {
-            sheet = workbook.getSheet(sheetName);
+            sheet = result.getSheet(sheetName);
         }
         
         CellStyle cellStyle = buildHeadCellStyle(sheet.getWorkbook());
@@ -104,10 +123,14 @@ public final class BenchmarkExcelWriter {
             Row row = sheet.createRow(rowNum++);
             convertDataToRow(benchmarkResultBean, row);
         }
-        return workbook;
+        return result;
     }
     
-
+    /**
+     * Build cell style.
+     * @param workbook
+     * @return
+     */
     private static CellStyle buildHeadCellStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
 
@@ -131,7 +154,11 @@ public final class BenchmarkExcelWriter {
         return style;
     }
     
-
+    /**
+     * Fill jtl data into each row of excel.
+     * @param data
+     * @param row
+     */
     private static void convertDataToRow(BenchmarkResultBean data, Row row){
         int cellNum = 0;
         Cell cell;
