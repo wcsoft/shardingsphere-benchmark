@@ -113,7 +113,7 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: ms_ds_${0..2}.sbtest${0..1}
+      actualDataNodes: ms_ds_${0..1}.sbtest${0..1}
       databaseStrategy:
         inline:
           shardingColumn: id

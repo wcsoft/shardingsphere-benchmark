@@ -1,5 +1,6 @@
-chmod -R 777 /export/benchmark/shardingsphere-benchmark
-cd /export/benchmark/shardingsphere-benchmark
+benchmark_base_dir="/export/benchmark/shardingsphere-benchmark"
+chmod -R 777 benchmark_base_dir
+cd benchmark_base_dir
 
 if [ -f ./ss_build_version.log ]; then
   rm ./ss_build_version.log

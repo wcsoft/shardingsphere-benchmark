@@ -58,7 +58,7 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: press_test_${0..2}.sbtest${0..99}
+      actualDataNodes: press_test_${0..999}.sbtest${0..999}
       databaseStrategy:
         inline:
           shardingColumn: id

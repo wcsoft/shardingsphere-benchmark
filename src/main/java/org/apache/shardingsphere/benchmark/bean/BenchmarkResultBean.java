@@ -2,7 +2,10 @@ package org.apache.shardingsphere.benchmark.bean;
 
 import java.util.Map;
 
-public class BenchmarkResultBean {
+/**
+ * Benchmark result bean from jtl.
+ */
+public final class BenchmarkResultBean {
     
     public String version;
     public Map benchmarkResult;
@@ -119,6 +122,4 @@ public class BenchmarkResultBean {
     public int getTableShardingCount(){
         return this.tableShardingCount;
     }
-    
-    
 }

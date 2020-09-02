@@ -171,11 +171,11 @@ dataSources:
 shardingRule:
   tables:
     sbtest:
-      actualDataNodes: ms_ds_${0..2}.sbtest${0..1}
+      actualDataNodes: ms_ds_${0..4}.sbtest${0..100}
       databaseStrategy:
         inline:
           shardingColumn: id
-          algorithmExpression: ms_ds_${id % 3}
+          algorithmExpression: ms_ds_${id % 100}
       keyGenerator:
         type: SNOWFLAKE
         column: id
