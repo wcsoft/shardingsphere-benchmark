@@ -10,12 +10,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BenchmarkConfigYaml {
+/**
+ * Benchmark config yaml
+ */
+public final class BenchmarkConfigYaml {
     
     public static FileFilter yamlFilter = new BenchmarkConfigYaml.YamlFileFilter();
     
+    /**
+     * Modify benchmark yaml file
+     * @param benchmarkBasePath
+     * @param shardingDbCount
+     * @param shardingTableCount
+     * @param maxConnectionCount
+     * @param minConnectionCount
+     * @param maxConnectionPerQuery
+     */
     public static void modifyBenchmarkYamlFile(String benchmarkBasePath, int shardingDbCount, int shardingTableCount, int maxConnectionCount, int minConnectionCount, int maxConnectionPerQuery){
-        
         String line = "";
         File yamlFile = null;
         List<File> yamlFileList = getYamlFileList(benchmarkBasePath);
@@ -55,23 +66,32 @@ public class BenchmarkConfigYaml {
                 bw.write(bufAll.toString());
                 bw.close();
             } 
-        } catch (IOException exception) {
-            exception.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         } finally {
         }
     }
-
     
+    /**
+     * Get all of yaml files.
+     * @param benchmarkBasePath
+     * @return
+     */
     public static List<File> getYamlFileList(String benchmarkBasePath){
         String yamlBasePath =  benchmarkBasePath + "/src/main/resources/yaml";
         File yamlBaseDir = new File(yamlBasePath);
-        List<File> yamlFileList = new ArrayList<File>();
+        List<File> yamlFileList = new ArrayList<File>(10);
         return filterTargetFiles(yamlBaseDir, yamlFilter, yamlFileList);
     }
     
-    
+    /**
+     * File target files with its suffix.
+     * @param targetDir
+     * @param filter
+     * @param resultFiles
+     * @return
+     */
     public static List<File> filterTargetFiles(File targetDir, FileFilter filter, List<File> resultFiles) {
-        
         File[] files = targetDir.listFiles(filter);
         for (File file : files) {
             if (file.isDirectory()) {
@@ -83,7 +103,9 @@ public class BenchmarkConfigYaml {
         return resultFiles;
     }
     
-    
+    /**
+     * Yaml file filter.
+     */
     private static class YamlFileFilter implements FileFilter {
         
         @Override
@@ -94,15 +116,12 @@ public class BenchmarkConfigYaml {
             String fileName = file.getName();
             return fileName.matches("(?i).+yaml$");
         }
-        
     }
-    
     
     public static void main(String[] args) {
         String path = "D:\\shardingsphere-benchmark\\src\\main\\resources\\yaml\\fullrouting\\sharding-masterslave-encrypt\\shardingjdbc\\config-shardingjdbc-fullrouting-sharding-masterslave-encrypt-test.yaml";
         String benchmarkBasePath = "D:/shardingsphere-benchmark";
         modifyBenchmarkYamlFile(benchmarkBasePath, 1000,1000, 99, 9, 8);
-
     }
 }
 

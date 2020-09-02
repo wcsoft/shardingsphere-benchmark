@@ -20,13 +20,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
+/**
+ * JMeter test plan for benchmark statistic.
+ */
+public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
     
     public static DataSource dataSource;
-    
     static {
         dataSource = JDBCDataSourceUtil.initDb((String) userConfig.get("shardingsphere.benchmark.result.datasource"),
-                (String) userConfig.get("shardingsphere.benchmark.result.host"), (int) userConfig.get("shardingsphere.benchmark.result.port"),
+                (String) userConfig.get("shardingsphere.benchmark.result.host"), Integer.valueOf((String)userConfig.get("shardingsphere.benchmark.result.port")).intValue(),
                 (String) userConfig.get("shardingsphere.benchmark.result.username"), (String) userConfig.get("shardingsphere.benchmark.result.password"));
     }
     
@@ -38,31 +40,25 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         results.sampleStart();
         int concurrency = Integer.valueOf((String)userConfig.get("shardingsphere.jmeter.concurrency.count")).intValue();
         String[] sampleArray = ((String)userConfig.get("shardingsphere.result.sample.amount")).split(",");
-        
-        
         int skipBegin = Integer.valueOf(sampleArray[0]).intValue();
         int skipEnd = Integer.valueOf(sampleArray[1]).intValue();
         long updateTime = System.currentTimeMillis();
         int dbShardingCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.db.count")).intValue();
         int tableShardingCount = Integer.valueOf((String)userConfig.get("shardingsphere.sharding.table.count")).intValue();
         String benchmarkVersion = (String)userConfig.get("shardingsphere.version");
-        
         String benchmarkInsertSql = (String) sqlConfig.get("ss.benchmark.result.insert.sql");
         String benchmarkAvgInsertSql = (String)sqlConfig.get("ss.benchmark.avg.result.insert.sql");
         String currentTime = String.valueOf(System.currentTimeMillis());
-        
         List<BenchmarkResultBean> fullRoutingResult = BenchmarkFullroutingStatistic.calculateFullroutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
         List<BenchmarkResultBean> rangeRoutingResult = BenchmarkRangeroutingStatistic.calculateRangeRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
         List<BenchmarkResultBean> singleRoutingResult = BenchmarkSingleroutingStatistic.calculateSingleRoutingScenarioResult(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
-    
         updateBenchmarkRecordInDb(fullRoutingResult, benchmarkInsertSql);
         updateBenchmarkRecordInDb(rangeRoutingResult, benchmarkInsertSql);
         updateBenchmarkRecordInDb(singleRoutingResult, benchmarkInsertSql);
-        
         List params = Arrays.asList(benchmarkVersion, tableShardingCount, dbShardingCount, concurrency);
-        List<BenchmarkResultBean> fullRoutingCalResult = new ArrayList<BenchmarkResultBean>();
-        List<BenchmarkResultBean> rangeRoutingCalResult = new ArrayList<BenchmarkResultBean>();
-        List<BenchmarkResultBean> singleRoutingCalResult = new ArrayList<BenchmarkResultBean>();
+        List<BenchmarkResultBean> fullRoutingCalResult = new ArrayList<BenchmarkResultBean>(10);
+        List<BenchmarkResultBean> rangeRoutingCalResult = new ArrayList<BenchmarkResultBean>(10);
+        List<BenchmarkResultBean> singleRoutingCalResult = new ArrayList<BenchmarkResultBean>(10);
         
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.shardingjdbc.select.sql"), params));
         fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.proxy.select.sql"), params));
@@ -133,7 +129,6 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         
         String resultExcelPath = (String)userConfig.get("shardingsphere.benchmark.result.base.path") + "/" + (String)userConfig.get("shardingsphere.benchmark.result.excel.name");
         String resultAvgExcelPath = (String)userConfig.get("shardingsphere.benchmark.result.base.path")  + "/" + (String)userConfig.get("shardingsphere.benchmark.avg.result.excel.name");
-        
         BenchmarkExcelWriter.writeExcel(resultExcelPath, "full-routing-" + currentTime, true, 1, fullRoutingResult);
         BenchmarkExcelWriter.writeExcel(resultExcelPath, "range-routing-" + currentTime, true, 1, rangeRoutingResult);
         BenchmarkExcelWriter.writeExcel(resultExcelPath, "single-routing-" + currentTime, true, 1, singleRoutingResult);
@@ -146,9 +141,7 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
     }
     
     public void updateBenchmarkRecordInDb(List<BenchmarkResultBean> benchMarkResults, String sql){
-        
         Connection connection = null;
-        
         for(int i = 0; i < benchMarkResults.size(); i++){
             try {
                 connection = dataSource.getConnection();
@@ -172,14 +165,14 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                         benchmarkResultBean.getDbShardingCount(),
                         benchmarkResultBean.getTableShardingCount());
                 JDBCDataSourceUtil.insert(connection, sql, insertParams);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             } finally {
                 if(null != connection){
                     try {
                         connection.close();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -190,7 +183,6 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
         Connection connection = null;
         BenchmarkResultBean benchmarkResultBean = new BenchmarkResultBean();
         try {
-            
             double totalTps = 0;
             int totalCount = 0;
             int totalRequestCount = 0;
@@ -199,7 +191,6 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             double totalTp95Th = 0;
             double totalTp90Th = 0;
             double totalTp50Th = 0;
-            
             connection = dataSource.getConnection();
             ResultSet rs = JDBCDataSourceUtil.select(connection, sql, params);
             while(rs.next()){
@@ -222,7 +213,6 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
                 benchmarkResultBean.setDbShardingCount(rs.getInt(17));
                 benchmarkResultBean.setTableShardingCount(rs.getInt(18));
             }
-            
             if (totalCount == 0){
                 totalCount = 1;
             }
@@ -236,13 +226,13 @@ public class JMeterSSBenchmarkStatistic extends JMeterBenchmarkBase {
             benchmarkPerformanceData.put("tp95th", totalTp95Th / totalCount);
             benchmarkResultBean.setBenchmarkResult(benchmarkPerformanceData);
             
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } finally {
             try {
                 connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
         return benchmarkResultBean;

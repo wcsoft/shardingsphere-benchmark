@@ -7,8 +7,7 @@ public class BenchmarkResultConverter {
 
     public static Map convertResult(String eachJMeterResult){
 
-        Map performanceInfo = new HashMap<>();
-
+        Map performanceInfo = new HashMap<>(1,1);
         String[] eachJMeterDetails =  eachJMeterResult.split(",");
         performanceInfo.put("jMeterTime", Long.valueOf(eachJMeterDetails[0]).longValue());
         performanceInfo.put("jMeterCost", Integer.valueOf(eachJMeterDetails[1]).intValue());

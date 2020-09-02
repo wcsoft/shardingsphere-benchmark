@@ -3,17 +3,23 @@ package org.apache.shardingsphere.benchmark.common.file.jmeter;
 import java.io.*;
 import java.util.*;
 
-public class BenchmarkResultParser {
-
+public final class BenchmarkResultParser {
+    
+    /**
+     * Benchmark statistic.
+     * @param filePath
+     * @param skipBegin
+     * @param skipEnd
+     * @return
+     */
     public static Map benchmarkStatistic(String filePath, int skipBegin, int skipEnd) {
-        FileInputStream fileStream = null;
-
         int failCount = 0;
         int successCount = 0;
-        Map benchmarkResultStatistic = new HashMap();
-        List jMeterCostsList = new ArrayList<>();
-        List jMeterTimeList = new ArrayList<>();
-
+        FileInputStream fileStream = null;
+        Map result = new HashMap(1,1);
+        List jMeterCostsList = new ArrayList<>(10);
+        List jMeterTimeList = new ArrayList<>(10);
+        
         if (new File(filePath).exists()) {
             try {
                 int totalCount = 0;
@@ -21,7 +27,6 @@ public class BenchmarkResultParser {
                 InputStreamReader readStream = new InputStreamReader(fileStream);
                 BufferedReader reader = new BufferedReader(readStream);
                 String eachJMeterResult = "";
-        
                 while ((eachJMeterResult = reader.readLine()) != null) {
                     totalCount = totalCount + 1;
                     // if (totalCount > 1000000) {
@@ -36,7 +41,6 @@ public class BenchmarkResultParser {
                         }
                     }
                 }
-        
                 int concurrentCount = jMeterCostsList.size();
                 double startTime = Double.valueOf((Double) jMeterTimeList.get(0)).doubleValue();
                 double endTime = Double.valueOf((Double) jMeterTimeList.get(concurrentCount - 1)).doubleValue();
@@ -51,27 +55,21 @@ public class BenchmarkResultParser {
                 double tp95th = Double.valueOf((Double) jMeterCostsList.get(tp95thIndex)).doubleValue();
                 double maxCost = Double.valueOf((Double) jMeterCostsList.get(concurrentCount - 1)).doubleValue();
                 double minCost = Double.valueOf((Double) jMeterCostsList.get(0)).doubleValue();
-        
-                benchmarkResultStatistic.put("tps", benchmarkTps);
-                benchmarkResultStatistic.put("total", concurrentCount);
-                benchmarkResultStatistic.put("tp50th", tp50th);
-                benchmarkResultStatistic.put("tp90th", tp90th);
-                benchmarkResultStatistic.put("tp95th", tp95th);
-                benchmarkResultStatistic.put("maxCost", maxCost);
-                benchmarkResultStatistic.put("minCost", minCost);
-        
-                return benchmarkResultStatistic;
-        
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                result.put("tps", benchmarkTps);
+                result.put("total", concurrentCount);
+                result.put("tp50th", tp50th);
+                result.put("tp90th", tp90th);
+                result.put("tp95th", tp95th);
+                result.put("maxCost", maxCost);
+                result.put("minCost", minCost);
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
         }
-
-        return benchmarkResultStatistic;
+        return result;
     }
-
 }
 
 

@@ -132,26 +132,22 @@ public final class BenchmarkExcelWriter {
      * @return
      */
     private static CellStyle buildHeadCellStyle(Workbook workbook) {
-        CellStyle style = workbook.createCellStyle();
-
-        style.setAlignment(HorizontalAlignment.CENTER);
-        
-        style.setBorderBottom(BorderStyle.THIN);
-        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderLeft(BorderStyle.THIN);
-        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderRight(BorderStyle.THIN);
-        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderTop(BorderStyle.THIN);
-        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
-
-        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
+        CellStyle result = workbook.createCellStyle();
+        result.setAlignment(HorizontalAlignment.CENTER);
+        result.setBorderBottom(BorderStyle.THIN);
+        result.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        result.setBorderLeft(BorderStyle.THIN);
+        result.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        result.setBorderRight(BorderStyle.THIN);
+        result.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        result.setBorderTop(BorderStyle.THIN);
+        result.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        result.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        result.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         Font font = workbook.createFont();
         font.setBold(true);
-        style.setFont(font);
-        return style;
+        result.setFont(font);
+        return result;
     }
     
     /**
