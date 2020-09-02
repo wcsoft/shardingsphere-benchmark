@@ -41,27 +41,30 @@ public final class BenchmarkResultParser {
                         }
                     }
                 }
-                int concurrentCount = jMeterCostsList.size();
-                double startTime = Double.valueOf((Double) jMeterTimeList.get(0)).doubleValue();
-                double endTime = Double.valueOf((Double) jMeterTimeList.get(concurrentCount - 1)).doubleValue();
-                double totalTimeCost = (endTime - startTime) / 1000;
-                double benchmarkTps = concurrentCount / totalTimeCost;
-                Collections.sort(jMeterCostsList);
-                int tp50thIndex = (int) 0.5 * jMeterCostsList.size();
-                double tp50th = Double.valueOf((Double) jMeterCostsList.get(tp50thIndex)).doubleValue();
-                int tp90thIndex = (int) 0.9 * jMeterCostsList.size();
-                double tp90th = Double.valueOf((Double) jMeterCostsList.get(tp90thIndex)).doubleValue();
-                int tp95thIndex = (int) 0.95 * jMeterCostsList.size();
-                double tp95th = Double.valueOf((Double) jMeterCostsList.get(tp95thIndex)).doubleValue();
-                double maxCost = Double.valueOf((Double) jMeterCostsList.get(concurrentCount - 1)).doubleValue();
-                double minCost = Double.valueOf((Double) jMeterCostsList.get(0)).doubleValue();
-                result.put("tps", benchmarkTps);
-                result.put("total", concurrentCount);
-                result.put("tp50th", tp50th);
-                result.put("tp90th", tp90th);
-                result.put("tp95th", tp95th);
-                result.put("maxCost", maxCost);
-                result.put("minCost", minCost);
+                if (jMeterCostsList.size() > 0) {
+                    int concurrentCount = jMeterCostsList.size();
+                    double startTime = Double.valueOf((Double) jMeterTimeList.get(0)).doubleValue();
+                    double endTime = Double.valueOf((Double) jMeterTimeList.get(concurrentCount - 1)).doubleValue();
+                    double totalTimeCost = (endTime - startTime) / 1000;
+                    double benchmarkTps = concurrentCount / totalTimeCost;
+                    Collections.sort(jMeterCostsList);
+                    int tp50thIndex = (int) 0.5 * jMeterCostsList.size();
+                    double tp50th = Double.valueOf((Double) jMeterCostsList.get(tp50thIndex)).doubleValue();
+                    int tp90thIndex = (int) 0.9 * jMeterCostsList.size();
+                    double tp90th = Double.valueOf((Double) jMeterCostsList.get(tp90thIndex)).doubleValue();
+                    int tp95thIndex = (int) 0.95 * jMeterCostsList.size();
+                    double tp95th = Double.valueOf((Double) jMeterCostsList.get(tp95thIndex)).doubleValue();
+                    double maxCost = Double.valueOf((Double) jMeterCostsList.get(concurrentCount - 1)).doubleValue();
+                    double minCost = Double.valueOf((Double) jMeterCostsList.get(0)).doubleValue();
+                    result.put("tps", benchmarkTps);
+                    result.put("total", concurrentCount);
+                    result.put("tp50th", tp50th);
+                    result.put("tp90th", tp90th);
+                    result.put("tp95th", tp95th);
+                    result.put("maxCost", maxCost);
+                    result.put("minCost", minCost);
+                }
+
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             } catch (IOException ex) {
