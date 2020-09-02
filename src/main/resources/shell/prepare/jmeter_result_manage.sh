@@ -1,10 +1,11 @@
+benchmark_result_dir="/export/shardingsphere-benchmark/result"
 # create base dir for benchmark result
-if [ ! -d "/export/shardingsphere-benchmark/result"  ];then
-  mkdir -p /export/shardingsphere-benchmark/result
+if [ ! -d $benchmark_result_dir  ];then
+  mkdir -p $benchmark_result_dir
 fi
-chmod -R 777 /export/shardingsphere-benchmark/result
+chmod -R 777 $benchmark_result_dir
 
-cd /export/shardingsphere-benchmark/result
+cd $benchmark_result_dir
 
 # create sub dir of benchmark result
 if [ ! -d "./fullrouting/encrypt" ];then
