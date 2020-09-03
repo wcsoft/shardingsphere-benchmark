@@ -49,6 +49,9 @@ public final class BenchmarkResultParser {
                     double endTime = Double.valueOf((Double) jMeterTimeList.get(concurrentCount - 1)).doubleValue();
                     double totalTimeCost = (endTime - startTime) / 1000;
                     double benchmarkTps = concurrentCount / totalTimeCost;
+                    if (filePath.contains("insertupdatedelete")) {
+                        benchmarkTps = benchmarkTps * 4;
+                    }
                     Collections.sort(jMeterCostsList);
                     int tp50thIndex = (int) 0.5 * jMeterCostsList.size();
                     double tp50th = Double.valueOf((Double) jMeterCostsList.get(tp50thIndex)).doubleValue();

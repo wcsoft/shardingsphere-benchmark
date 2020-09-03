@@ -33,8 +33,8 @@ public class JMeterProxyRangeRoutingShardingInsertUpdateDelete extends JMeterBen
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.sharding.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.sharding.insert.values"));
+            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.sharding.insert.single.sql");
+            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.sharding.insert.single.values"));
     
     
             String insertSqlBatch = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");

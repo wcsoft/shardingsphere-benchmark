@@ -33,8 +33,8 @@ public class JMeterProxyRangeRoutingShardingMasterSlaveEncryptInsertUpdateDelete
         try {
             connection = dataSource.getConnection();
 
-            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql");
-            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values"));
+            String insertSql = (String) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.sql.single");
+            List insertParams = convertParams((List) sqlConfig.get("ss.benchmark.rangerouting.shardingmasterslaveencrypt.insert.values.single"));
             //JDBCDataSourceUtil.insert(connection, insertSql, insertParams);
     
     
