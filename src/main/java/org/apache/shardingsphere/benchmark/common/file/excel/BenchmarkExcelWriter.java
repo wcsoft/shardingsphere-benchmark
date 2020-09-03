@@ -109,7 +109,7 @@ public final class BenchmarkExcelWriter {
         CellStyle cellStyle = buildHeadCellStyle(sheet.getWorkbook());
         if(isHeader){
             for (int i=0; i < CELL_HEADS.size(); i++) {
-                sheet.setColumnWidth(i, 4000);
+                sheet.setColumnWidth(i, 6000);
             }
             sheet.setDefaultRowHeight((short) 400);
             Row head = sheet.createRow(0);

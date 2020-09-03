@@ -60,68 +60,68 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
         List<BenchmarkResultBean> rangeRoutingCalResult = new ArrayList<BenchmarkResultBean>(10);
         List<BenchmarkResultBean> singleRoutingCalResult = new ArrayList<BenchmarkResultBean>(10);
         
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.shardingjdbc.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.proxy.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.mysql.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.shardingjdbc.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.proxy.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.mysql.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.shardingjdbc.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.proxy.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.mysql.select.sql"), params));
-       fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.proxy.select.sql"), params));
-        fullRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.mysql.select.sql"), params));
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.shardingjdbc.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.proxy.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.mysql.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.shardingjdbc.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.proxy.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.mysql.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.shardingjdbc.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.proxy.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.mysql.select.sql"), params, fullRoutingCalResult);
+       getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.proxy.select.sql"), params, fullRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.mysql.select.sql"), params, fullRoutingCalResult);
       
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.shardingjdbc.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.proxy.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.mysql.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.shardingjdbc.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.proxy.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.mysql.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.shardingjdbc.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.proxy.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.mysql.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.shardingjdbc.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.proxy.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.mysql.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.shardingjdbc.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.proxy.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.mysql.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.shardingjdbc.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.proxy.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.mysql.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.proxy.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.mysql.select.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.shardingjdbc.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), params));
-        rangeRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), params));
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.shardingjdbc.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.proxy.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.mysql.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.shardingjdbc.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.proxy.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.encrypt.mysql.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.shardingjdbc.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.proxy.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.mysql.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.shardingjdbc.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.proxy.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.masterslave.mysql.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.shardingjdbc.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.proxy.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.mysql.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.shardingjdbc.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.proxy.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.sharding.mysql.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.proxy.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.mysql.select.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.shardingjdbc.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), params, rangeRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.rangerouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), params, rangeRoutingCalResult);
         
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.shardingjdbc.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.proxy.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.mysql.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.shardingjdbc.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.proxy.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.mysql.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.shardingjdbc.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.proxy.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.mysql.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.shardingjdbc.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.proxy.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.mysql.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.shardingjdbc.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.proxy.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.mysql.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.shardingjdbc.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.proxy.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.mysql.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.select.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.shardingjdbc.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), params));
-        singleRoutingCalResult.add(getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), params));
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.shardingjdbc.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.proxy.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.mysql.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.shardingjdbc.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.proxy.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.mysql.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.shardingjdbc.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.proxy.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.mysql.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.shardingjdbc.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.proxy.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.mysql.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.shardingjdbc.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.proxy.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.mysql.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.shardingjdbc.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.proxy.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.mysql.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.select.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.shardingjdbc.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), params, singleRoutingCalResult);
+        getTargetResult((String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), params, singleRoutingCalResult);
     
         updateBenchmarkRecordInDb(fullRoutingCalResult, benchmarkAvgInsertSql);
         updateBenchmarkRecordInDb(rangeRoutingCalResult, benchmarkAvgInsertSql);
@@ -181,7 +181,7 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
         }
     }
     
-    public BenchmarkResultBean getTargetResult(String sql, List params){
+    public BenchmarkResultBean getTargetResult(String sql, List params, List<BenchmarkResultBean> result){
         Connection connection = null;
         BenchmarkResultBean benchmarkResultBean = new BenchmarkResultBean();
         try {
@@ -216,7 +216,7 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
                 benchmarkResultBean.setTableShardingCount(rs.getInt(18));
             }
             if (totalCount > 0){
-                Map benchmarkPerformanceData = new HashMap<>();
+                Map benchmarkPerformanceData = new HashMap<>(1,1);
                 benchmarkPerformanceData.put("tps", totalTps / totalCount);
                 benchmarkPerformanceData.put("total" , totalRequestCount / totalCount);
                 benchmarkPerformanceData.put("maxCost" , totalMaxTime / totalCount);
@@ -225,6 +225,7 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
                 benchmarkPerformanceData.put("tp90th", totalTp90Th / totalCount);
                 benchmarkPerformanceData.put("tp95th", totalTp95Th / totalCount);
                 benchmarkResultBean.setBenchmarkResult(benchmarkPerformanceData);
+                result.add(benchmarkResultBean);
             } else {
                 return null;
             }
