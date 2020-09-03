@@ -42,7 +42,7 @@ public final class BenchmarkConfigYaml {
                     if (line.contains("maximumPoolSize: 200")){
                         line = line.replaceAll("maximumPoolSize: 200", "maximumPoolSize: " + maxConnectionCount);
                     }
-                    if (line.contains("{id % 2}")) {
+                    if (line.contains("{id % 3}")) {
                         line = line.replace("{id % 3}", "{id % " + shardingDbCount + "}");
                     }
                     if (line.contains("{k % 100}")){

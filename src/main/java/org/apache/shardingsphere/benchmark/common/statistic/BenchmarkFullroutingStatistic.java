@@ -54,21 +54,21 @@ public final class BenchmarkFullroutingStatistic {
         Map proxyFullRoutingEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingEncryptSelectResultPath, skipBegin, skipEnd);
         if (proxyFullRoutingEncryptSelectResult.size() > 0){
             String ssSelectSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.select.sql");
-            BenchmarkResultBean proxyFullRoutingEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, proxyFullRoutingEncryptSelectResult, ssSelectSql, "Encrypt", "ShardingProxy", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean proxyFullRoutingEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, proxyFullRoutingEncryptSelectResult, ssSelectSql, "Encrypt", "ShardingProxy", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(proxyFullRoutingEncryptSelectResultBean);
         }
         String shardingjdbcFullRoutingEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingjdbc.fullrouting.encrypt.select.result");
         Map shardingjdbcFullRoutingEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(shardingjdbcFullRoutingEncryptSelectResultPath, skipBegin, skipEnd);
         if (shardingjdbcFullRoutingEncryptSelectResult.size() > 0){
             String ssSelectSql = (String)sqlConfig.get("ss.benchmark.fullrouting.encrypt.select.sql");
-            BenchmarkResultBean shardingjdbcFullRoutingEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcFullRoutingEncryptSelectResult, ssSelectSql, "Encrypt", "ShardingJDBC", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean shardingjdbcFullRoutingEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcFullRoutingEncryptSelectResult, ssSelectSql, "Encrypt", "ShardingJDBC", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(shardingjdbcFullRoutingEncryptSelectResultBean);
         }
         String jdbcFullRoutingEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.jdbc.fullrouting.encrypt.select.result");
         Map jdbcFullRoutingEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingEncryptSelectResultPath, skipBegin, skipEnd);
         if (jdbcFullRoutingEncryptSelectResult.size() > 0){
             String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.encrypt.select.sql");
-            BenchmarkResultBean jdbcFullRoutingEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingEncryptSelectResult, jdbcSelectSql, "Encrypt", "MYSQL", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean jdbcFullRoutingEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingEncryptSelectResult, jdbcSelectSql, "Encrypt", "MYSQL", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(jdbcFullRoutingEncryptSelectResultBean);
         }
     }
@@ -91,21 +91,21 @@ public final class BenchmarkFullroutingStatistic {
         Map proxyFullRoutingMasterSlaveSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingMasterSlaveSelectResultPath, skipBegin, skipEnd);
         if (proxyFullRoutingMasterSlaveSelectResult.size() > 0) {
             String ssSelectSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.select.sql");
-            BenchmarkResultBean proxyFullRoutingMasterSlaveSelectResultBean = new BenchmarkResultBean(benchmarkVersion, proxyFullRoutingMasterSlaveSelectResult, ssSelectSql, "MasterSlave", "ShardingProxy", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean proxyFullRoutingMasterSlaveSelectResultBean = new BenchmarkResultBean(benchmarkVersion, proxyFullRoutingMasterSlaveSelectResult, ssSelectSql, "MasterSlave", "ShardingProxy", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(proxyFullRoutingMasterSlaveSelectResultBean);
         }
         String shardingjdbcFullRoutingMasterSlaveSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.shardingjdbc.fullrouting.masterslave.select.result");
         Map shardingjdbcFullRoutingMasterSlaveSelectResult = BenchmarkResultParser.benchmarkStatistic(shardingjdbcFullRoutingMasterSlaveSelectResultPath, skipBegin, skipEnd);
         if (shardingjdbcFullRoutingMasterSlaveSelectResult.size() > 0) {
             String ssSelectSql = (String)sqlConfig.get("ss.benchmark.fullrouting.masterslave.select.sql");
-            BenchmarkResultBean shardingjdbcFullRoutingMasterSlaveSelectResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcFullRoutingMasterSlaveSelectResult, ssSelectSql, "MasterSlave", "ShardingJDBC", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean shardingjdbcFullRoutingMasterSlaveSelectResultBean = new BenchmarkResultBean(benchmarkVersion, shardingjdbcFullRoutingMasterSlaveSelectResult, ssSelectSql, "MasterSlave", "ShardingJDBC", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(shardingjdbcFullRoutingMasterSlaveSelectResultBean);
         }
         String jdbcFullRoutingMasterSlaveSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.jdbc.fullrouting.masterslave.select.result");
         Map jdbcFullRoutingMasterSlaveSelectResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingMasterSlaveSelectResultPath, skipBegin, skipEnd);
         if (jdbcFullRoutingMasterSlaveSelectResult.size() > 0){
             String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.masterslave.select.sql");
-            BenchmarkResultBean jdbcFullRoutingMasterSlaveSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingMasterSlaveSelectResult, jdbcSelectSql, "MasterSlave", "MYSQL", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean jdbcFullRoutingMasterSlaveSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingMasterSlaveSelectResult, jdbcSelectSql, "MasterSlave", "MYSQL", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(jdbcFullRoutingMasterSlaveSelectResultBean);
         }
     }
@@ -142,7 +142,7 @@ public final class BenchmarkFullroutingStatistic {
         Map jdbcFullRoutingShardingSelectResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingShardingSelectResultPath, skipBegin, skipEnd);
         if (jdbcFullRoutingShardingSelectResult.size() > 0) {
             String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.sharding.select.sql");
-            BenchmarkResultBean jdbcFullRoutingShardingSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingSelectResult, jdbcSelectSql, "Sharding", "MYSQL", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean jdbcFullRoutingShardingSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingSelectResult, jdbcSelectSql, "Sharding", "MYSQL", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(jdbcFullRoutingShardingSelectResultBean);
         }
     }
@@ -179,7 +179,7 @@ public final class BenchmarkFullroutingStatistic {
         Map jdbcFullRoutingShardingMasterSlaveEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(jdbcFullRoutingShardingMasterSlaveEncryptSelectResultPath, skipBegin, skipEnd);
         if (jdbcFullRoutingShardingMasterSlaveEncryptSelectResult.size() > 0) {
             String jdbcSelectSql = (String)sqlConfig.get("jdbc.benchmark.fullrouting.shardingmasterslaveencrypt.select.sql");
-            BenchmarkResultBean jdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingMasterSlaveEncryptSelectResult, jdbcSelectSql, "Sharding+Master+Slave+Encrypt", "MYSQL", "FullRouting", "Select", concurency, updateTime, dbShardingCount, tableShardingCount);
+            BenchmarkResultBean jdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcFullRoutingShardingMasterSlaveEncryptSelectResult, jdbcSelectSql, "Sharding+Master+Slave+Encrypt", "MYSQL", "FullRouting", "Select", concurency, updateTime, 0, 0);
             result.add(jdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean);
         }
     }

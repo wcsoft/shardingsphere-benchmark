@@ -30,19 +30,19 @@ public final class BenchmarkExcelWriter {
     private static List<String> CELL_HEADS;
     static{
         CELL_HEADS = new ArrayList<String>(10);
-        CELL_HEADS.add("版本");
-        CELL_HEADS.add("场景");
+        CELL_HEADS.add("Version");
+        CELL_HEADS.add("Scenario");
         CELL_HEADS.add("Rules");
-        CELL_HEADS.add("数据库操作");
-        CELL_HEADS.add("产品");
+        CELL_HEADS.add("Database Action");
+        CELL_HEADS.add("Product");
         CELL_HEADS.add("TPS");
-        CELL_HEADS.add("并发数");
-        CELL_HEADS.add("采样总量");
-        CELL_HEADS.add("最大耗时");
-        CELL_HEADS.add("最小耗时");
+        CELL_HEADS.add("Concurrency Count");
+        CELL_HEADS.add("Sample Amount");
+        CELL_HEADS.add("Max Cost");
+        CELL_HEADS.add("Min Cost");
         CELL_HEADS.add("SQL");
-        CELL_HEADS.add("分库数量");
-        CELL_HEADS.add("分表数量");
+        CELL_HEADS.add("Sharding Database Count");
+        CELL_HEADS.add("Sharding Table Count");
     }
     
     /**
@@ -78,7 +78,9 @@ public final class BenchmarkExcelWriter {
                 ex.printStackTrace();
             } finally {
                 try {
-                    fileOut.close();
+                    if (fileOut != null) {
+                        fileOut.close();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -107,12 +109,13 @@ public final class BenchmarkExcelWriter {
         CellStyle cellStyle = buildHeadCellStyle(sheet.getWorkbook());
         if(isHeader){
             for (int i=0; i < CELL_HEADS.size(); i++) {
-                sheet.setColumnWidth(i, 4000);
+                sheet.setColumnWidth(i, 6000);
             }
             sheet.setDefaultRowHeight((short) 400);
             Row head = sheet.createRow(0);
             for (int i = 0; i < CELL_HEADS.size(); i++) {
                 Cell cell = head.createCell(i);
+                
                 cell.setCellValue(CELL_HEADS.get(i));
                 cell.setCellStyle(cellStyle);
             }

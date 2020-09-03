@@ -133,7 +133,7 @@ public final class BenchmarkConfigJmx {
             String stringPropXpath = "./stringProp";
             Element stringPropElement = (Element) xpath.evaluate(stringPropXpath, resultCollectorElement, XPathConstants.NODE);
             String outputPath = stringPropElement.getTextContent();
-            outputPath = outputPath.replace("/basepath", outPutBasePath);
+            outputPath = outputPath.replace("/export/shardingsphere-benchmark/result", outPutBasePath);
             stringPropElement.setTextContent(outputPath);
             if (testPlanFile.getName().contains("insertupdatedelete") || testPlanFile.getName().contains("select")){
                 String jmeterLoopXpath = "//jmeterTestPlan/hashTree/hashTree/ThreadGroup/elementProp/stringProp";
