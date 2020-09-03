@@ -32,8 +32,6 @@ dataSources:
 
 rules:
   - !SHARDING
-    defaultTableStrategy:
-      none:
     tables:
       sbtest:
         actualDataNodes: press_test_${0..3}.sbtest${0..99}
@@ -48,6 +46,8 @@ rules:
         keyGenerateStrategy:
           column: id
           keyGeneratorName: increment
+    bindingTables:
+      - sbtest
 
     shardingAlgorithms:
       database_inline:
@@ -58,7 +58,6 @@ rules:
         type: INLINE
         props:
           algorithm.expression: sbtest${k % 100}
-
     keyGenerators:
       increment:
         type: SNOWFLAKE
