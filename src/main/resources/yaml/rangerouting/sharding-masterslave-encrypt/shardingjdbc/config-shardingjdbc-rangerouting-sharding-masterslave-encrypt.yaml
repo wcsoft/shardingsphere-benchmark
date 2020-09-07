@@ -191,11 +191,11 @@ rules:
       database_inline:
         type: INLINE
         props:
-          algorithm.expression: ms_ds_${id % 4}
+          algorithm-expression: ms_ds_${id % 4}
       table_inline:
         type: INLINE
         props:
-          algorithm.expression: sbtest${k % 100}
+          algorithm-expression: sbtest${k % 100}
     keyGenerators:
       increment:
         type: SNOWFLAKE
@@ -204,7 +204,7 @@ rules:
     encryptors:
       encryptor_aes:
         props:
-          aes.key.value: '123456abc'
+          aes-key-value: '123456abc'
         type: AES
       encryptor_md5:
         type: md5
