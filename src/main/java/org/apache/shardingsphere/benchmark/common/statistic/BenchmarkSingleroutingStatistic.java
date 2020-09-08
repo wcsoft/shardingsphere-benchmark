@@ -3,6 +3,7 @@ package org.apache.shardingsphere.benchmark.common.statistic;
 import org.apache.shardingsphere.benchmark.bean.BenchmarkResultBean;
 import org.apache.shardingsphere.benchmark.common.file.jmeter.BenchmarkResultParser;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,9 @@ import java.util.Map;
 /**
  * Benchmark single routing statistic.
  */
-public class BenchmarkSingleroutingStatistic {
+public class BenchmarkSingleroutingStatistic extends BenchmarkStatistic{
     
-    public static List<BenchmarkResultBean> result = new ArrayList<BenchmarkResultBean>(10);
+    public List<BenchmarkResultBean> result = new ArrayList<BenchmarkResultBean>(10);
     
     /**
      * Calculate result for single routing scenario.
@@ -27,7 +28,7 @@ public class BenchmarkSingleroutingStatistic {
      * @param tableShardingCount
      * @return
      */
-    public static List<BenchmarkResultBean> calculateSingleRoutingScenarioResult(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public List<BenchmarkResultBean> calculateSingleRoutingScenarioResult(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
         calculateSingleRoutingEncrypt(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
         calculateSingleRoutingMasterslave(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
         calculateSingleRoutingSharding(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurrency, updateTime, dbShardingCount, tableShardingCount);
@@ -48,7 +49,7 @@ public class BenchmarkSingleroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateSingleRoutingEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateSingleRoutingEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxySingleRoutingEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.singlerouting.encrypt.insertupdatedelete.result");
         Map proxySingleRoutingEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxySingleRoutingEncryptInsertupdatedeleteResultPath, skipBegin, skipEnd);
         if (proxySingleRoutingEncryptInsertupdatedeleteResult.size() > 0) {
@@ -106,7 +107,7 @@ public class BenchmarkSingleroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateSingleRoutingMasterslave(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateSingleRoutingMasterslave(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxySingleRoutingMasterSlaveInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.singlerouting.masterslave.insertupdatedelete.result");
         Map proxySingleRoutingMasterSlaveInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxySingleRoutingMasterSlaveInsertupdatedeleteResultPath, skipBegin, skipEnd);
         if (proxySingleRoutingMasterSlaveInsertupdatedeleteResult.size() > 0) {
@@ -164,7 +165,7 @@ public class BenchmarkSingleroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateSingleRoutingSharding(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateSingleRoutingSharding(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxySingleRoutingShardingInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.singlerouting.sharding.insertupdatedelete.result");
         Map proxySingleRoutingShardingInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxySingleRoutingShardingInsertupdatedeleteResultPath, skipBegin, skipEnd);
         if (proxySingleRoutingShardingInsertupdatedeleteResult.size() > 0) {
@@ -222,7 +223,7 @@ public class BenchmarkSingleroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateSingleRoutingShardingMasterslaveEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateSingleRoutingShardingMasterslaveEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurrency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxySingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.singlerouting.shardingmasterslaveencrypt.insertupdatedelete.result");
         Map proxySingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult = BenchmarkResultParser.benchmarkStatistic(proxySingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResultPath, skipBegin, skipEnd);
         if (proxySingleRoutingShardingMasterSlaveEncryptInsertupdatedeleteResult.size() > 0) {
@@ -265,5 +266,45 @@ public class BenchmarkSingleroutingStatistic {
             BenchmarkResultBean jdbcSingleRoutingShardingMasterSlaveEncryptSelectResultBean = new BenchmarkResultBean(benchmarkVersion, jdbcSingleRoutingShardingMasterSlaveEncryptSelectResult, jdbcSelectSql, "Sharding+Master+Slave+Encrypt", "MYSQL", "SingleRouting", "Select", concurrency, updateTime, 0, 0);
             result.add(jdbcSingleRoutingShardingMasterSlaveEncryptSelectResultBean);
         }
+    }
+    
+    
+    /**
+     * Calculate average result for single routing scenario.
+     *
+     * @param datasource
+     * @param sqlConfig
+     * @param noShardingParams
+     * @param shardingParams
+     * @return
+     */
+    public  List<BenchmarkResultBean> calculateSingleroutingScenarioAvgResult(DataSource datasource, Map sqlConfig, List noShardingParams, List shardingParams){
+        List<BenchmarkResultBean> singleRoutingCalResult = new ArrayList<BenchmarkResultBean>(10);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.shardingjdbc.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.proxy.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.mysql.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.shardingjdbc.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.proxy.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.encrypt.mysql.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.shardingjdbc.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.proxy.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.mysql.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.shardingjdbc.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.proxy.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.masterslave.mysql.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.shardingjdbc.select.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.proxy.select.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.mysql.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.shardingjdbc.insertupdatedelete.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.proxy.insertupdatedelete.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.sharding.mysql.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.select.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.select.sql"), noShardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.shardingjdbc.insertupdatedelete.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.proxy.insertupdatedelete.sql"), shardingParams, singleRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.singlerouting.shardingmasterslaveencrypt.mysql.insertupdatedelete.sql"), noShardingParams, singleRoutingCalResult);
+    
+        return singleRoutingCalResult;
     }
 }
