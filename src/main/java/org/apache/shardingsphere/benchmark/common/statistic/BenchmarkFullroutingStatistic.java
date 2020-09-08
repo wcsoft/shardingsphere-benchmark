@@ -3,6 +3,7 @@ package org.apache.shardingsphere.benchmark.common.statistic;
 import org.apache.shardingsphere.benchmark.bean.BenchmarkResultBean;
 import org.apache.shardingsphere.benchmark.common.file.jmeter.BenchmarkResultParser;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,9 @@ import java.util.Map;
 /**
  * Statistic for benchmark full routing scenario.
  */
-public final class BenchmarkFullroutingStatistic {
+public class BenchmarkFullroutingStatistic extends BenchmarkStatistic{
     
-    public static List<BenchmarkResultBean> result = new ArrayList<BenchmarkResultBean>(10);
+    public List<BenchmarkResultBean> result = new ArrayList<BenchmarkResultBean>(10);
     
     /**
      * Calculate result for full routing scenario.
@@ -28,7 +29,7 @@ public final class BenchmarkFullroutingStatistic {
      * @param tableShardingCount
      * @return
      */
-    public static List<BenchmarkResultBean> calculateFullroutingScenarioResult(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public List<BenchmarkResultBean> calculateFullroutingScenarioResult(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
         calculateFullroutingEncrypt(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurency, updateTime, dbShardingCount, tableShardingCount);
         calculateFullroutingMasterslave(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurency, updateTime, dbShardingCount, tableShardingCount);
         calculateFullroutingSharding(benchmarkResultPath, sqlConfig, benchmarkVersion, skipBegin, skipEnd, concurency, updateTime, dbShardingCount, tableShardingCount);
@@ -49,7 +50,7 @@ public final class BenchmarkFullroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateFullroutingEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateFullroutingEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxyFullRoutingEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.encrypt.select.result");
         Map proxyFullRoutingEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingEncryptSelectResultPath, skipBegin, skipEnd);
         if (proxyFullRoutingEncryptSelectResult.size() > 0){
@@ -86,7 +87,7 @@ public final class BenchmarkFullroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateFullroutingMasterslave(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateFullroutingMasterslave(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxyFullRoutingMasterSlaveSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.masterslave.select.result");
         Map proxyFullRoutingMasterSlaveSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingMasterSlaveSelectResultPath, skipBegin, skipEnd);
         if (proxyFullRoutingMasterSlaveSelectResult.size() > 0) {
@@ -123,7 +124,7 @@ public final class BenchmarkFullroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateFullroutingSharding(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateFullroutingSharding(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxyFullRoutingShardingSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.sharding.select.result");
         Map proxyFullRoutingShardingSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingShardingSelectResultPath, skipBegin, skipEnd);
         if (proxyFullRoutingShardingSelectResult.size() > 0) {
@@ -160,7 +161,7 @@ public final class BenchmarkFullroutingStatistic {
      * @param dbShardingCount
      * @param tableShardingCount
      */
-    public static void calculateFullroutingShardingMasterslaveEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
+    public void calculateFullroutingShardingMasterslaveEncrypt(Map benchmarkResultPath, Map sqlConfig, String benchmarkVersion, int skipBegin, int skipEnd, int concurency, long updateTime, int dbShardingCount, int tableShardingCount) {
         String proxyFullRoutingShardingMasterSlaveEncryptSelectResultPath = (String) benchmarkResultPath.get("ss.benchmark.proxy.fullrouting.shardingmasterslaveencrypt.select.result");
         Map proxyFullRoutingShardingMasterSlaveEncryptSelectResult = BenchmarkResultParser.benchmarkStatistic(proxyFullRoutingShardingMasterSlaveEncryptSelectResultPath, skipBegin, skipEnd);
         if (proxyFullRoutingShardingMasterSlaveEncryptSelectResult.size() > 0) {
@@ -183,4 +184,31 @@ public final class BenchmarkFullroutingStatistic {
             result.add(jdbcFullRoutingShardingMasterSlaveEncryptSelectResultBean);
         }
     }
+    
+    /**
+     * Calculate average result for full scenario.
+     * 
+     * @param datasource
+     * @param sqlConfig
+     * @param noShardingParams
+     * @param shardingParams
+     * @return
+     */
+    public  List<BenchmarkResultBean> calculateFullroutingScenarioAvgResult(DataSource datasource, Map sqlConfig, List noShardingParams, List shardingParams){
+        List<BenchmarkResultBean> fullRoutingCalResult = new ArrayList<BenchmarkResultBean>(10);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.shardingjdbc.select.sql"), noShardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.proxy.select.sql"), noShardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.encrypt.mysql.select.sql"), noShardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.shardingjdbc.select.sql"), noShardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.proxy.select.sql"), noShardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.masterslave.mysql.select.sql"), noShardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.shardingjdbc.select.sql"), shardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.proxy.select.sql"), shardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.sharding.mysql.select.sql"), noShardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.shardingjdbc.select.sql"), shardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.proxy.select.sql"), shardingParams, fullRoutingCalResult);
+        getTargetResult(datasource, (String)sqlConfig.get("ss.benchmark.result.fullrouting.shardingmasterslaveencrypt.mysql.select.sql"), noShardingParams, fullRoutingCalResult);
+        return fullRoutingCalResult;
+    }
+
 }
