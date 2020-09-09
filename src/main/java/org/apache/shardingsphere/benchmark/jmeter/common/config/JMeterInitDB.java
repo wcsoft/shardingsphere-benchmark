@@ -32,7 +32,7 @@ public class JMeterInitDB extends JMeterBenchmarkBase {
                 String dbHost = databaseMachineArrays[i];
                 initDb(dbHost, createdDatabaseName, createTableName, tableCount);
             }
-            initBenchmarkResultDb((String)userConfig.get("shardingsphere.benchmark.result.host"), (String)userConfig.get("shardingsphere.benchmark.result.datasource"));
+            initBenchmarkResultDb((String)userConfig.get("shardingsphere.benchmark.result.database.host"), (String)userConfig.get("shardingsphere.benchmark.result.datasource"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
