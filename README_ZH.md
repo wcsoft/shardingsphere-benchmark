@@ -69,7 +69,7 @@ shardingsphere.benchmark.result.database.username=root
 // 存储ShardingSphere benchmark结果数据库密码。
 shardingsphere.benchmark.result.database.password=
 // 存储ShardingSphere benchmark数据库机器ip列表或者host列表。
-shardingsphere.benchmark.database.machine.list=ss.benchmark.fullrouting.encrypt.ds0;ss.benchmark.fullrouting.encrypt.ds1;ss.benchmark.fullrouting.encrypt.ds2
+shardingsphere.benchmark.database.machine.host.list=ss.benchmark.fullrouting.encrypt.ds0;ss.benchmark.fullrouting.encrypt.ds1;ss.benchmark.fullrouting.encrypt.ds2
 // 存储ShardingSphere benchmark结果数据库机器ip或者host。
 shardingsphere.benchmark.result.database.host=ss.benchmark.result
 ```
@@ -105,8 +105,43 @@ timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success
 #### Statistics
 对不同场景下生成的JMeter结果进行统一汇总，统计结果主要以TPS为主。这些结果存储在两个物理表中，分别为 *benchmark_result* and *benchmark_avg_result*，同时将统计结果生成测试报告，报告文件格式为excel。
 
-* 物理表 *benchmark_result*: 同一个场景下，每次测试生成的统计结果存储在该表中。
+* 物理表 *benchmark_result*: 同一个场景下，每次测试生成的统计结果存储在该表中，表结构如下。
+
+|       *字段*       |  *描述*           |   
+| ----------------------- | --------------------- |
+| id              |  主键，自动生成。  | 
+| product         |  被测试产品包括ShardingJDBC，ShardingProxy or MYSQL。| 
+| version         |  ShardingSphere 版本，配置在user-config.properties文件中。                | 
+| scenario        |  3中测试场景包括FullRouting，RangeRouting，SingleRouting。 | 
+| rules           |  4中规则包括 Encrypt， MasterSlave， Sharding， Sharding+Master+Slave+Encrypt。 | 
+| tps             |  通过JMeter结果文件计算tps，计算公式为 *total count / total time*。 | 
+| total           |  去除头尾的采样数据量。               | 
+| maxCost         |  执行sql中，其中时间最长的耗时。                | 
+| minCost         |  执行sql中，其中时间最小的耗时。  | 
+| dbsql           |  实际运行sql语句。                | 
+| dboperation     |  执行的sql类型包括Select and Insert+Update+Delete。 | 
+| concurrency     |  并发数据，配置在user-config.properties文件中。                | 
+| tableshardingcount|  分表数量，配置在user-config.properties，yaml文件会使用到该值。                 | 
+| dbshardingcount  |  分库数量，配置在user-config.properties，yaml文件会使用到该值。               | 
+
 * 物理表 *benchmark_avg_result*: 同一各场景下，当前所有曾经生成的统计结果的平均值存储在该表中。
+
+|       *字段*       |  *描述*           |   
+| ----------------------- | --------------------- |
+| id              |  主键，自动生成。  | 
+| product         |  被测试产品包括ShardingJDBC，ShardingProxy or MYSQL。| 
+| version         |  ShardingSphere 版本，配置在user-config.properties文件中。                | 
+| scenario        |  3中测试场景包括FullRouting，RangeRouting，SingleRouting。 | 
+| rules           |  4中规则包括 Encrypt， MasterSlave， Sharding， Sharding+Master+Slave+Encrypt。 | 
+| avg_tps         |  同一测试场景下总tps平均值，计算公式 *total tps/total count*。 | 
+| total           |  去除头尾的采样数据量。               | 
+| maxCost         |  执行sql中，其中时间最长的耗时。                | 
+| minCost         |  执行sql中，其中时间最小的耗时。  | 
+| dbsql           |  实际运行sql语句。                | 
+| dboperation     |  执行的sql类型包括Select and Insert+Update+Delete。 | 
+| concurrency     |  并发数据，配置在user-config.properties文件中。                | 
+| tableshardingcount|  分表数量，配置在user-config.properties，yaml文件会使用到该值。                 | 
+| dbshardingcount  |  分库数量，配置在user-config.properties，yaml文件会使用到该值。               | 
 
 运行如下命令获取统计结果。
 ```bash

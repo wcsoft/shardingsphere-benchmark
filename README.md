@@ -69,7 +69,7 @@ shardingsphere.benchmark.result.database.username=root
 // It is database password of ShardingSphere benchmark result, we can leave it empty by default.
 shardingsphere.benchmark.result.database.password=
 // It is host or ip list of ShardingSphere benchmark using.
-shardingsphere.benchmark.database.machine.list=ss.benchmark.fullrouting.encrypt.ds0;ss.benchmark.fullrouting.encrypt.ds1;ss.benchmark.fullrouting.encrypt.ds2
+shardingsphere.benchmark.database.machine.host.list=ss.benchmark.fullrouting.encrypt.ds0;ss.benchmark.fullrouting.encrypt.ds1;ss.benchmark.fullrouting.encrypt.ds2
 // It is database host of ShardingSphere benchmark result using. Statistics of ShardingSphere benchmark will be stored into the database. 
 shardingsphere.benchmark.result.database.host=ss.benchmark.result
 ```
@@ -103,11 +103,53 @@ timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success
 ```
 
 #### Statistics
-We could calculate the general statistics by JMeter result such as TPS. There are two physical tables to store the statistics, *benchmark_result* and *benchmark_avg_result*. Results also output to excel as report to check it easily. You could query the result from the databases directly as well if you prefer.
-* Physical table *benchmark_result*: intermediate result will be here.
-* Physical table *benchmark_avg_result*: average result will be here.
+We could calculate the general statistics by JMeter result such as TPS. There are two physical tables to store the statistics, *benchmark_result* and *benchmark_avg_result*. You could query the result from the databases directly as well if you prefer. Trigger the sql below to get latest record for the test.
+
+* Physical table *benchmark_result*: intermediate result will be here, its table structure is below.
+
+|       *Field*       |  *Description*           |   
+| ----------------------- | --------------------- |
+| id              |  Primary key generated automatically.  | 
+| product         |  Tested product that is ShardingJDBC, ShardingProxy or MYSQL. | 
+| version         |  ShardingSphere version configured at user-config.properties.                | 
+| scenario        |  Three kinds for benchmark including FullRouting, RangeRouting, SingleRouting. | 
+| rules           |  Four kinds of rules for benchmark including Encrypt, MasterSlave, Sharding, Sharding+Master+Slave+Encrypt. | 
+| tps             |  Tps which is got from JMeter file, the formula is *total count / total time*. | 
+| total           |  Sample count which is taken out the head data and tail data.                | 
+| maxCost         |  Max time cost of running every sql.                | 
+| minCost         |  Min time cost of running every sql. | 
+| dbsql           |  Actual sql to run.                | 
+| dboperation     |  Actual sql type to run including Select and Insert+Update+Delete. | 
+| concurrency     |  Count of concurrency configured at user-config.properties.                | 
+| tableshardingcount|  Table sharding count configured at user-config.properties, used at yaml.                 | 
+| dbshardingcount  |  Db sharding count configured at user-config.properties, used at yaml.                | 
+
+
+* Physical table *benchmark_avg_result*: average result will be here, its table structure is below.
+
+|       *Field*       |  *Description*           |   
+| ----------------------- | --------------------- |
+| id              |  Primary key generated automatically.  | 
+| product         |  Tested product that is ShardingJDBC, ShardingProxy or MYSQL. | 
+| version         |  ShardingSphere version configured at user-config.properties.                | 
+| scenario        |  Three kinds for benchmark including FullRouting, RangeRouting, SingleRouting. | 
+| rules           |  Four kinds of rules for benchmark including Encrypt, MasterSlave, Sharding, Sharding+Master+Slave+Encrypt. | 
+| avg_tps         |  Average tps for the same test, the formula is *total tps / total count*. | 
+| total           |  Sample count which is taken out the head data and tail data.                | 
+| maxCost         |  Max time cost of running every sql.                | 
+| minCost         |  Min time cost of running every sql. | 
+| dbsql           |  Actual sql to run.                | 
+| dboperation     |  Actual sql type to run including Select and Insert+Update+Delete. | 
+| concurrency     |  Count of concurrency configured at user-config.properties.                | 
+| tableshardingcount|  Table sharding count configured at user-config.properties, used at yaml.                 | 
+| dbshardingcount  |  Db sharding count configured at user-config.properties, used at yaml.                | 
 
 Run the command to get statistics.
 ```bash
 jmeter -n -t {ShardingSphere Benchmark base dir}/src/main/resources/testplan/statistic/ss-benchmark-statistic-testplan.jmx
+```
+
+```bash
+select * from benchmark_result order by id limit 1
+select * from benchmark_avg_result order by id limit 1
 ```

@@ -32,7 +32,7 @@ public class JMeterConfigBenchmark extends JMeterBenchmarkBase {
         int jmeterConcurrencyCount = Integer.valueOf((String)userConfig.get("shardingsphere.jmeter.concurrency.count")).intValue();
         String createdDatabaseName = (String)userConfig.get("shardingsphere.benchmark.database.name");
         String createTableName = (String)userConfig.get("shardingsphere.sharding.benchmark.table_name");
-        String databaseMachineList = (String)userConfig.get("shardingsphere.benchmark.database.machine.list");
+        String databaseMachineList = (String)userConfig.get("shardingsphere.benchmark.database.machine.host.list");
         // Config jmx files
         BenchmarkConfigJmx.modifyBenchmarkOutputBasePath(benchmarkBasePath, benchmarkOutputBasePath, jmeterConcurrencyCount, jmeterLoopCount);
         // Config property files
