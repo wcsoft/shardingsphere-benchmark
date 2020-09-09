@@ -24,7 +24,7 @@ public class JMeterInitDB extends JMeterBenchmarkBase {
         String createdDatabaseName = (String)userConfig.get("shardingsphere.benchmark.database.name");
         String createTableName = (String)userConfig.get("shardingsphere.sharding.benchmark.table_name");
         
-        String databaseMachineList = (String)userConfig.get("shardingsphere.benchmark.database.machine.list");
+        String databaseMachineList = (String)userConfig.get("shardingsphere.benchmark.database.machine.host.list");
         String[] databaseMachineArrays = databaseMachineList.split(";");
 
         try {
