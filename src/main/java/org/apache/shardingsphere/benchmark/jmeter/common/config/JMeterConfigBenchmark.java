@@ -48,7 +48,7 @@ public class JMeterConfigBenchmark extends JMeterBenchmarkBase {
                 String dbHost = databaseMachineArrays[i];
                 initBenchmarkDB(dbHost, createdDatabaseName, createTableName, shardingTableCount);
             }
-            initBenchmarkResultDB((String)userConfig.get("shardingsphere.benchmark.result.host"), (String)userConfig.get("shardingsphere.benchmark.result.datasource"));
+            initBenchmarkResultDB((String)userConfig.get("shardingsphere.benchmark.result.database.host"), (String)userConfig.get("shardingsphere.benchmark.result.datasource"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -69,7 +69,7 @@ public class JMeterConfigBenchmark extends JMeterBenchmarkBase {
         String createdDatabaseSql = initDbSqlList.get(2);
         String createdResultTableSql = initDbSqlList.get(3);
         String createdAvgResultTableSql = initDbSqlList.get(3);
-        DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+        DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, (int) userConfig.get("shardingsphere.benchmark.database.port"), (String) userConfig.get("shardingsphere.benchmark.database.username"), (String) userConfig.get("shardingsphere.benchmark.database.password"));
         Connection connection1 = null;
         try {
             connection1 = dataSource1.getConnection();
@@ -77,13 +77,13 @@ public class JMeterConfigBenchmark extends JMeterBenchmarkBase {
             stat1.executeUpdate(createdDatabaseSql);
             stat1.close();
             connection1.close();
-            DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdResultDatabaseName, host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+            DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdResultDatabaseName, host, (int) userConfig.get("shardingsphere.benchmark.database.port"), (String) userConfig.get("shardingsphere.benchmark.database.username"), (String) userConfig.get("shardingsphere.benchmark.database.password"));
             Connection createdConnection1 = createdDataSource1.getConnection();
             Statement createdStat1 = createdConnection1.createStatement();
             createdStat1.executeUpdate(createdAvgResultTableSql);
             createdStat1.close();
             createdConnection1.close();
-            createdDataSource1 = JDBCDataSourceUtil.initDb(createdResultDatabaseName, host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+            createdDataSource1 = JDBCDataSourceUtil.initDb(createdResultDatabaseName, host, (int) userConfig.get("shardingsphere.benchmark.database.port"), (String) userConfig.get("shardingsphere.benchmark.database.username"), (String) userConfig.get("shardingsphere.benchmark.database.password"));
             createdConnection1 = createdDataSource1.getConnection();
             createdStat1 = createdConnection1.createStatement();
             createdStat1.executeUpdate(createdResultTableSql);

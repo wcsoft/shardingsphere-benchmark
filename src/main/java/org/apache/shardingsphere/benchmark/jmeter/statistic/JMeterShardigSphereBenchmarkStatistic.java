@@ -22,8 +22,8 @@ public class JMeterShardigSphereBenchmarkStatistic extends JMeterBenchmarkBase {
     public static DataSource dataSource;
     static {
         dataSource = JDBCDataSourceUtil.initDb((String) userConfig.get("shardingsphere.benchmark.result.datasource"),
-                (String) userConfig.get("shardingsphere.benchmark.result.host"), Integer.valueOf((String)userConfig.get("shardingsphere.benchmark.result.port")).intValue(),
-                (String) userConfig.get("shardingsphere.benchmark.result.username"), (String) userConfig.get("shardingsphere.benchmark.result.password"));
+                (String) userConfig.get("shardingsphere.benchmark.result.database.host"), Integer.valueOf((String)userConfig.get("shardingsphere.benchmark.result.database.port")).intValue(),
+                (String) userConfig.get("shardingsphere.benchmark.result.database.username"), (String) userConfig.get("shardingsphere.benchmark.result.database.password"));
     }
     
     @Override

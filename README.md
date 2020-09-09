@@ -1,22 +1,19 @@
 # What is ShardingSphere Benchmark
-ShardingSphere Benchmark is a performance tool to check its benchmark of core scenarios which are in figure below.
+ShardingSphere Benchmark is a performance tool to check its benchmark of core scenarios which are in figure below. The amount of benchmark cases is 96, the formula is 3(Scenarios) * 4(Products) * 2(SQL Type) * 4(Rules).
 
 
-|                         | *ShardingSphere-JDBC* | *ShardingSphere-Proxy* | *MYSQL* |
+|       *Scenarios*       |  *Products*           |      *SQL TYPE*        | *Rules*  | 
 | ----------------------- | --------------------- | ---------------------- | ------------------------ |
-| Full Route              | Select                | Select                 | Select                   |
-|                         | Insert+Update+Delete  | Insert+Update+Delete   | Insert+Update+Delete     |      
-| Range Route             | Select                | Select                 | Select                   |
-|                         | Insert+Update+Delete  | Insert+Update+Delete   | Insert+Update+Delete     |
-| Single Route            | Select                | Select                 | Select                   |
-|                         | Insert+Update+Delete  | Insert+Update+Delete   | Insert+Update+Delete     |
+| Full Route              |  ShardingSphere-JDBC  |  Select                |   Encrypt                | 
+| Range Route             |  ShardingSphere-Proxy |  Insert/Update/Delete  |   Master-Slave           |  
+| Single Route            |  MYSQL                |                        |   Sharding               | 
+|                         |                       |                        |   Sharding-Master-Slave-Encrypt   | 
 
 ## How to work
-ShardingSphere Benchmark is mainly achieved by JMeter in summary, running as command *jmeter -n -t testplan*. The workflow refers to the figure below.
-
-*TODO:image of workflow here*
+ShardingSphere Benchmark is mainly achieved by JMeter in summary, running as command *jmeter -n -t testplan*.
 
 ### Environment Preparation
+Due to the diversity of user system environment, we don't provide an unified installation mode for automatical deployment, please install them below manually. You could skip it if having them.
 
 #### Install MYSQL 
 * Get [MYSQL installation](https://dev.mysql.com/downloads/mysql/) from official website depending on the system you use. It's appreciated to choose MYSQL version above 5.
@@ -24,11 +21,11 @@ ShardingSphere Benchmark is mainly achieved by JMeter in summary, running as com
 
 #### Install JDK
 * Get [JDK installation](https://www.oracle.com/java/technologies/javase-downloads.html) from official website depending on the system you use. It's appreciated to choose JDK version above 7.
-* Install and set up JDK according to *Installation Instructions* of MYSQL related version section of [JDK installation](https://www.oracle.com/java/technologies/javase-downloads.html).
+* Install and set up JDK according to *Installation Instructions* [JDK installation](https://www.oracle.com/java/technologies/javase-downloads.html).
 
 #### Install Maven
 * Get [Maven installation](http://maven.apache.org/download.cgi) from official website depending on the system you use. It's appreciated to choose MYSQL version 3.6.
-* Install ans set up Maven according to [Maven doc](http://maven.apache.org/install.html) 
+* Install ans set up Maven according to [Maven doc](http://maven.apache.org/install.html).
 
 #### Get JDBC Jar
 * Get JDBC Jar from official website [JDBC Jar url](https://dev.mysql.com/downloads/connector/j/). Its version depends on MYSQL you use.
@@ -42,7 +39,7 @@ mvn clean install
 
 #### Install ShardingSphere-Proxy
 * Get source code of ShardingSphere from [ShardingSphere Source Code URL](https://github.com/apache/shardingsphere), the features for different branches refer to [ShardingSphere Doc](https://shardingsphere.apache.org/).
-* Get ShardingSphere-Proxy installation by running command below. For ShardingSphere 4.x, it's located at *{project_base_dir}/sharding-distribution/sharding-proxy-distribution/target*; for ShardingSphere 5.x, it's located at  *{project_base_dir}/shardingsphere-distribution/shardingsphere-proxy-distribution/target*.
+* Get ShardingSphere-Proxy installation by running command below. For ShardingSphere 4.x, it's located at *{project_base_dir}/sharding-distribution/sharding-proxy-distribution/target*; for ShardingSphere 5.x, it's located at *{project_base_dir}/shardingsphere-distribution/shardingsphere-proxy-distribution/target*.
 ```bash
 mvn clean install -Prelease
 ```
@@ -56,18 +53,25 @@ mvn clean install -Prelease
 
 
 #### Configuration
-We have extracted necessary user configuration which is in *{ShardingSphere Benchmark base dir}/src/main/resources/config/user-config.properties*. You have to change configuration list below as yours. By default we configure any ip with host in the code or yaml to prevent ip leakage and cause security problems, ip or host depends on your choice. 
+We have extracted necessary user configuration which is in *{ShardingSphere Benchmark base dir}/src/main/resources/config/user-config.properties*. You have to change configuration list below as yours. By default we configure any ip with host in the code or yaml to prevent ip leakage and cause security problems。 We provide the unified host configuration at *{ShardingSphere Benchmark base dir}/src/main/resources/config/shardingsphere_benchmark_machline_hosts*, modify ips as yours and replace the host file. There is no need to change those ips if running benchmark at local machine.
 
 ```bash
+// It is base directory of ShardingSphere project.
 shardingsphere.project.base.path=/export/jenkins/workspace/ShardingSphere-Benchmark-Deploy
+// It is base directory of ShardingSphere benchmark project.
 shardingsphere.benchmark.project.base.path=/export/benchmark/shardingsphere-benchmark
+// It is base directory of ShardingSphere benchmark result.
 shardingsphere.benchmark.result.base.path=/export/shardingsphere-benchmark/result
-shardingsphere.benchmark.result.port=3306
-shardingsphere.benchmark.result.username=root
-shardingsphere.benchmark.result.password=
+// It is database port of ShardingSphere benchmark result accessing.
+shardingsphere.benchmark.result.database.port=3306
+// It is database username of ShardingSphere benchmark result using.
+shardingsphere.benchmark.result.database.username=root
+// It is database password of ShardingSphere benchmark result, we can leave it empty by default.
+shardingsphere.benchmark.result.database.password=
+// It is host or ip list of ShardingSphere benchmark using.
 shardingsphere.benchmark.database.machine.list=ss.benchmark.fullrouting.encrypt.ds0;ss.benchmark.fullrouting.encrypt.ds1;ss.benchmark.fullrouting.encrypt.ds2
-shardingsphere.benchmark.result.host=ss.benchmark.result
-shardingsphere.benchmark.result.datasource=benchmark_result
+// It is database host of ShardingSphere benchmark result using. Statistics of ShardingSphere benchmark will be stored into the database. 
+shardingsphere.benchmark.result.database.host=ss.benchmark.result
 ```
 
 #### Init Database/Table
@@ -88,8 +92,22 @@ All of test plans for different scenarios are at *{ShardingSphere Benchmark base
 jmeter -n -t {ShardingSphere Benchmark base dir}/src/main/resources/testplan/singlerouting/encrypt/shardingjdbc-singlerouting-encrypt-select-testplan.jmx
 ```
 
+After running the command successfully, it generates a JMeter result file located at *shardingsphere.benchmark.result.base.path* which is configured in *{ShardingSphere Benchmark base dir}/src/main/resources/config/user-config.properties*. The JMeter result looks like the figure below.
+```bash
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,Latency,IdleTime,Connect
+1598274390236,8657,JMeterShardingJDBCFullRoutingEncryptSelect,,,Thread Group 1-74,,true,,0,0,100,100,0,0,0
+1598274390236,8657,JMeterShardingJDBCFullRoutingEncryptSelect,,,Thread Group 1-65,,true,,0,0,100,100,0,0,0
+1598274390236,8878,JMeterShardingJDBCFullRoutingEncryptSelect,,,Thread Group 1-42,,true,,0,0,100,100,0,0,0
+1598274390234,8917,JMeterShardingJDBCFullRoutingEncryptSelect,,,Thread Group 1-15,,true,,0,0,100,100,0,0,0
+1598274390234,9002,JMeterShardingJDBCFullRoutingEncryptSelect,,,Thread Group 1-3,,true,,0,0,100,100,0,0,0
+```
+
 #### Statistics
-Statistics result is stored into excel by running command below. Excel file is at the path you configured in *{ShardingSphere Benchmark base dir}/src/main/resources/config/user-config.properties*.
+We could calculate the general statistics by JMeter result such as TPS. There are two physical tables to store the statistics, *benchmark_result* and *benchmark_avg_result*. Results also output to excel as report to check it easily. You could query the result from the databases directly as well if you prefer.
+* Physical table *benchmark_result*: intermediate result will be here.
+* Physical table *benchmark_avg_result*: average result will be here.
+
+Run the command to get statistics.
 ```bash
 jmeter -n -t {ShardingSphere Benchmark base dir}/src/main/resources/testplan/statistic/ss-benchmark-statistic-testplan.jmx
 ```
