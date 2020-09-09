@@ -18,13 +18,13 @@ if [ $1 == 5.0 ];then
   git pull origin master
 elif [ $1 == 4.1.1 ];then
   echo "4.1.1"
-  git reset --hard origin/4.1.1
+  git reset --hard
   git checkout 4.1.1
   git reset --hard
   git pull origin 4.1.1
 else
   echo "default version"
-  git reset --hard origin/master
+  git reset --hard
   git checkout master
   git reset --hard
   git pull origin master
