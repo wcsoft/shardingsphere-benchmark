@@ -1,6 +1,9 @@
 # What is ShardingSphere Benchmark
 ShardingSphere Benchmark is a performance tool to check its benchmark of core scenarios which are in figure below. The amount of benchmark cases is 96, the formula is 3(Scenarios) * 4(Products) * 2(SQL Type) * 4(Rules).
 
+* Full Route: sql will route to all of physical tables. 
+* Range Route: sql will route to parts of physical tables.
+* Single Route: sql will route to only one physical table.
 
 |       *Scenarios*       |  *Products*           |      *SQL TYPE*        | *Rules*  | 
 | ----------------------- | --------------------- | ---------------------- | ------------------------ |
@@ -8,6 +11,118 @@ ShardingSphere Benchmark is a performance tool to check its benchmark of core sc
 | Range Route             |  ShardingSphere-Proxy |  Insert/Update/Delete  |   Master-Slave           |  
 | Single Route            |  MYSQL                |                        |   Sharding               | 
 |                         |                       |                        |   Sharding-Master-Slave-Encrypt   | 
+
+## ShardingSphere Benchmark Project Structure
+It's much help to comprehend ShardingSphere Benchmark project structure to perform benchmark test easily. Refer to list below.
+
+```
+project
+│   README.md
+│   README_ZH.md    
+│
+└───src/main/java
+│   │     
+│   └───org/apache/shardingsphere/benchmark
+│       │   
+│       └───org/apache/shardingsphere/benchmark/bean
+│       │
+│       └───org/apache/shardingsphere/benchmark/common
+│       │       └───org/apache/shardingsphere/benchmark/common/file           // File common action such as modification of property file, xml or yaml.
+│       │       └───org/apache/shardingsphere/benchmark/common/statistic      // Statistics for JMeter result.
+│       │       
+│       └───org/apache/shardingsphere/benchmark/db                             // Database action inlcuding querying, inserting, updating, deleting.
+│       │ 
+│       └───org/apache/shardingsphere/benchmark/jemeter                        // JMeter test plan for different scenarios.
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/common         // Initialization for base data and physical databases/tables. 
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/fullrouting    // JMeter test plan for full routing scenario with different rules such as encrypt, master-slave, sharding, sharding-master-slave-encrypt for ShardingSphere-Proxy and ShardingSphere-JDBC.
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/rangerouting   // JMeter test plan for range routing scenario with different rules such as encrypt, master-slave, sharding, sharding-master-slave-encrypt for ShardingSphere-Proxy and ShardingSphere-JDBC.
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/singlerouting  // JMeter test plan for single routing scenario with different rules such as encrypt, master-slave, sharding, sharding-master-slave-encrypt for ShardingSphere-Proxy and ShardingSphere-JDBC.
+└───src/main/resources
+│   │     
+│   └───common
+│   │    │
+│   │    └───config
+│   │    │ initconfig-testplan.jmx                      // Initialization for creating databases/tables for benchmark and bencmark result.
+│   │    └───datapreparation
+│   │   │   │
+│   │   │   └───jdbc                                    //Base data initialization for different scenarios to MYSQL.
+│   │   │   │ jdbc-cleardata-testplan.jmx               // Clear base data for MYSQL.
+│   │   │   │ jdbc-createdata-testplan.jmx              // Create base data for MYSQL.
+│   │   │   └───shardingsphere                          // Base data initialization for different scenarios to ShardingSphere-JDBC and ShardingSphere-Proxy.
+│   │   │   │   │ 
+│   │   │   │   └───encrypt                             
+│   │   │   │   │ shardingsphere-encrypt-cleardata-testplan.jmx            // Clear base data with encrypt rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   │ shardingsphere-encrypt-createdata-testplan.jmx           // Create base data with encrypt rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   └───masterslave
+│   │   │   │   │ shardingsphere-masterslave-cleardata-testplan.jmx        // Clear base data with masterslave rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   │ shardingsphere-masterslave-createdata-testplan.jmx       // Create base data with masterslave rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   └───sharding
+│   │   │   │   │ shardingsphere-sharding-cleardata-testplan.jmx           // Clear base data with sharding rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   │ shardingsphere-sharding-createdata-testplan.jmx          // Create base data with sharding rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   └───sharding-masterslave-encrypt
+│   │   │   │   │ shardingsphere-sharding-masterslave-encrypt-cleardata-testplan.jmx    // Clear base data with sharding-masterslave-encrypt rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   │ shardingsphere-sharding-masterslave-encrypt-createdata-testplan.jmx   // Create base data with sharding-masterslave-encrypt rule for ShardingSphere-JDBC and ShardingSphere-Proxy. 
+│   │   │   │   │
+│   └───testplan                                           
+│   │    │       
+│   │    └───fullrouting                // Full routine scenario
+│   │   │   │   │
+│   │   │   │   └───encrypt            //Encrypt rule
+│   │   │   │   │ jdbc-fullrouting-encrypt-insertupdatedelete-testplan.jmx               // For MYSQL, insert-update-delete test plan with encrypt rule.  
+│   │   │   │   │ jdbc-fullrouting-encrypt-select-testplan.jmx                           // For MYSQL, select test plan with encrypt rule.
+│   │   │   │   │ proxy-fullrouting-encrypt-insertupdatedelete-testplan.jmx              // For ShardingSphere-Proxy, insert-update-delete test plan with encrypt rule.
+│   │   │   │   │ proxy-fullrouting-encrypt-select-testplan.jmx                          // For ShardingSphere-Proxy, select test plan with encrypt rule.
+│   │   │   │   │ shardingjdbc-fullrouting-encrypt-insertupdatedelete-testplan.jmx       // For ShardingSphere-JDBC, insert-update-delete test plan with encrypt rule.
+│   │   │   │   │ shardingjdbc-fullrouting-encrypt-select-testplan.jmx                   // For ShardingSphere-JDBC, select test plan with encrypt rule.
+│   │   │   │   └───masterslave        //master-slave rule
+│   │   │   │   │ proxy-fullrouting-masterslave-insertupdatedelete-testplan.jmx          // For ShardingSphere-Proxy, insert-update-delete test plan with master-slave rule.  
+│   │   │   │   │ proxy-fullrouting-masterslave-select-testplan.jmx                      // For ShardingSphere-Proxy, select test plan with master-slave rule.  
+│   │   │   │   │ shardingjdbc-fullrouting-masterslave-insertupdatedelete-testplan.jmx   // For ShardingSphere-JDBC, insert-update-delete test plan with master-slave rule.  
+│   │   │   │   │ shardingjdbc-fullrouting-masterslave-select-testplan.jmx               // For ShardingSphere-JDBC, select test plan with master-slave rule.  
+│   │   │   │   └───sharding           //sharding rule
+│   │   │   │   │ proxy-fullrouting-sharding-insertupdatedelete-testplan.jmx             // For ShardingSphere-Proxy, insert-update-delete test plan with sharding rule.  
+│   │   │   │   │ proxy-fullrouting-sharding-select-testplan.jmx                         // For ShardingSphere-Proxy, select test plan with sharding rule.  
+│   │   │   │   │ shardingjdbc-fullrouting-sharding-insertupdatedelete-testplan.jmx      // For ShardingSphere-JDBC, insert-update-delete test plan with sharding rule.  
+│   │   │   │   │ shardingjdbc-fullrouting-sharding-select-testplan.jmx                  // For ShardingSphere-JDBC, select test plan with sharding rule.  
+│   │   │   │   └───sharding-masterslave-encrypt    //sharding-masterslave-encrypt rule       
+│   │   │   │   │ proxy-fullrouting-shardingmasterslaveencrypt-insertupdatedelete-testplan.jmx          // For ShardingSphere-Proxy, insert-update-delete test plan with sharding-master-slave-encrypt rule.  
+│   │   │   │   │ proxy-fullrouting-shardingmasterslaveencrypt-select-testplan.jmx                      // For ShardingSphere-Proxy, select test plan with sharding-master-slave-encryp rule.  
+│   │   │   │   │ shardingjdbc-fullrouting-shardingmasterslaveencrypt-insertupdatedelete-testplan.jmx   // For ShardingSphere-JDBC, insert-update-delete test plan with sharding-master-slave-encryp rule.  
+│   │   │   │   │ shardingjdbc-fullrouting-shardingmasterslaveencrypt-select-testplan.jmx               // For ShardingSphere-JDBC, select test plan with sharding-master-slave-encryp rule.  
+│   │   │   │   │
+│   │   └───rangerouting  // Range routine scenario, file names of its test plans are similar with ones under *fullrouting* directory, please refer to them. 
+│   │   │       
+│   │   └───singlerouting // Single routine scenario, file names of its test plans are similar with ones under *fullrouting* directory, please refer to them. 
+│   │   │       
+│   │   └───statistic    
+│   │   │ ss-benchmark-statistic-testplan.jmx  
+│   └───yaml
+│   │    │   server.yaml                                           // It's used by ShardingSphere-Proxy.
+│   │    │   └───fullrouting                //Full routine
+│   │    │   │   └───encrypt                // Encrypt rule.
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-encrypt.yaml            // For ShardingSphere-Proxy, it's for full route with encrypt rule.
+│   │    │   │   │   └───shardingjdbc                                   
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-encrypt.yaml     // For ShardingSphere-JDBC, it's for full route with encrypt rule.
+│   │    │   │   └───masterslave
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-masterslave.yaml        // For ShardingSphere-Proxy, it's for full route with master-slave rule.
+│   │    │   │   │   └───shardingjdbc
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-masterslave.yaml // For ShardingSphere-JDBC, it's for full route with master-slave rule.
+│   │    │   │   └───sharding
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-sharding.yaml           // For ShardingSphere-Proxy, it's for full route with sharding rule.
+│   │    │   │   │   └───shardingjdbc
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-sharding.yaml    // For ShardingSphere-JDBC, it's for full route with sharding rule.
+│   │    │   │   └───sharding-masterslave-encrypt
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-sharding-masterslave-enc.yaml             // For ShardingSphere-Proxy, it's for full route with sharding-masterslave-enrypt rule.
+│   │    │   │   │   └───shardingjdbc
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-sharding-masterslave-encrypt.yaml  // For ShardingSphere-JDBC, it's for full route with sharding-masterslave-enrypt rule.
+│   │    │   └───rangerouting             // Range routine scenario, file names of its yaml are similar with ones under *fullrouting* directory, please refer to them. 
+│   │    │   │
+│   │    │   └───singlerouting            // Single routine scenario, file names of its yaml are similar with ones under *fullrouting* directory, please refer to them. 
+```
 
 ## How to work
 ShardingSphere Benchmark is mainly achieved by JMeter in summary, running as command *jmeter -n -t testplan*.
@@ -39,11 +154,13 @@ mvn clean install
 
 #### Install ShardingSphere-Proxy
 * Get source code of ShardingSphere from [ShardingSphere Source Code URL](https://github.com/apache/shardingsphere), the features for different branches refer to [ShardingSphere Doc](https://shardingsphere.apache.org/).
-* Get ShardingSphere-Proxy installation by running command below. For ShardingSphere 4.x, it's located at *{project_base_dir}/sharding-distribution/sharding-proxy-distribution/target*; for ShardingSphere 5.x, it's located at *{project_base_dir}/shardingsphere-distribution/shardingsphere-proxy-distribution/target*.
+* Get ShardingSphere-Proxy installation by running command below. For ShardingSphere 4.x, it's located at *{ShardingSphere_project_base_dir}/sharding-distribution/sharding-proxy-distribution/target*; for ShardingSphere 5.x, it's located at *{project_base_dir}/shardingsphere-distribution/shardingsphere-proxy-distribution/target*.
 ```bash
 mvn clean install -Prelease
 ```
-* Decompress ShardingSphere-proxy above, leave the JDBC jar and ShardingSphere Benchmark jar into *{ShardingSphere-Proxy_base_dir}/lib/*.
+* Decompress ShardingSphere-proxy above, delete yaml at *{ShardingSphere-Proxy_base_dir}/conf*, copy *server.yaml* and *config-proxy-\*.yaml* which is corresponding test scenarios. These yaml are at *{ShardingSphere Benchmark base dir}/src/main/resources/yaml*.
+* Leave ShardingSphere Benchmark jar and JDBC jar into *{ShardingSphere-Proxy_base_dir}/lib*.
+* Start ShardingSphere-Proxy, startup scripts are at *{ShardingSphere-Proxy_base_dir}/bin*, choose the right script according to your system.
 
 
 #### Install JMeter

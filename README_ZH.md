@@ -1,6 +1,9 @@
 # ShardingSphere Benchmark是什么
 ShardingSphere Benchmark是测试ShardingSphere的性能基线工具，目前覆盖的核心场景如下表。 覆盖的测试总量为96，计算公式 3(Scenarios) * 4(Products) * 2(SQL Type) * 4(Rules)。
 
+* Full Route：所执行sql会路由到所有物理表中。 
+* Range Route：所执行sql会路由到部分物理表中。
+* Single Route：所执行sql只会路由到一张物理表中。
 
 |       *Scenarios*       |  *Products*           |      *SQL TYPE*        | *Rules*  | 
 | ----------------------- | --------------------- | ---------------------- | ------------------------ |
@@ -8,6 +11,123 @@ ShardingSphere Benchmark是测试ShardingSphere的性能基线工具，目前覆
 | Range Route             |  ShardingSphere-Proxy |  Insert/Update/Delete  |   Master-Slave           |  
 | Single Route            |  MYSQL                |                        |   Sharding               | 
 |                         |                       |                        |   Sharding-Master-Slave-Encrypt   | 
+
+
+
+## ShardingSphere Benchmark 项目结构
+更全面的理解ShardingSphere Benchmark项目结构， 会帮助你容易运行ShardingSphere Benchmark相关测试。请参考下面目录及注释。
+
+```
+project
+│   README.md
+│   README_ZH.md    
+│
+└───src/main/java
+│   │     
+│   └───org/apache/shardingsphere/benchmark
+│       │   
+│       └───org/apache/shardingsphere/benchmark/bean
+│       │
+│       └───org/apache/shardingsphere/benchmark/common
+│       │       └───org/apache/shardingsphere/benchmark/common/file           // 文件修改相关操作模块，处理文件类型报错 yaml，xml，properties。
+│       │       └───org/apache/shardingsphere/benchmark/common/statistic      // JMeter 生成结果统计模块。
+│       │       
+│       └───org/apache/shardingsphere/benchmark/db                             // 数据库操作模块，包括增删改查。
+│       │ 
+│       └───org/apache/shardingsphere/benchmark/jemeter                        // 不通场景下的JMeter测试计划。
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/common         // 初始化基础数据及ShardingSphere benchmark测试需要的物理库/物理表。
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/fullrouting    // 对于ShardingSphere-Proxy 和 ShardingSphere-JDBC产品在全路由场景下的测试计划，包括基于不同的规则encrypt，master-slave，sharding，sharding-master-slave-encrypt。
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/rangerouting   // 对于ShardingSphere-Proxy 和 ShardingSphere-JDBC产品在范围路由场景下的测试计划，包括基于不同的规则encrypt，master-slave，sharding，sharding-master-slave-encrypt。
+│       │       └───org/apache/shardingsphere/benchmark/jemeter/singlerouting  // 对于ShardingSphere-Proxy 和 ShardingSphere-JDBC产品在单路由场景下的测试计划，包括基于不同的规则encrypt，master-slave，sharding，sharding-master-slave-encrypt。
+└───src/main/resources
+│   │     
+│   └───common
+│   │    │
+│   │    └───config
+│   │    │ initconfig-testplan.jmx                      // 初始化ShardingSphere Benchmark测试需要的物理库和物理表。
+│   │    └───datapreparation
+│   │   │   │
+│   │   │   └───jdbc                                    // MYSQL产品的基础数据初始化。
+│   │   │   │ jdbc-cleardata-testplan.jmx               // MYSQL基础数据清除。
+│   │   │   │ jdbc-createdata-testplan.jmx              // MYSQL基础数据创建。
+│   │   │   └───shardingsphere                          // ShardingSphere-JDBC 和 ShardingSphere-Proxy基础数据初始化，包括基于不同的规则encrypt，master-slave，sharding，sharding-master-slave-encrypt。
+│   │   │   │   │ 
+│   │   │   │   └───encrypt                             
+│   │   │   │   │ shardingsphere-encrypt-cleardata-testplan.jmx            // 基于脱敏规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的r基础数据清除。 
+│   │   │   │   │ shardingsphere-encrypt-createdata-testplan.jmx           // 基于脱敏规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据创建。 
+│   │   │   │   └───masterslave
+│   │   │   │   │ shardingsphere-masterslave-cleardata-testplan.jmx        // 基于主从规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据清除。 
+│   │   │   │   │ shardingsphere-masterslave-createdata-testplan.jmx       // 基于主从规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据创建。 
+│   │   │   │   └───sharding
+│   │   │   │   │ shardingsphere-sharding-cleardata-testplan.jmx           // 基于分片规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据清除。 
+│   │   │   │   │ shardingsphere-sharding-createdata-testplan.jmx          // 基于分片规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据创建。 
+│   │   │   │   └───sharding-masterslave-encrypt
+│   │   │   │   │ shardingsphere-sharding-masterslave-encrypt-cleardata-testplan.jmx    // 基于混合规则分片-主从-脱敏ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据清除。
+│   │   │   │   │ shardingsphere-sharding-masterslave-encrypt-createdata-testplan.jmx   // 基于混合规则分片-主从-脱敏ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据创建。
+│   │   │   │   │
+│   └───testplan                                           
+│   │    │       
+│   │    └───fullrouting                // 全路由场
+│   │   │   │   │
+│   │   │   │   └───encrypt            //脱敏规则
+│   │   │   │   │ jdbc-fullrouting-encrypt-insertupdatedelete-testplan.jmx               // 基于脱敏规则，MYSQL产品全路由场景下的insert-update-delete测试计划。  
+│   │   │   │   │ jdbc-fullrouting-encrypt-select-testplan.jmx                           // 基于脱敏规则，MYSQL产品全路由场景下的select测试计划。 
+│   │   │   │   │ proxy-fullrouting-encrypt-insertupdatedelete-testplan.jmx              // 基于脱敏规则，ShardingSphere-Proxy产品全路由场景下的insert-update-delete测试计划。  
+│   │   │   │   │ proxy-fullrouting-encrypt-select-testplan.jmx                          // 基于脱敏规则，ShardingSphere-Proxy产品全路由场景下的select测试计划。 
+│   │   │   │   │ shardingjdbc-fullrouting-encrypt-insertupdatedelete-testplan.jmx       // 基于脱敏规则，ShardingSphere-JDBC产品全路由场景下的insert-update-delete测试计划。
+│   │   │   │   │ shardingjdbc-fullrouting-encrypt-select-testplan.jmx                   // 基于脱敏规则，ShardingSphere-JDBC产品全路由场景下的select测试计划。
+│   │   │   │   └───masterslave        //主从规则
+│   │   │   │   │ proxy-fullrouting-masterslave-insertupdatedelete-testplan.jmx          // 基于主从规则，ShardingSphere-Proxy产品全路由场景下的insert-update-delete测试计划。  
+│   │   │   │   │ proxy-fullrouting-masterslave-select-testplan.jmx                      // 基于主从规则，ShardingSphere-Proxy产品全路由场景下的select测试计划。 
+│   │   │   │   │ shardingjdbc-fullrouting-masterslave-insertupdatedelete-testplan.jmx   // 基于主从规则，ShardingSphere-JDBC产品全路由场景下的insert-update-delete测试计划。  
+│   │   │   │   │ shardingjdbc-fullrouting-masterslave-select-testplan.jmx               // 基于主从规则，ShardingSphere-JDBC产品全路由场景下的select测试计划。    
+│   │   │   │   └───sharding           //sharding rule
+│   │   │   │   │ proxy-fullrouting-sharding-insertupdatedelete-testplan.jmx             // 基于分片规则，ShardingSphere-Proxy产品全路由场景下的insert-update-delete测试计划。
+│   │   │   │   │ proxy-fullrouting-sharding-select-testplan.jmx                         // 基于分片规则，ShardingSphere-Proxy产品全路由场景下的select测试计划。  
+│   │   │   │   │ shardingjdbc-fullrouting-sharding-insertupdatedelete-testplan.jmx      // 基于分片规则，ShardingSphere-JDBC产品全路由场景下的insert-update-delete测试计划。
+│   │   │   │   │ shardingjdbc-fullrouting-sharding-select-testplan.jmx                  // 基于分片规则，ShardingSphere-JDBC产品全路由场景下的select测试计划。 
+│   │   │   │   └───sharding-masterslave-encrypt    //sharding-masterslave-encrypt rule       
+│   │   │   │   │ proxy-fullrouting-shardingmasterslaveencrypt-insertupdatedelete-testplan.jmx          // 基于混合规则分片-主从-脱敏，ShardingSphere-Proxy产品全路由场景下的insert-update-delete测试计划。
+│   │   │   │   │ proxy-fullrouting-shardingmasterslaveencrypt-select-testplan.jmx                      // 基于混合规则分片-主从-脱敏，ShardingSphere-Proxy产品全路由场景下的select测试计划。
+│   │   │   │   │ shardingjdbc-fullrouting-shardingmasterslaveencrypt-insertupdatedelete-testplan.jmx   // 基于混合规则分片-主从-脱敏，ShardingSphere-JDBC产品全路由场景下的insert-update-delete测试计划。  
+│   │   │   │   │ shardingjdbc-fullrouting-shardingmasterslaveencrypt-select-testplan.jmx               // 基于混合规则分片-主从-脱敏，ShardingSphere-JDBC产品全路由场景下的select测试计划。   
+│   │   │   │   │
+│   │   └───rangerouting  // 范围路由，所有范围路由相关的测试计划文件名称和全路由类似，可参考全路由场景，不在此一一列出所有文件。
+│   │   │       
+│   │   └───singlerouting // 单路由，所有和单路由相关的测试计划文件名称和全路由类似，可参考全路由场景，不在此一一列出所有文件。
+│   │   │       
+│   │   └───statistic     // 统计结果
+│   │   │ ss-benchmark-statistic-testplan.jmx  //统计JMeter结果的测试计划，统计结果入库。
+│   └───yaml
+│   │    │   server.yaml                                           // ShardingSphere-Proxy 使用到的配置文件.
+│   │    │   └───fullrouting                //全路由场景
+│   │    │   │   └───encrypt                // 多敏规则下的yaml配置文件
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-encrypt.yaml            // ShardingSphere-Proxy产品，配置脱敏规则的配置文件。
+│   │    │   │   │   └───shardingjdbc                                   
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-encrypt.yaml     // ShardingSphere-JDBC产品，配置脱敏规则的配置文件。
+│   │    │   │   └───masterslave
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-masterslave.yaml        // ShardingSphere-Proxy产品，配置主从规则的配置文件。
+│   │    │   │   │   └───shardingjdbc
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-masterslave.yaml // ShardingSphere-JDBC产品，配置主从规则的配置文件。
+│   │    │   │   └───sharding
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-sharding.yaml           // ShardingSphere-Proxy产品，配置分片规则的配置文件。
+│   │    │   │   │   └───shardingjdbc
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-sharding.yaml    // ShardingSphere-JDBC产品，配置分片规则的配置文件。
+│   │    │   │   └───sharding-masterslave-encrypt
+│   │    │   │   │   └───proxy
+│   │    │   │   │   │ config-proxy-fullrouting-sharding-masterslave-enc.yaml             // ShardingSphere-Proxy产品，配置混合规则 分片-主从-脱敏 规则的配置文件。
+│   │    │   │   │   └───shardingjdbc
+│   │    │   │   │   │ config-shardingjdbc-fullrouting-sharding-masterslave-encrypt.yaml  // ShardingSphere-JDBC产品，配置混合规则 分片-主从-脱敏 规则的配置文件。
+│   │    │   └───rangerouting             // 范围路由下的所有yaml配置文件，文件名称和全路由类似，可参考全路由场景，一一列出所有文件。 
+│   │    │   │
+│   │    │   └───singlerouting            // 单路由下的所有yaml配置文件，文件名称和全路由类似，可参考全路由场景，一一列出所有文件。
+```
+
+
+
 
 ## 运行 ShardingSphere Benchmark
 简单来说ShardingSphere Benchmark主要基于JMeter实现的性能测试工具，执行命令 *jmeter -n -t testplan* 便可运行。
