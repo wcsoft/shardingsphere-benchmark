@@ -255,9 +255,9 @@ timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success
 | rules           |  4中规则包括 Encrypt， MasterSlave， Sharding， Sharding+Master+Slave+Encrypt。 | 
 | avg_tps         |  同一测试场景下总tps平均值，计算公式 *total tps/total count*。 | 
 | total           |  去除头尾的采样数据量。               | 
-| maxCost         |  执行sql中，其中时间最长的耗时。                | 
-| minCost         |  执行sql中，其中时间最小的耗时。  | 
-| dbsql           |  实际运行sql语句。                | 
+| maxCost         |  执行sql中，其中最长耗时。                | 
+| minCost         |  执行sql中，其中最小耗时。  | 
+| dbsql           |  实际运行的sql语句。                | 
 | dboperation     |  执行的sql类型包括Select and Insert+Update+Delete。 | 
 | concurrency     |  并发数据，配置在user-config.properties文件中。                | 
 | tableshardingcount|  分表数量，配置在user-config.properties，yaml文件会使用到该值。                 | 
