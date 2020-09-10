@@ -29,12 +29,12 @@ project
 │       └───org/apache/shardingsphere/benchmark/bean
 │       │
 │       └───org/apache/shardingsphere/benchmark/common
-│       │       └───org/apache/shardingsphere/benchmark/common/file           // 文件修改相关操作模块，处理文件类型报错 yaml，xml，properties。
-│       │       └───org/apache/shardingsphere/benchmark/common/statistic      // JMeter 生成结果统计模块。
+│       │       └───org/apache/shardingsphere/benchmark/common/file           // 文件修改相关操作模块，处理文件类型包括 yaml，xml，properties。
+│       │       └───org/apache/shardingsphere/benchmark/common/statistic      // JMeter生成结果统计模块。
 │       │       
 │       └───org/apache/shardingsphere/benchmark/db                             // 数据库操作模块，包括增删改查。
 │       │ 
-│       └───org/apache/shardingsphere/benchmark/jemeter                        // 不通场景下的JMeter测试计划。
+│       └───org/apache/shardingsphere/benchmark/jemeter                        // 不同场景下的JMeter测试计划。
 │       │       └───org/apache/shardingsphere/benchmark/jemeter/common         // 初始化基础数据及ShardingSphere benchmark测试需要的物理库/物理表。
 │       │       └───org/apache/shardingsphere/benchmark/jemeter/fullrouting    // 对于ShardingSphere-Proxy 和 ShardingSphere-JDBC产品在全路由场景下的测试计划，包括基于不同的规则encrypt，master-slave，sharding，sharding-master-slave-encrypt。
 │       │       └───org/apache/shardingsphere/benchmark/jemeter/rangerouting   // 对于ShardingSphere-Proxy 和 ShardingSphere-JDBC产品在范围路由场景下的测试计划，包括基于不同的规则encrypt，master-slave，sharding，sharding-master-slave-encrypt。
@@ -53,7 +53,7 @@ project
 │   │   │   └───shardingsphere                          // ShardingSphere-JDBC 和 ShardingSphere-Proxy基础数据初始化，包括基于不同的规则encrypt，master-slave，sharding，sharding-master-slave-encrypt。
 │   │   │   │   │ 
 │   │   │   │   └───encrypt                             
-│   │   │   │   │ shardingsphere-encrypt-cleardata-testplan.jmx            // 基于脱敏规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的r基础数据清除。 
+│   │   │   │   │ shardingsphere-encrypt-cleardata-testplan.jmx            // 基于脱敏规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据清除。 
 │   │   │   │   │ shardingsphere-encrypt-createdata-testplan.jmx           // 基于脱敏规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据创建。 
 │   │   │   │   └───masterslave
 │   │   │   │   │ shardingsphere-masterslave-cleardata-testplan.jmx        // 基于主从规则ShardingSphere-JDBC和ShardingSphere-Proxy产品的基础数据清除。 
@@ -92,16 +92,16 @@ project
 │   │   │   │   │ shardingjdbc-fullrouting-shardingmasterslaveencrypt-insertupdatedelete-testplan.jmx   // 基于混合规则分片-主从-脱敏，ShardingSphere-JDBC产品全路由场景下的insert-update-delete测试计划。  
 │   │   │   │   │ shardingjdbc-fullrouting-shardingmasterslaveencrypt-select-testplan.jmx               // 基于混合规则分片-主从-脱敏，ShardingSphere-JDBC产品全路由场景下的select测试计划。   
 │   │   │   │   │
-│   │   └───rangerouting  // 范围路由，所有范围路由相关的测试计划文件名称和全路由类似，可参考全路由场景，不在此一一列出所有文件。
+│   │   └───rangerouting  //所有范围路由相关的测试计划文件名称和全路由类似，可参考全路由场景，不在此一一列出所有文件。
 │   │   │       
-│   │   └───singlerouting // 单路由，所有和单路由相关的测试计划文件名称和全路由类似，可参考全路由场景，不在此一一列出所有文件。
+│   │   └───singlerouting //所有单路由相关的测试计划文件名称和全路由类似，可参考全路由场景，不在此一一列出所有文件。
 │   │   │       
 │   │   └───statistic     // 统计结果
 │   │   │ ss-benchmark-statistic-testplan.jmx  //统计JMeter结果的测试计划，统计结果入库。
 │   └───yaml
 │   │    │   server.yaml                                           // ShardingSphere-Proxy 使用到的配置文件.
 │   │    │   └───fullrouting                //全路由场景
-│   │    │   │   └───encrypt                // 多敏规则下的yaml配置文件
+│   │    │   │   └───encrypt                // 脱敏规则下的yaml配置文件
 │   │    │   │   │   └───proxy
 │   │    │   │   │   │ config-proxy-fullrouting-encrypt.yaml            // ShardingSphere-Proxy产品，配置脱敏规则的配置文件。
 │   │    │   │   │   └───shardingjdbc                                   
@@ -163,13 +163,15 @@ mvn clean install
 ```bash
 mvn clean install -Prelease
 ```
-* 解压ShardingSphere-proxy，将以上获取的JDBC Jar 和ShardingSphere Benchmark Jar 放在 *{ShardingSphere-Proxy_base_dir}/lib/* 路径下。
+* 解压ShardingSphere-proxy，将以上获取的JDBC Jar和ShardingSphere Benchmark Jar 放在 *{ShardingSphere-Proxy_base_dir}/lib/* 路径下。
+* 复制ShardingSphere Benchmark jar 和 JDBC jar到 *{ShardingSphere-Proxy_base_dir}/lib*路径下。
+* 启动ShardingSphere-Proxy，启动脚步路径为 *{ShardingSphere-Proxy_base_dir}/bin*，根据当前使用的系统选择正确的启动脚步。
 
 
 #### 安装 JMeter
 * 从官网获取JMeter安装程序 [JMeter installation](https://jmeter.apache.org/download_jmeter.cgi)，版本最好选择5.3。
 * 依照官方文档安装配置JMeter [JMeter doc](https://jmeter.apache.org/usermanual/get-started.html)。
-* 拷贝ShardingSphere Benchmark jar 到*{JMeter_base_dir}/lib/ext* 路径下。
+* 拷贝ShardingSphere Benchmark jar到 *{JMeter_base_dir}/lib/ext* 路径下。
 
 
 #### 配置
@@ -230,16 +232,16 @@ timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success
 |       *字段*       |  *描述*           |   
 | ----------------------- | --------------------- |
 | id              |  主键，自动生成。  | 
-| product         |  被测试产品包括ShardingJDBC，ShardingProxy or MYSQL。| 
+| product         |  被测试产品包括ShardingJDBC，ShardingProxy 和 MYSQL。| 
 | version         |  ShardingSphere 版本，配置在user-config.properties文件中。                | 
-| scenario        |  3中测试场景包括FullRouting，RangeRouting，SingleRouting。 | 
-| rules           |  4中规则包括 Encrypt， MasterSlave， Sharding， Sharding+Master+Slave+Encrypt。 | 
+| scenario        |  三种测试场景包括FullRouting，RangeRouting，SingleRouting。 | 
+| rules           |  四种规则包括 Encrypt， MasterSlave， Sharding， Sharding+Master+Slave+Encrypt。 | 
 | tps             |  通过JMeter结果文件计算tps，计算公式为 *total count / total time*。 | 
 | total           |  去除头尾的采样数据量。               | 
-| maxCost         |  执行sql中，其中时间最长的耗时。                | 
-| minCost         |  执行sql中，其中时间最小的耗时。  | 
-| dbsql           |  实际运行sql语句。                | 
-| dboperation     |  执行的sql类型包括Select and Insert+Update+Delete。 | 
+| maxCost         |  执行sql中，其中最长耗时。                | 
+| minCost         |  执行sql中，其中最小耗时。  | 
+| dbsql           |  实际运行的sql语句。                | 
+| dboperation     |  执行的sql类型包括Select 和 Insert+Update+Delete。 | 
 | concurrency     |  并发数据，配置在user-config.properties文件中。                | 
 | tableshardingcount|  分表数量，配置在user-config.properties，yaml文件会使用到该值。                 | 
 | dbshardingcount  |  分库数量，配置在user-config.properties，yaml文件会使用到该值。               | 
@@ -249,16 +251,16 @@ timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success
 |       *字段*       |  *描述*           |   
 | ----------------------- | --------------------- |
 | id              |  主键，自动生成。  | 
-| product         |  被测试产品包括ShardingJDBC，ShardingProxy or MYSQL。| 
+| product         |  被测试产品包括ShardingJDBC，ShardingProxy 和 MYSQL。| 
 | version         |  ShardingSphere 版本，配置在user-config.properties文件中。                | 
-| scenario        |  3中测试场景包括FullRouting，RangeRouting，SingleRouting。 | 
-| rules           |  4中规则包括 Encrypt， MasterSlave， Sharding， Sharding+Master+Slave+Encrypt。 | 
+| scenario        |  三种测试场景包括FullRouting，RangeRouting，SingleRouting。 | 
+| rules           |  四种规则包括 Encrypt， MasterSlave， Sharding， Sharding+Master+Slave+Encrypt。 | 
 | avg_tps         |  同一测试场景下总tps平均值，计算公式 *total tps/total count*。 | 
 | total           |  去除头尾的采样数据量。               | 
 | maxCost         |  执行sql中，其中最长耗时。                | 
 | minCost         |  执行sql中，其中最小耗时。  | 
 | dbsql           |  实际运行的sql语句。                | 
-| dboperation     |  执行的sql类型包括Select and Insert+Update+Delete。 | 
+| dboperation     |  执行的sql类型包括Select 和 Insert+Update+Delete。 | 
 | concurrency     |  并发数据，配置在user-config.properties文件中。                | 
 | tableshardingcount|  分表数量，配置在user-config.properties，yaml文件会使用到该值。                 | 
 | dbshardingcount  |  分库数量，配置在user-config.properties，yaml文件会使用到该值。               | 
