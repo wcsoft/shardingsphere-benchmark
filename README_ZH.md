@@ -15,7 +15,7 @@ ShardingSphere Benchmark是测试ShardingSphere的性能基线工具，目前覆
 
 
 ## ShardingSphere Benchmark 项目结构
-更全面的理解ShardingSphere Benchmark项目结构， 会帮助你容易运行ShardingSphere Benchmark相关测试。请参考下面目录及注释。
+更全面的理解ShardingSphere Benchmark项目结构，会帮助你轻松运行ShardingSphere Benchmark相关测试。请参考下面目录及注释。
 
 ```
 project
