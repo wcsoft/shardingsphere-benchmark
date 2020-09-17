@@ -12,7 +12,7 @@ schemaName: sharding_db
 
 dataSources:
   press_test_0:
-    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds0:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -23,7 +23,7 @@ dataSources:
     maintenanceIntervalMilliseconds: 30000
 
   press_test_1:
-    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds1:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds1:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -33,7 +33,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
   press_test_2:
-    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds2:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds2:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -44,7 +44,7 @@ dataSources:
     maintenanceIntervalMilliseconds: 30000
 
   press_test_3:
-    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds3:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.sharding.ds3:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000

@@ -29,7 +29,7 @@
 schemaName: sharding_db
 dataSources:
   master_ds_0:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds0:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -40,7 +40,7 @@ dataSources:
     maintenanceIntervalMilliseconds: 30000
   
   slave_ds_0:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds0:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -50,7 +50,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   master_ds_1:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds1:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds1:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -60,7 +60,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   slave_ds_1:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds1:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds1:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -70,7 +70,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   master_ds_2:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds2:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds2:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -80,7 +80,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   slave_ds_2:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds2:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds2:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -90,7 +90,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   master_ds_3:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds3:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.master.ds3:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
@@ -100,7 +100,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000  
   slave_ds_3:
-    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds3:3306/shardingsphere_benchmark?serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://ss.benchmark.fullrouting.shardingmasterslaveencrypt.slave.ds3:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeoutMilliseconds: 30000
