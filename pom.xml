@@ -51,11 +51,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-infra-common</artifactId>
-            <version>[5.0.0-RC1-SNAPSHOT,)</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-encrypt-api</artifactId>
             <version>[5.0.0-RC1-SNAPSHOT,)</version>
         </dependency>
