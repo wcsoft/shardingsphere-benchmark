@@ -24,11 +24,11 @@
             <artifactId>shardingsphere-jdbc-core</artifactId>
             <version>[5.0.0-RC1-SNAPSHOT,)</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-kernel-context</artifactId>
             <version>[5.0.0-RC1-SNAPSHOT,)</version>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-sharding-api</artifactId>
