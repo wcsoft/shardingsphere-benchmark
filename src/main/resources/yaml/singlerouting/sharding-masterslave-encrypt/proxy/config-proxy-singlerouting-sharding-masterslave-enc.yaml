@@ -77,24 +77,6 @@ rules:
     bindingTables:
       - sbtest
 
-  - !ENCRYPT
-    encryptStrategies:
-      aes_encrypt_strategy:
-        type: aes
-        props:
-          aes.key.value: '123456abc'
-      md5_encrypt_strategy:
-        type: md5
-  
-    tables:
-      sbtest:
-        columns:
-          c:
-            cipherColumn: c
-            encrypt_strategy_name: aes_encrypt_strategy
-          pad:
-            cipherColumn: pad
-            encrypt_strategy_name: md5_encrypt_strategy
 
   - !MASTER_SLAVE
     dataSources:
