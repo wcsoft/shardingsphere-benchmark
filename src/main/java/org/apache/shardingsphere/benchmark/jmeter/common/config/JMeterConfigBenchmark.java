@@ -107,13 +107,13 @@ public class JMeterConfigBenchmark extends JMeterBenchmarkBase {
         String createdDatabaseSql = initDbSqlList.get(0);
         createdDatabaseSql = createdDatabaseSql.replace("default_database", createdDatabaseName);
         String createdTableSql = initDbSqlList.get(1);
-        DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+        DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, (int) userConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) userConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
         Connection connection1 = dataSource1.getConnection();
         Statement stat1 = connection1.createStatement();
         stat1.executeUpdate(createdDatabaseSql);
         stat1.close();
         connection1.close();
-        DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdDatabaseName, host, (int) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
+        DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdDatabaseName, host, (int) userConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.port"), (String) userConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.username"), (String) dbConfig.get("jdbc.benchmark.fullrouting.encrypt.ds0.password"));
         Connection createdConnection1 = createdDataSource1.getConnection();
         Statement createdStat1 = createdConnection1.createStatement();
         String createdNoShardingSql = createdTableSql.replace("default_table", createdTableName);
