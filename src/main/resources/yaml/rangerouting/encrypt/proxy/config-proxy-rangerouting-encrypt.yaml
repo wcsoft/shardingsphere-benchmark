@@ -47,7 +47,7 @@ rules:
     encryptors:
       encryptor_aes:
         props:
-          aes.key.value: '123456abc'
+          aes-key-value: '123456abc'
         type: AES
     tables:
       sbtest:
