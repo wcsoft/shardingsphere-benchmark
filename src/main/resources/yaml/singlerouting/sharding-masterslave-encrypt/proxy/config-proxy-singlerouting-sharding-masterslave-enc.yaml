@@ -77,7 +77,6 @@ rules:
     bindingTables:
       - sbtest
 
-
   - !MASTER_SLAVE
     dataSources:
       ms_ds_0:
@@ -85,25 +84,18 @@ rules:
         masterDataSourceName: master_ds_0
         slaveDataSourceNames:
           - slave_ds_0
-        loadBalancerName: roundRobin
       ms_ds_1:
         name: ms_ds_1
         masterDataSourceName: master_ds_1
         slaveDataSourceNames:
           - slave_ds_1
-        loadBalancerName: roundRobin
       ms_ds_2:
         name: ms_ds_2
         masterDataSourceName: master_ds_2
         slaveDataSourceNames:
           - slave_ds_2
-        loadBalancerName: roundRobin
       ms_ds_3:
         name: ms_ds_3
         masterDataSourceName: master_ds_3
         slaveDataSourceNames:
           - slave_ds_3
-        loadBalancerName: roundRobin
-    loadBalancers:
-      roundRobin:
-        type: ROUND_ROBIN

@@ -158,28 +158,21 @@ rules:
         masterDataSourceName: ds_0
         slaveDataSourceNames:
           - ds_0_slave_0
-        loadBalancerName: roundRobin
       ms_ds_1:
         name: ms_ds_1
         masterDataSourceName: ds_1
         slaveDataSourceNames:
           - ds_1_slave_1
-        loadBalancerName: roundRobin
       ms_ds_2:
         name: ms_ds_2
         masterDataSourceName: ds_2
         slaveDataSourceNames:
           - ds_2_slave_2
-        loadBalancerName: roundRobin
       ms_ds_3:
         name: ms_ds_3
         masterDataSourceName: ds_3
         slaveDataSourceNames:
           - ds_3_slave_3
-        loadBalancerName: roundRobin
-    loadBalancers:
-      roundRobin:
-        type: ROUND_ROBIN
         
 props:
   max.connections.size.per.query: 10
