@@ -126,7 +126,7 @@ dataSources:
       netTimeoutForStreamingResults: 0
       useServerPrepStmts: true
 
-shardingRule:
+rules:
   tables:
     sbtest:
       actualDataNodes: ms_ds_${0..2}.sbtest${0..99}

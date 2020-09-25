@@ -90,7 +90,7 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 
-shardingRule:
+rules:
   tables:
     sbtest:
       actualDataNodes: ms_ds_${0..2}.sbtest${0..99}
