@@ -1,4 +1,3 @@
-
 dataSources:
   ds_master: !!com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.jdbc.Driver
@@ -43,18 +42,19 @@ dataSources:
       netTimeoutForStreamingResults: 0
       useServerPrepStmts: true
 
-shardingRule:
-  masterSlaveRules:
-    ms_ds_0:
-      masterDataSourceName: ds_master
-      slaveDataSourceNames:
-        - ds_slave0
-
+rules:
+  - !MASTER_SLAVE
+    dataSources:
+      ms_ds:
+        name: ms_ds
+        masterDataSourceName: ds_master
+        slaveDataSourceNames: [ds_slave0]
+        
 props:
-  max.connections.size.per.query: 2
+  max.connections.size.per.query: 10
   acceptor.size: 200  # The default value is available processors count * 2.
   executor.size: 200  # Infinite by default.
   query.with.cipher.column: true
   sql.show: false
   allow.range.query.with.inline.sharding: false
-  check.table.metadata.enabled: false
+  check.table.metadata.enabled: false        
