@@ -107,13 +107,13 @@ public class JMeterConfigBenchmark extends JMeterBenchmarkBase {
         String createdDatabaseSql = initDbSqlList.get(0);
         createdDatabaseSql = createdDatabaseSql.replace("default_database", createdDatabaseName);
         String createdTableSql = initDbSqlList.get(1);
-        DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, Integer.valueOf((String)userConfig.get("shardingsphere.benchmark.database.port")).intValue(), (String) userConfig.get("shardingsphere.benchmark.database.username"), (String) dbConfig.get("shardingsphere.benchmark.database.password"));
+        DataSource dataSource1 = JDBCDataSourceUtil.initDb("information_schema", host, Integer.valueOf((String)userConfig.get("shardingsphere.benchmark.database.port")).intValue(), (String) userConfig.get("shardingsphere.benchmark.database.username"), (String) userConfig.get("shardingsphere.benchmark.database.password"));
         Connection connection1 = dataSource1.getConnection();
         Statement stat1 = connection1.createStatement();
         stat1.executeUpdate(createdDatabaseSql);
         stat1.close();
         connection1.close();
-        DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdDatabaseName, host, Integer.valueOf((String)userConfig.get("shardingsphere.benchmark.database.port")).intValue(), (String) userConfig.get("shardingsphere.benchmark.database.username"), (String) dbConfig.get("shardingsphere.benchmark.database.password"));
+        DataSource createdDataSource1 = JDBCDataSourceUtil.initDb(createdDatabaseName, host, Integer.valueOf((String)userConfig.get("shardingsphere.benchmark.database.port")).intValue(), (String) userConfig.get("shardingsphere.benchmark.database.username"), (String) userConfig.get("shardingsphere.benchmark.database.password"));
         Connection createdConnection1 = createdDataSource1.getConnection();
         Statement createdStat1 = createdConnection1.createStatement();
         String createdNoShardingSql = createdTableSql.replace("default_table", createdTableName);

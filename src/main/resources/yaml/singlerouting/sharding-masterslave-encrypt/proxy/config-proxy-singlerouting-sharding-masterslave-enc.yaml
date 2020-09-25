@@ -67,6 +67,7 @@ rules:
         tableStrategy:
           standard:
             shardingColumn: k
+            shardingAlgorithm:  
               type: INLINE
               props:
                 algorithm.expression: sbtest${k % 100}
