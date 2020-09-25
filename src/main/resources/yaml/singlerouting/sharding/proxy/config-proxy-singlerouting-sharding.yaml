@@ -36,26 +36,19 @@ rules:
         databaseStrategy:
           standard:
             shardingColumn: id
-            shardingAlgorithmName: database_inline
+            shardingAlgorithm:
+              type: INLINE
+              props:
+                algorithm.expression: press_test_${id % 3}
         tableStrategy:
           standard:
             shardingColumn: k
-            shardingAlgorithmName: table_inline
-        keyGenerateStrategy:
+            shardingAlgorithm:
+              type: INLINE
+              props:
+                algorithm.expression: sbtest${k % 100}
+        keyGenerator:
+          type: SNOWFLAKE
           column: id
-          keyGeneratorName: increment
     bindingTables:
       - sbtest
-
-    shardingAlgorithms:
-      database_inline:
-        type: INLINE
-        props:
-          algorithm.expression: press_test_${id % 4}
-      table_inline:
-        type: INLINE
-        props:
-          algorithm.expression: sbtest${k % 100}
-    keyGenerators:
-      increment:
-        type: SNOWFLAKE
