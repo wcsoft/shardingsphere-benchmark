@@ -151,10 +151,6 @@ rules:
     bindingTables:
       - sbtest
 
-    keyGenerators:
-      increment:
-        type: SNOWFLAKE
-
   - !ENCRYPT
     encryptStrategies:
       aes_encrypt_strategy:

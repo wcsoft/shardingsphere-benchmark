@@ -76,9 +76,6 @@ rules:
           column: id
     bindingTables:
       - sbtest
-    keyGenerators:
-      increment:
-        type: SNOWFLAKE
 
   - !ENCRYPT
     encryptStrategies:
