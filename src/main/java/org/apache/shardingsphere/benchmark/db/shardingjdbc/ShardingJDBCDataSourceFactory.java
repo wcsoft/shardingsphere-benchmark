@@ -1,6 +1,6 @@
 package org.apache.shardingsphere.benchmark.db.shardingjdbc;
 
-import org.apache.shardingsphere.api.yaml.YamlShardingSphereDataSourceFactory;
+import org.apache.shardingsphere.shardingjdbc.api.yaml.YamlShardingSphereDataSourceFactory;
 
 import javax.sql.DataSource;
 import java.io.*;
