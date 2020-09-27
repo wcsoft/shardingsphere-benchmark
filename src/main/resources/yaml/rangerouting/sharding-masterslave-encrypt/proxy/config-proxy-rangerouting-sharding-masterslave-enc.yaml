@@ -56,74 +56,46 @@ rules:
   - !SHARDING
     tables:
       sbtest:
-        actualDataNodes: ms_ds_${0..3}.sbtest${0..99}
+        actualDataNodes: ms_ds_${0..2}.sbtest${0..99}
         databaseStrategy:
           standard:
             shardingColumn: id
-            shardingAlgorithmName: database_inline
+            shardingAlgorithm:
+              type: INLINE
+              props:
+                algorithm.expression: ms_ds_${id % 3}
         tableStrategy:
           standard:
             shardingColumn: k
-            shardingAlgorithmName: table_inline
-        keyGenerateStrategy:
+            shardingAlgorithm:
+              type: INLINE
+              props:
+                algorithm.expression: sbtest${k % 100}
+        keyGenerator:
+          type: SNOWFLAKE
           column: id
-          keyGeneratorName: increment
     bindingTables:
       - sbtest
-
-    shardingAlgorithms:
-      database_inline:
-        type: INLINE
-        props:
-          algorithm.expression: ms_ds_${id % 4}
-      table_inline:
-        type: INLINE
-        props:
-          algorithm.expression: sbtest${k % 100}
-    keyGenerators:
-      increment:
-        type: SNOWFLAKE
-
-  - !ENCRYPT
-    encryptors:
-      encryptor_aes:
-        props:
-          aes.key.value: '123456abc'
-        type: AES
-      encryptor_md5:
-        type: md5
-    tables:
-      sbtest:
-        columns:
-          c:
-            cipherColumn: c
-            encryptorName: encryptor_aes
-          pad:
-            cipherColumn: pad
-            encryptorName: encryptor_md5
 
   - !MASTER_SLAVE
     dataSources:
       ms_ds_0:
         name: ms_ds_0
         masterDataSourceName: master_ds_0
-        slaveDataSourceNames: [slave_ds_0]
-        loadBalancerName: roundRobin
+        slaveDataSourceNames:
+          - slave_ds_0
       ms_ds_1:
         name: ms_ds_1
         masterDataSourceName: master_ds_1
-        slaveDataSourceNames: [slave_ds_1]
-        loadBalancerName: roundRobin
+        slaveDataSourceNames:
+          - slave_ds_1
       ms_ds_2:
         name: ms_ds_2
         masterDataSourceName: master_ds_2
-        slaveDataSourceNames: [slave_ds_2]
-        loadBalancerName: roundRobin
+        slaveDataSourceNames:
+          - slave_ds_2
       ms_ds_3:
         name: ms_ds_3
         masterDataSourceName: master_ds_3
-        slaveDataSourceNames: [slave_ds_3]
-        loadBalancerName: roundRobin
-    loadBalancers:
-      roundRobin:
-        type: ROUND_ROBIN
+        slaveDataSourceNames:
+          - slave_ds_3
