@@ -29,7 +29,7 @@ public class JDBCDataSourceUtil {
     public static DataSource initDb(String dataSourceName, String host, int port, String userName, String password) {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.jdbc.Driver");
-        config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s?useSSL=false&serverTimezone=UTC&useServerPrepStmts=true&cachePrepStmts=true", host, port, dataSourceName));
+        config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s?useSSL=false&serverTimezone=UTC&useServerPrepStmts=true&cachePrepStmts=true&allowPublicKeyRetrieval=true", host, port, dataSourceName));
         config.setUsername(userName);
         config.setPassword(password);
         config.setMaximumPoolSize(200);
