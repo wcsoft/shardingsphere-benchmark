@@ -6,9 +6,9 @@ if [ ! -d $proxy_work_dir  ];then
 fi
 
 cd $proxy_work_dir
-./apache-shardingsphere-incubating-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/bin/stop.sh
+./apache-shardingsphere-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/bin/stop.sh
 sleep 5
-rm -f  ./apache-shardingsphere-incubating-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/conf/config-*.yaml
-cp -f $proxy_conf_dir/fullrouting/sharding/proxy/config-proxy-fullrouting-sharding.yaml $proxy_conf_dir/server.yaml ./apache-shardingsphere-incubating-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/conf
-./apache-shardingsphere-incubating-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/bin/start.sh
+rm -f  ./apache-shardingsphere-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/conf/config-*.yaml
+cp -f $proxy_conf_dir/fullrouting/sharding/proxy/config-proxy-fullrouting-sharding.yaml $proxy_conf_dir/server.yaml ./apache-shardingsphere-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/conf
+./apache-shardingsphere-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin/bin/start.sh
 sleep 10

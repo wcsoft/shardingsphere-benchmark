@@ -131,19 +131,24 @@ shardingRule:
     sbtest:
       actualDataNodes: ms_ds_${0..2}.sbtest${0..99}
       databaseStrategy:
-        inline:
+        standard:
           shardingColumn: id
-          algorithmExpression: ms_ds_${id % 3}
+          shardingAlgorithm:
+            type: inline
+            props:
+              algorithm.expression: ms_ds_${id % 3}            
+      tableStrategy:
+        standard:
+          shardingColumn: k
+          shardingAlgorithm:
+            type: inline
+            props:
+              algorithm.expression: sbtest${k % 100}
       keyGenerator:
         type: SNOWFLAKE
         column: id
-      tableStrategy:
-        inline:
-          shardingColumn: k
-          algorithmExpression: sbtest${k % 100}
   bindingTables:
     - sbtest
-
   masterSlaveRules:
     ms_ds_0:
       masterDataSourceName: ds_0
