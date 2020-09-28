@@ -136,7 +136,7 @@ shardingRule:
           shardingAlgorithm:
             type: inline
             props:
-              algorithm.expression: ms_ds_${id % 3}            
+              algorithm.expression: ms_ds_${id % 3}
       tableStrategy:
         standard:
           shardingColumn: k
@@ -149,49 +149,49 @@ shardingRule:
         column: id
   bindingTables:
     - sbtest
-  masterSlaveRules:
-    ms_ds_0:
-      name: ms_ds_0
-      masterDataSourceName: ds_0
-      slaveDataSourceNames:
-        - ds_0_slave_0
-      loadBalanceAlgorithmType: ROUND_ROBIN
-    ms_ds_1:
-      name: ms_ds_1
-      masterDataSourceName: ds_1
-      slaveDataSourceNames:
-        - ds_1_slave_1
-      loadBalanceAlgorithmType: ROUND_ROBIN
-    ms_ds_2:
-      name: ms_ds_2
-      masterDataSourceName: ds_2
-      slaveDataSourceNames:
-        - ds_2_slave_2
-      loadBalanceAlgorithmType: ROUND_ROBIN
-    ms_ds_3:
-      name: ms_ds_3
-      masterDataSourceName: ds_3
-      slaveDataSourceNames:
-        - ds_3_slave_3
-      loadBalanceAlgorithmType: ROUND_ROBIN
+masterSlaveRules:
+  ms_ds_0:
+    name: ms_ds_0
+    masterDataSourceName: ds_0
+    slaveDataSourceNames:
+      - ds_0_slave_0
+    loadBalanceAlgorithmType: ROUND_ROBIN
+  ms_ds_1:
+    name: ms_ds_1
+    masterDataSourceName: ds_1
+    slaveDataSourceNames:
+      - ds_1_slave_1
+    loadBalanceAlgorithmType: ROUND_ROBIN
+  ms_ds_2:
+    name: ms_ds_2
+    masterDataSourceName: ds_2
+    slaveDataSourceNames:
+      - ds_2_slave_2
+    loadBalanceAlgorithmType: ROUND_ROBIN
+  ms_ds_3:
+    name: ms_ds_3
+    masterDataSourceName: ds_3
+    slaveDataSourceNames:
+      - ds_3_slave_3
+    loadBalanceAlgorithmType: ROUND_ROBIN
 
-  encryptRule:
-    tables:
-      sbtest:
-        columns:
-          pwd:
-            cipherColumn: c
-            encryptor: encryptor_aes
-          name:
-            cipherColumn: pad
-            encryptor: encryptor_md5
-    encryptors:
-      encryptor_aes:
-        type: aes
-        props:
-          aes.key.value: 123456abc
-      encryptor_md5:
-        type: md5
+encryptRule:
+  tables:
+    sbtest:
+      columns:
+        pwd:
+          cipherColumn: c
+          encryptor: encryptor_aes
+        name:
+          cipherColumn: pad
+          encryptor: encryptor_md5
+  encryptors:
+    encryptor_aes:
+      type: aes
+      props:
+        aes.key.value: 123456abc
+    encryptor_md5:
+      type: md5
 
 props:
   max.connections.size.per.query: 2

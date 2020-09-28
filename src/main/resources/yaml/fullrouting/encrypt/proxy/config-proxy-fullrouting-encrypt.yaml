@@ -41,16 +41,15 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 
-shardingRule:
-  encryptRule:
-    tables:
-      sbtest:
-        columns:
-          c:
-            cipherColumn: c
-            encryptor: encryptor_aes
-    encryptors:
-      encryptor_aes:
-        type: aes
-        props:
-          aes.key.value: 123456abc
+encryptRule:
+  tables:
+    sbtest:
+      columns:
+        c:
+          cipherColumn: c
+          encryptor: encryptor_aes
+  encryptors:
+    encryptor_aes:
+      type: aes
+      props:
+        aes.key.value: 123456abc

@@ -2,7 +2,7 @@ dataSources:
   baitiao_test: !!com.zaxxer.hikari.HikariDataSource
     username: root
     password:
-    jdbcUrl: jdbc:mysql://ss.benchmark.rangerouting.encrypt.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    jdbcUrl: jdbc:mysql://ss.benchmark.fullrouting.encrypt.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     driverClassName: com.mysql.jdbc.Driver
     connectionTimeout: 30000
     idleTimeout: 60000
@@ -21,19 +21,18 @@ dataSources:
       netTimeoutForStreamingResults: 0
       useServerPrepStmts: true
 
-shardingRule:
-  encryptRule:
-    tables:
-      sbtest:
-        columns:
-          c:
-            cipherColumn: c
-            encryptor: encryptor_aes
-    encryptors:
-      encryptor_aes:
-        type: aes
-        props:
-          aes.key.value: 123456abc
+encryptRule:
+  tables:
+    sbtest:
+      columns:
+        c:
+          cipherColumn: c
+          encryptor: encryptor_aes
+  encryptors:
+    encryptor_aes:
+      type: aes
+      props:
+        aes.key.value: 123456abc
 
 props:
   max.connections.size.per.query: 2

@@ -114,46 +114,46 @@ shardingRule:
   bindingTables:
     - sbtest
 
-  masterSlaveRules:
-    ms_ds_0:
-      name: ms_ds_0
-      masterDataSourceName: master_ds_0
-      slaveDataSourceNames:
-        - slave_ds_0
-      loadBalanceAlgorithmType: ROUND_ROBIN
-    ms_ds_1:
-      name: ms_ds_1
-      masterDataSourceName: master_ds_1
-      slaveDataSourceNames:
-        - slave_ds_1
-      loadBalanceAlgorithmType: ROUND_ROBIN
-    ms_ds_2:
-      name: ms_ds_2
-      masterDataSourceName: master_ds_2
-      slaveDataSourceNames:
-        - slave_ds_2
-      loadBalanceAlgorithmType: ROUND_ROBIN
-    ms_ds_3:
-      name: ms_ds_3
-      masterDataSourceName: master_ds_3
-      slaveDataSourceNames:
-        - slave_ds_3
-      loadBalanceAlgorithmType: ROUND_ROBIN
+masterSlaveRules:
+  ms_ds_0:
+    name: ms_ds_0
+    masterDataSourceName: master_ds_0
+    slaveDataSourceNames:
+      - slave_ds_0
+    loadBalanceAlgorithmType: ROUND_ROBIN
+  ms_ds_1:
+    name: ms_ds_1
+    masterDataSourceName: master_ds_1
+    slaveDataSourceNames:
+      - slave_ds_1
+    loadBalanceAlgorithmType: ROUND_ROBIN
+  ms_ds_2:
+    name: ms_ds_2
+    masterDataSourceName: master_ds_2
+    slaveDataSourceNames:
+      - slave_ds_2
+    loadBalanceAlgorithmType: ROUND_ROBIN
+  ms_ds_3:
+    name: ms_ds_3
+    masterDataSourceName: master_ds_3
+    slaveDataSourceNames:
+      - slave_ds_3
+    loadBalanceAlgorithmType: ROUND_ROBIN
 
-  encryptRule:
-    tables:
-      sbtest:
-        columns:
-          pwd:
-            cipherColumn: c
-            encryptor: encryptor_aes
-          name:
-            cipherColumn: pad
-            encryptor: encryptor_md5
-    encryptors:
-      encryptor_aes:
-        type: aes
-        props:
-          aes.key.value: 123456abc
-      encryptor_md5:
-        type: md5
+encryptRule:
+  tables:
+    sbtest:
+      columns:
+        pwd:
+          cipherColumn: c
+          encryptor: encryptor_aes
+        name:
+          cipherColumn: pad
+          encryptor: encryptor_md5
+  encryptors:
+    encryptor_aes:
+      type: aes
+      props:
+        aes.key.value: 123456abc
+    encryptor_md5:
+      type: md5

@@ -43,13 +43,12 @@ dataSources:
       netTimeoutForStreamingResults: 0
       useServerPrepStmts: true
 
-shardingRule:
-  masterSlaveRules:
-    ms_ds_0:
-      name: ms_ds_0
-      masterDataSourceName: ds_master
-      slaveDataSourceNames:
-        - ds_slave0
+masterSlaveRules:
+  ms_ds_0:
+    name: ms_ds_0
+    masterDataSourceName: ds_master
+    slaveDataSourceNames:
+      - ds_slave0
 
 props:
   max.connections.size.per.query: 2

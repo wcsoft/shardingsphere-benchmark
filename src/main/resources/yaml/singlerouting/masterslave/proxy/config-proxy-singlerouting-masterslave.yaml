@@ -39,7 +39,7 @@ dataSources:
     maxPoolSize: 200
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
-  
+
   slave_ds_0:
     url: jdbc:mysql://ss.benchmark.singlerouting.masterslave.slave.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
@@ -51,11 +51,10 @@ dataSources:
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
 
-shardingRule:
-  masterSlaveRules:
-    ms_ds:
-      name: ms_ds
-      masterDataSourceName: master_ds
-      slaveDataSourceNames:
-        - slave_ds_0
+masterSlaveRules:
+  ms_ds:
+    name: ms_ds
+    masterDataSourceName: master_ds
+    slaveDataSourceNames:
+      - slave_ds_0
 
