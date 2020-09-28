@@ -70,14 +70,14 @@ shardingRule:
         standard:
           shardingColumn: id
           shardingAlgorithm:
-            type: INLINE
+            type: inline
             props:
               algorithm.expression: ds_${id % 3}
       tableStrategy:
         standard:
           shardingColumn: k
           shardingAlgorithm:
-            type: INLINE
+            type: inline
             props:
               algorithm.expression: sbtest${k % 100}
       keyGenerator:
