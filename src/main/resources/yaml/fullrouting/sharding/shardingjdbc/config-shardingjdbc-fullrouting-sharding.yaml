@@ -70,7 +70,7 @@ shardingRule:
         standard:
           shardingColumn: id
           shardingAlgorithm:
-            type: INLINE
+            type: INLINEX
             props:
               algorithm.expression: ds_${id % 3}
       tableStrategy:
