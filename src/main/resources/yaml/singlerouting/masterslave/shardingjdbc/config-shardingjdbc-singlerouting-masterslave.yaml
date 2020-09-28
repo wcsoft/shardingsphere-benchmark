@@ -46,6 +46,7 @@ dataSources:
 shardingRule:
   masterSlaveRules:
     ms_ds_0:
+      name: ms_ds_0
       masterDataSourceName: ds_master
       slaveDataSourceNames:
         - ds_slave0

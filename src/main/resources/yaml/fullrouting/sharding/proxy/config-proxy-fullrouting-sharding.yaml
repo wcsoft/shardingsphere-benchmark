@@ -42,21 +42,26 @@ dataSources:
     maxPoolSize: 200
     minPoolSize: 200
     maintenanceIntervalMilliseconds: 30000
-
 shardingRule:
   tables:
     sbtest:
       actualDataNodes: press_test_${0..2}.sbtest${0..99}
       databaseStrategy:
-        inline:
+        standard:
           shardingColumn: id
-          algorithmExpression: press_test_${id % 3}
+          shardingAlgorithm:
+            type: inline
+            props:
+              algorithm.expression: press_test_${id % 3}
+      tableStrategy:
+        standard:
+          shardingColumn: k
+          shardingAlgorithm:
+            type: inline
+            props:
+              algorithm.expression: sbtest${k % 100}
       keyGenerator:
         type: SNOWFLAKE
         column: id
-      tableStrategy:
-        inline:
-          shardingColumn: k
-          algorithmExpression: sbtest${k % 100}
   bindingTables:
     - sbtest

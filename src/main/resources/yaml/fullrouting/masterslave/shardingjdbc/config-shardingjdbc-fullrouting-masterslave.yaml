@@ -1,7 +1,8 @@
+
 dataSources:
   ds_master: !!com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.jdbc.Driver
-    jdbcUrl: jdbc:mysql://ss.benchmark.fullrouting.masterslave.master.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    jdbcUrl: jdbc:mysql://ss.benchmark.singlerouting.masterslave.master.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     password:
     connectionTimeout: 30000
@@ -22,7 +23,7 @@ dataSources:
       useServerPrepStmts: true
   ds_slave0: !!com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.jdbc.Driver
-    jdbcUrl: jdbc:mysql://ss.benchmark.fullrouting.masterslave.slave.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    jdbcUrl: jdbc:mysql://ss.benchmark.singlerouting.masterslave.slave.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     username: root
     connectionTimeout: 30000
     idleTimeout: 60000
@@ -45,6 +46,7 @@ dataSources:
 shardingRule:
   masterSlaveRules:
     ms_ds_0:
+      name: ms_ds_0
       masterDataSourceName: ds_master
       slaveDataSourceNames:
         - ds_slave0

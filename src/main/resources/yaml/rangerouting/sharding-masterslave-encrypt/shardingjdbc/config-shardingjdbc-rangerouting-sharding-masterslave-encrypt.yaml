@@ -151,21 +151,25 @@ shardingRule:
     - sbtest
   masterSlaveRules:
     ms_ds_0:
+      name: ms_ds_0
       masterDataSourceName: ds_0
       slaveDataSourceNames:
         - ds_0_slave_0
       loadBalanceAlgorithmType: ROUND_ROBIN
     ms_ds_1:
+      name: ms_ds_1
       masterDataSourceName: ds_1
       slaveDataSourceNames:
         - ds_1_slave_1
       loadBalanceAlgorithmType: ROUND_ROBIN
     ms_ds_2:
+      name: ms_ds_2
       masterDataSourceName: ds_2
       slaveDataSourceNames:
         - ds_2_slave_2
       loadBalanceAlgorithmType: ROUND_ROBIN
     ms_ds_3:
+      name: ms_ds_3
       masterDataSourceName: ds_3
       slaveDataSourceNames:
         - ds_3_slave_3
