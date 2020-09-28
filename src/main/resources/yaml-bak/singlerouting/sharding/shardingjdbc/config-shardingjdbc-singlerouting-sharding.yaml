@@ -2,7 +2,7 @@ dataSources:
   ds_0: !!com.zaxxer.hikari.HikariDataSource
     username: root
     password:
-    jdbcUrl: jdbc:mysql://ss.benchmark.rangerouting.sharding.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    jdbcUrl: jdbc:mysql://ss.benchmark.singlerouting.sharding.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     driverClassName: com.mysql.jdbc.Driver
     connectionTimeout: 30000
     idleTimeout: 60000
@@ -23,7 +23,7 @@ dataSources:
   ds_1: !!com.zaxxer.hikari.HikariDataSource
     username: root
     password:
-    jdbcUrl: jdbc:mysql://ss.benchmark.rangerouting.sharding.ds1:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    jdbcUrl: jdbc:mysql://ss.benchmark.singlerouting.sharding.ds1:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     driverClassName: com.mysql.jdbc.Driver
     connectionTimeout: 30000
     idleTimeout: 60000
@@ -44,7 +44,7 @@ dataSources:
   ds_2: !!com.zaxxer.hikari.HikariDataSource
     username: root
     password:
-    jdbcUrl: jdbc:mysql://ss.benchmark.rangerouting.sharding.ds2:3306/baitiao_test?serverTimezone=UTC&useSSL=false
+    jdbcUrl: jdbc:mysql://ss.benchmark.singlerouting.sharding.ds2:3306/baitiao_test?serverTimezone=UTC&useSSL=false
     driverClassName: com.mysql.jdbc.Driver
     connectionTimeout: 30000
     idleTimeout: 60000
@@ -62,22 +62,27 @@ dataSources:
       maintainTimeStats: false
       netTimeoutForStreamingResults: 0
       useServerPrepStmts: true
-
 shardingRule:
   tables:
     sbtest:
       actualDataNodes: ds_${0..2}.sbtest${0..99}
       databaseStrategy:
-        inline:
+        standard:
           shardingColumn: id
-          algorithmExpression: ds_${id % 3}
+          shardingAlgorithm:
+            type: INLINE
+            props:
+              algorithm.expression: ds_${id % 3}
+      tableStrategy:
+        standard:
+          shardingColumn: k
+          shardingAlgorithm:
+            type: INLINE
+            props:
+              algorithm.expression: sbtest${k % 100}
       keyGenerator:
         type: SNOWFLAKE
         column: id
-      tableStrategy:
-        inline:
-          shardingColumn: k
-          algorithmExpression: sbtest${k % 100}
   bindingTables:
     - sbtest
 
