@@ -67,7 +67,7 @@ rules:
   - !SHARDING
     tables:
       sbtest:
-        actualDataNodes: ds_${0..3}.sbtest${0..99}
+        actualDataNodes: ds_${0..2}.sbtest${0..99}
         databaseStrategy:
           standard:
             shardingColumn: id
@@ -84,7 +84,7 @@ rules:
       database_inline:
         type: INLINE
         props:
-          algorithm-expression: ds_${id % 4}
+          algorithm-expression: ds_${id % 3}
       table_inline:
         type: INLINE
         props:
