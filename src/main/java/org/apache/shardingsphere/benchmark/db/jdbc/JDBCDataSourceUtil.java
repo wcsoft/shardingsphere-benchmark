@@ -131,6 +131,7 @@ public class JDBCDataSourceUtil {
 
         if(conn != null){
             preparedStatement = conn.prepareStatement(deleteSql);
+            System.out.println(deleteSql);
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.executeUpdate();
         }
