@@ -79,8 +79,6 @@ rules:
         keyGenerateStrategy:
           column: id
           keyGeneratorName: increment
-    bindingTables:
-      - sbtest
 
     shardingAlgorithms:
       database_inline:
