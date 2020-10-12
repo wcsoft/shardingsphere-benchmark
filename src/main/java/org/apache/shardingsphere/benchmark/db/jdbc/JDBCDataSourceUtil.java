@@ -66,6 +66,7 @@ public class JDBCDataSourceUtil {
         if(conn != null){
             preparedStatement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement = setParams(preparedStatement, params);
+            System.out.println(insertSql);
             preparedStatement.execute();
             result = preparedStatement.getGeneratedKeys();
         }
@@ -110,6 +111,7 @@ public class JDBCDataSourceUtil {
 
         if(conn != null){
             preparedStatement = conn.prepareStatement(updateSql);
+            System.out.println(updateSql);
             preparedStatement = setParams(preparedStatement, params);
             preparedStatement.executeUpdate();
         }
