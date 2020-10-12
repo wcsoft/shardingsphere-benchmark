@@ -150,6 +150,7 @@ public class JDBCDataSourceUtil {
         if(conn != null){
             preparedStatement = conn.prepareStatement(selectSql);
             preparedStatement = setParams(preparedStatement, params);
+            System.out.println(selectSql);
             rs = preparedStatement.executeQuery();
         }
         return rs;
