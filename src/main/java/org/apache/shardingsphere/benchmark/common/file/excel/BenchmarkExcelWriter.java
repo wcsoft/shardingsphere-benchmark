@@ -189,4 +189,41 @@ public final class BenchmarkExcelWriter {
         cell = row.createCell(cellNum++);
         cell.setCellValue(data.getTableShardingCount());
     }
+    
+    
+    /**
+     * Clear export result of benchmark from excel.
+     *
+     * @param excelPath
+     */
+    public static void clearExportExcel(String excelPath){
+        Workbook workbook = null;
+        File exportFile = null;
+        FileOutputStream fileOut = null;
+        try {
+            exportFile = new File(excelPath);
+            if(exportFile.exists()){
+                workbook = new HSSFWorkbook(new FileInputStream(excelPath));
+                while(workbook.getNumberOfSheets() > 0){
+                    workbook.removeSheetAt(0);
+                }
+                fileOut = new FileOutputStream(excelPath);
+                workbook.write(fileOut);
+                workbook.close();
+            }
+            
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (fileOut != null) {
+                    fileOut.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
