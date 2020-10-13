@@ -75,11 +75,11 @@ rules:
       database_inline:
         type: INLINE
         props:
-          algorithm.expression: ms_ds_${id % 4}
+          algorithm-expression: ms_ds_${id % 4}
       table_inline:
         type: INLINE
         props:
-          algorithm.expression: sbtest${k % 100}
+          algorithm-expression: sbtest${k % 100}
     keyGenerators:
       increment:
         type: SNOWFLAKE
