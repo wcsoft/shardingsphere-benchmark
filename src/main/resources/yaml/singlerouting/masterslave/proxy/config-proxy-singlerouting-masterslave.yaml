@@ -45,10 +45,10 @@ dataSources:
     url: jdbc:mysql://ss.benchmark.singlerouting.masterslave.slave.ds0:3306/baitiao_test?serverTimezone=UTC&useSSL=false
 
 rules:
-  - !PRIMARY_REPLICA_REPLICATION
+  - !MASTER_SLAVE
     dataSources:
       ms_ds:
         name: ms_ds
-        primaryDataSourceName: master_ds
-        replicaDataSourceNames: [slave_ds_0]
+        masterDataSourceName: master_ds
+        slaveDataSourceNames: [slave_ds_0]
 

@@ -1,0 +1,15 @@
+shardingsphere-proxy-distribution-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin
+
+apache-shardingsphere-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin
+
+!PRIMARY_REPLICA_REPLICATION
+- !MASTER_SLAVE
+apache-shardingsphere-*-shardingsphere-proxy-bin
+masterDataSourceName
+slaveDataSourceNames
+shardingsphere-proxy-distribution-5.0.0-RC1-SNAPSHOT-shardingsphere-proxy-bin
+apache-shardingsphere-incubating-5.0.0-RC1-SNAPSHOT-sharding-proxy-bin
+b47cba28 20200515 19:15
+ff0f5109 20200518 22:27
+979b41a3 20200519 最后一次提交
+a557a4ee 20200522 最后一次提交
